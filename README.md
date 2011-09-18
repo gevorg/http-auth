@@ -19,7 +19,7 @@ Via [npm](http://github.com/isaacs/npm):
 	var httpAuth = require('http-auth');
 	
 	/**
-	 * Creates private snake server.
+	 * Creates private HTTP server.
 	 */
 	httpAuth.createServer('Sharon', 'bus412--', function(request, response) {
 	    response.writeHead(200, {'Content-Type': 'text/html'});
