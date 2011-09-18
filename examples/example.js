@@ -1,12 +1,12 @@
 /**
- * Snake library.
+ * HTTP auth library.
  */
-var snake = require('../lib/snake');
+var httpAuth = require('../lib/http-auth');
 
 /**
- * Creates private snake server.
+ * Creates private HTTP server.
  */
-snake.createServer('Sharon', 'bus412--', function(request, response) {
+httpAuth.createServer('Sharon', 'bus412--', function(request, response) {
     response.writeHead(200, {'Content-Type': 'text/html'});
-    response.end("<pre>Hi Sharon, welcome to private snake server.</pre>");
+    response.end("<pre>Hi Sharon, welcome to private HTTP server.</pre>");
 }).listen(8000);
