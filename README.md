@@ -29,9 +29,9 @@ Via [npm](http://github.com/isaacs/npm):
 Server startup params
 --------------------
 
-	- **username** - Username that will be used in basic authentication.
-	- **password** - Password that will be used in basic authentication.
-	- **callback** - Callback function that will be called after server will start.
+ - **username** - Username that will be used in basic authentication.
+ - **password** - Password that will be used in basic authentication.
+ - **callback** - Callback function that will be called after server will start.
 
 ## License
 
