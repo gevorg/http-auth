@@ -5,11 +5,11 @@ Utility that is creating HTTP server with basic authentication.
 
 Via git (or downloaded tarball):
 
-    $ git clone git://github.com/gevorg/http-auth.git
+	$ git clone git://github.com/gevorg/http-auth.git
 
 Via [npm](http://github.com/isaacs/npm):
 
-    $ npm install http-auth
+	$ npm install http-auth
 
 ## Usage
 	
@@ -22,16 +22,16 @@ Via [npm](http://github.com/isaacs/npm):
 	 * Creates private HTTP server.
 	 */
 	httpAuth.createServer('Sharon', 'bus412--', function(request, response) {
-	    response.writeHead(200, {'Content-Type': 'text/html'});
-	    response.end("<pre>Hi Sharon, welcome to private server.</pre>");
+		response.writeHead(200, {'Content-Type': 'text/html'});
+		response.end("<pre>Hi Sharon, welcome to private server.</pre>");
 	}).listen(8000);
 
 Server startup params
 --------------------
 
-  - **username** - Username that will be used in basic authentication.
-  - **password** - Password that will be used in basic authentication.
-  - **callback** - Callback function that will be called after server will start.
+	- **username** - Username that will be used in basic authentication.
+	- **password** - Password that will be used in basic authentication.
+	- **callback** - Callback function that will be called after server will start.
 
 ## License
 
