@@ -1,12 +1,12 @@
 {
 	"name": "http-auth",
-	"description": "Utility that is creating HTTP server with basic authentication.",
-	"version": "1.0.0",
+	"description": "Module for HTTP basic and digest access authentication.",
+	"version": "1.0.1",
 	"author": "Gevorg Harutyunyan",
 	"maintainers": [
 		{
 			"name": "gevorg",
-			"email": "gevorg.ha@gmail.com"
+			"email": "i@gevorg.me"
 		}
 	],
 	"homepage": "https://github.com/gevorg/http-auth",
@@ -17,10 +17,13 @@
 	"main": "./lib/http-auth.js",
 	"licenses": [
 		{
-			"type": "GPLv3",
-			"url": "http://www.gnu.org/licenses/gpl-3.0.txt"
+            "type": "MIT",
+            "url": "http://github.com/gevorg/http-auth/blob/master/LICENSE"
 		}
 	],
+	"dependencies": {
+		"node-uuid": "1.2.0"
+	},
 	"engine": ["node >=0.4.1"],
-	"keywords": ["node", "http", "server", "authentication"]
+	"keywords": ["node", "http", "server", "basic", "digest", "access", "authentication"]
 }
