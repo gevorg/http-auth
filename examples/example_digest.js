@@ -14,6 +14,4 @@ http.createServer(function(req, res) {
 		res.writeHead(200, {'Content-Type': 'text/html'});
 		res.end('Hello DIGEST World\n<form method="POST"><input type="submit" value="do It!"/><input type="text" name="some" value="val"/></form>');
 	});		
-}).listen(1337);
-
-console.log('Server running at http://127.0.0.1:1337/');
+}).listen(process.env.PORT || 3000);
