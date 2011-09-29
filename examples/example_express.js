@@ -4,9 +4,9 @@
 var auth = require('../lib/http-auth');
 
 /**
- * HTTP module.
+ * Express module.
  */
-var http = require('http');
+var express = require('express');
 
 /**
  * Requesting new digest access authentication instance.
@@ -18,14 +18,21 @@ var digest = auth.digest({
 });
 
 /**
- * Creating new HTTP server.
+ * Creating new server.
  */
-http.createServer(function(req, res) {
-	// Apply authentication to server.
-	digest.apply(req, res, function() {
-		res.end('Welcome to private area with digest access authentication!');
-	});
-}).listen(1337);
+var app = express.createServer();
+
+/**
+ * Handler for digest path, with digest access authentication.
+ */
+app.get('/', digest.apply, function(req, res) {
+	res.send('Welcome to private area with digest access authentication!');
+});
+
+/**
+ * Start listenning 1337 port.
+ */
+app.listen(1337);
 
 // Log url.
 console.log('Server running at http://127.0.0.1:1337/');

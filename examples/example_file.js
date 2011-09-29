@@ -13,8 +13,7 @@ var http = require('http');
  */
 var digest = auth.digest({
 	authRealm : 'Private area with digest access authentication.',
-	authList : ['Shi:many222', 'Lota:123456'],
-	algorithm : 'MD5-sess' //Optional, default is MD5.
+	authFile : __dirname + "/users.htpasswd"
 });
 
 /**
