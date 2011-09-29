@@ -122,7 +122,7 @@ You can also use it with [express framework](http://expressjs.com/):
 	/**
 	 * HTTP authentication module.
 	 */
-	var auth = require('../lib/http-auth');
+	var auth = require('http-auth');
 	
 	/**
 	 * Express module.
@@ -164,7 +164,7 @@ You can also use it with [express framework](http://expressjs.com/):
  - **authRealm** - Authentication realm.
  - **authFile** - File where user details are stored in format {user:pass}.
  - **authList** - List where user details are stored in format {user:pass}, ignored if authFile is specified.
- - **algorithm** - Algorithm that will be used for authentication, may be MD5 or MD5-sess, optional, default is MD5. ONLY FOR DIGEST ACCESS AUTHENTICATION!
+ - **algorithm** - Algorithm that will be used for authentication, may be MD5 or MD5-sess, optional, default is MD5. ONLY FOR DIGEST!
 
 ## Dependencies
 
