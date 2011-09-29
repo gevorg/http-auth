@@ -1,5 +1,5 @@
 # http-auth
-Module for HTTP basic and digest access authentication.
+[Node.js](http://nodejs.org/) module for HTTP basic and digest access authentication.
 
 ## Installation
 
