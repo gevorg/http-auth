@@ -12,7 +12,7 @@ Via [npm](http://npmjs.org/):
 	$ npm install http-auth
 	
 ## Digest access authentication usage
-	
+```javascript
 	/**
 	 * Requesting new digest access authentication instance.
 	 */
@@ -31,9 +31,9 @@ Via [npm](http://npmjs.org/):
 			res.end('Welcome to private area with digest access authentication!');
 		});
 	}).listen(1337);
-
+```
 ## Basic access authentication usage
-	
+```javascript	
 	/**
 	 * Requesting new basic access authentication instance.
 	 */
@@ -51,9 +51,9 @@ Via [npm](http://npmjs.org/):
 			res.end('Welcome to private area with basic access authentication!');
 		});
 	}).listen(1337);
-
+```
 ## You can load users from file
-	
+```javascript	
 	/**
 	 * Requesting new digest access authentication instance.
 	 */
@@ -71,9 +71,9 @@ Via [npm](http://npmjs.org/):
 			res.end('Welcome to private area with digest access authentication!');
 		});
 	}).listen(1337);
-	
+```	
 ## You can also use it with [express framework](http://expressjs.com/)
-	
+```javascript	
 	/**
 	 * Requesting new digest access authentication instance.
 	 */
@@ -89,7 +89,7 @@ Via [npm](http://npmjs.org/):
 	app.get('/', digest.apply, function(req, res) {
 		res.send('Welcome to private area with digest access authentication!');
 	});
-
+```
 ## Configurations
 
  - **authRealm** - Authentication realm.
