@@ -12,16 +12,6 @@ Via [npm](http://npmjs.org/):
 	$ npm install http-auth
 	
 ## Digest access authentication usage
-
-	/**
-	 * HTTP authentication module.
-	 */
-	var auth = require('http-auth');
-	
-	/**
-	 * HTTP module.
-	 */
-	var http = require('http');
 	
 	/**
 	 * Requesting new digest access authentication instance.
@@ -41,21 +31,8 @@ Via [npm](http://npmjs.org/):
 			res.end('Welcome to private area with digest access authentication!');
 		});
 	}).listen(1337);
-	
-	// Log url.
-	console.log('Server running at http://127.0.0.1:1337/');
 
 ## Basic access authentication usage
-
-	/**
-	 * HTTP authentication module.
-	 */
-	var auth = require('http-auth');
-	
-	/**
-	 * HTTP module.
-	 */
-	var http = require('http');
 	
 	/**
 	 * Requesting new basic access authentication instance.
@@ -74,21 +51,8 @@ Via [npm](http://npmjs.org/):
 			res.end('Welcome to private area with basic access authentication!');
 		});
 	}).listen(1337);
-	
-	// Log url.
-	console.log('Server running at http://127.0.0.1:1337/');
 
 ## You can load users from file
-
-	/**
-	 * HTTP authentication module.
-	 */
-	var auth = require('http-auth');
-	
-	/**
-	 * HTTP module.
-	 */
-	var http = require('http');
 	
 	/**
 	 * Requesting new digest access authentication instance.
@@ -108,20 +72,7 @@ Via [npm](http://npmjs.org/):
 		});
 	}).listen(1337);
 	
-	// Log url.
-	console.log('Server running at http://127.0.0.1:1337/');
-
 ## You can also use it with [express framework](http://expressjs.com/)
-
-	/**
-	 * HTTP authentication module.
-	 */
-	var auth = require('http-auth');
-	
-	/**
-	 * Express module.
-	 */
-	var express = require('express');
 	
 	/**
 	 * Requesting new digest access authentication instance.
@@ -131,27 +82,13 @@ Via [npm](http://npmjs.org/):
 		authList : ['Shi:many222', 'Lota:123456'],
 		algorithm : 'MD5-sess' //Optional, default is MD5.
 	});
-	
-	/**
-	 * Creating new server.
-	 */
-	var app = express.createServer();
-	
+		
 	/**
 	 * Handler for digest path, with digest access authentication.
 	 */
 	app.get('/', digest.apply, function(req, res) {
 		res.send('Welcome to private area with digest access authentication!');
 	});
-	
-	/**
-	 * Start listenning 1337 port.
-	 */
-	app.listen(1337);
-	
-	// Log url.
-	console.log('Server running at http://127.0.0.1:1337/');
-
 
 ## Configurations
 
