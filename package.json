@@ -1,6 +1,6 @@
 {
 	"name": "http-auth",
-	"description": "Module for HTTP basic and digest access authentication.",
+	"description": "Node.js module for HTTP basic and digest access authentication.",
 	"version": "1.0.1",
 	"author": "Gevorg Harutyunyan",
 	"maintainers": [
