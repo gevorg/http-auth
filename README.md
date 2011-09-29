@@ -10,11 +10,8 @@ Via git (or downloaded tarball):
 Via [npm](http://npmjs.org/):
 
 	$ npm install http-auth
-
-## Usage
 	
-Digest access authentication usage:
---------------------
+## Digest access authentication usage
 
 	/**
 	 * HTTP authentication module.
@@ -48,8 +45,7 @@ Digest access authentication usage:
 	// Log url.
 	console.log('Server running at http://127.0.0.1:1337/');
 
-Basic access authentication usage:
---------------------
+## Basic access authentication usage
 
 	/**
 	 * HTTP authentication module.
@@ -82,8 +78,7 @@ Basic access authentication usage:
 	// Log url.
 	console.log('Server running at http://127.0.0.1:1337/');
 
-You can load users from file:
---------------------
+## You can load users from file
 
 	/**
 	 * HTTP authentication module.
@@ -116,8 +111,7 @@ You can load users from file:
 	// Log url.
 	console.log('Server running at http://127.0.0.1:1337/');
 
-You can also use it with [express framework](http://expressjs.com/):
---------------------
+## You can also use it with [express framework](http://expressjs.com/)
 
 	/**
 	 * HTTP authentication module.
