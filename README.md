@@ -4,13 +4,14 @@
 ## Installation
 
 Via git (or downloaded tarball):
+
 ```bash
- $ git clone git://github.com/gevorg/http-auth.git
+$ git clone git://github.com/gevorg/http-auth.git
 ```
 Via [npm](http://npmjs.org/):
 
 ```bash
- $ npm install http-auth
+$ npm install http-auth
 ```	
 ## Digest access authentication usage
 ```javascript
