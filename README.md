@@ -4,97 +4,98 @@
 ## Installation
 
 Via git (or downloaded tarball):
-
-	$ git clone git://github.com/gevorg/http-auth.git
-
+```bash
+ $ git clone git://github.com/gevorg/http-auth.git
+```
 Via [npm](http://npmjs.org/):
 
-	$ npm install http-auth
-	
+```bash
+ $ npm install http-auth
+```	
 ## Digest access authentication usage
 ```javascript
-	/**
-	 * Requesting new digest access authentication instance.
-	 */
-	var digest = auth.digest({
-		authRealm : 'Private area with digest access authentication.',
-		authList : ['Shi:many222', 'Lota:123456'],
-		algorithm : 'MD5-sess' //Optional, default is MD5.
-	});
-	
-	/**
-	 * Creating new HTTP server.
-	 */
-	http.createServer(function(req, res) {
-		// Apply authentication to server.
-		digest.apply(req, res, function() {
-			res.end('Welcome to private area with digest access authentication!');
-		});
-	}).listen(1337);
+ /**
+  * Requesting new digest access authentication instance.
+  */
+ var digest = auth.digest({
+ 	authRealm : 'Private area with digest access authentication.',
+ 	authList : ['Shi:many222', 'Lota:123456'],
+ 	algorithm : 'MD5-sess' //Optional, default is MD5.
+ });
+ 
+ /**
+  * Creating new HTTP server.
+  */
+ http.createServer(function(req, res) {
+ 	// Apply authentication to server.
+ 	digest.apply(req, res, function() {
+ 		res.end('Welcome to private area with digest access authentication!');
+ 	});
+ }).listen(1337);
 ```
 ## Basic access authentication usage
 ```javascript	
-	/**
-	 * Requesting new basic access authentication instance.
-	 */
-	var basic = auth.basic({
-		authRealm : 'Private area with basic access authentication.',
-		authList : ['mia:supergirl', 'Carlos:test456', 'Sam:oho']
-	});
-	
-	/**
-	 * Creating new HTTP server.
-	 */
-	http.createServer(function(req, res) {
-		// Apply authentication to server.
-		basic.apply(req, res, function() {
-			res.end('Welcome to private area with basic access authentication!');
-		});
-	}).listen(1337);
+ /**
+  * Requesting new basic access authentication instance.
+  */
+ var basic = auth.basic({
+ 	authRealm : 'Private area with basic access authentication.',
+ 	authList : ['mia:supergirl', 'Carlos:test456', 'Sam:oho']
+ });
+
+ /**
+  * Creating new HTTP server.
+  */
+ http.createServer(function(req, res) {
+ 	// Apply authentication to server.
+ 	basic.apply(req, res, function() {
+ 		res.end('Welcome to private area with basic access authentication!');
+ 	});
+ }).listen(1337);
 ```
 ## You can load users from file
 ```javascript	
-	/**
-	 * Requesting new digest access authentication instance.
-	 */
-	var digest = auth.digest({
-		authRealm : 'Private area with digest access authentication.',
-		authFile : __dirname + "/users.htpasswd"
-	});
-	
-	/**
-	 * Creating new HTTP server.
-	 */
-	http.createServer(function(req, res) {
-		// Apply authentication to server.
-		digest.apply(req, res, function() {
-			res.end('Welcome to private area with digest access authentication!');
-		});
-	}).listen(1337);
+ /**
+  * Requesting new digest access authentication instance.
+  */
+ var digest = auth.digest({
+ 	authRealm : 'Private area with digest access authentication.',
+ 	authFile : __dirname + "/users.htpasswd"
+ });
+
+ /**
+  * Creating new HTTP server.
+  */
+ http.createServer(function(req, res) {
+ 	// Apply authentication to server.
+ 	digest.apply(req, res, function() {
+ 		res.end('Welcome to private area with digest access authentication!');
+ 	});
+ }).listen(1337);
 ```	
 ## You can also use it with [express framework](http://expressjs.com/)
 ```javascript	
-	/**
-	 * Requesting new digest access authentication instance.
-	 */
-	var digest = auth.digest({
-		authRealm : 'Private area with digest access authentication.',
-		authList : ['Shi:many222', 'Lota:123456'],
-		algorithm : 'MD5-sess' //Optional, default is MD5.
-	});
-		
-	/**
-	 * Handler for digest path, with digest access authentication.
-	 */
-	app.get('/', digest.apply, function(req, res) {
-		res.send('Welcome to private area with digest access authentication!');
-	});
+ /**
+  * Requesting new digest access authentication instance.
+  */
+ var digest = auth.digest({
+ 	authRealm : 'Private area with digest access authentication.',
+ 	authList : ['Shi:many222', 'Lota:123456'],
+ 	algorithm : 'MD5-sess' //Optional, default is MD5.
+ });
+
+ /**
+  * Handler for digest path, with digest access authentication.
+  */
+ app.get('/', digest.apply, function(req, res) {
+ 	res.send('Welcome to private area with digest access authentication!');
+ });
 ```
 ## Configurations
 
  - **authRealm** - Authentication realm.
  - **authFile** - File where user details are stored in format {user:pass}.
- - **authList** - List where user details are stored in format {user:pass}, ignored if authFile is specified.
+ - **authList** - List where user details are stored in format {user:pass}, ignored if **authFile** is specified.
  - **algorithm** - Algorithm that will be used for authentication, may be MD5 or MD5-sess, optional, default is MD5. ONLY FOR DIGEST!
 
 ## Dependencies
