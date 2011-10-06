@@ -73,10 +73,10 @@ app.get('/', digest.apply, function(req, res) {
 ## Configurations
 
  - `authRealm` - Authentication realm.
- - `authFile` - File where user details are stored in format '{user:pass}'.
- - `authList` - List where user details are stored in format '{user:pass}', ignored if `authFile` is specified.
- - `authType` - Type of authentication, may be 'basic' or 'digest', optional, default is 'digest'.
- - `algorithm` - Algorithm that will be used for authentication, may be 'MD5' or 'MD5-sess', optional, default is 'MD5'. Only for 'digest' `authType`.
+ - `authFile` - File where user details are stored in format **{user:pass}**.
+ - `authList` - List where user details are stored in format **{user:pass}**, ignored if `authFile` is specified.
+ - `authType` - Type of authentication, may be **basic** or **digest**, optional, default is **digest**.
+ - `algorithm` - Algorithm that will be used for authentication, may be **MD5** or **MD5-sess**, optional, default is **MD5**. Only for **digest** `authType`.
 
 ## Dependencies
 
