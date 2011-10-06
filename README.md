@@ -88,7 +88,7 @@ $ nodeunit tests
 
 ## Issues
 
-You can find list of issues using [this link](http://github.com/gevorg/http-auth/issues).
+You can find list of issues using **[this link](http://github.com/gevorg/http-auth/issues)**.
 
 ## Dependencies
 
