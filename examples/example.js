@@ -9,10 +9,10 @@ var auth = require('../lib/http-auth');
 var http = require('http');
 
 /**
- * Requesting new basic access authentication instance.
+ * Requesting new authentication instance.
  */
-var basic = auth.basic({
-	authRealm : 'Private area with basic access authentication.',
+var digest = auth({
+	authRealm : 'Private area.',
 	authList : ['mia:supergirl', 'Carlos:test456', 'Sam:oho']
 });
 
@@ -21,8 +21,8 @@ var basic = auth.basic({
  */
 http.createServer(function(req, res) {
 	// Apply authentication to server.
-	basic.apply(req, res, function() {
-		res.end('Welcome to private area with basic access authentication!');
+	digest.apply(req, res, function() {
+		res.end('Welcome to private area!');
 	});
 }).listen(1337);
 

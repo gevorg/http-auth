@@ -9,12 +9,11 @@ var auth = require('../lib/http-auth');
 var express = require('express');
 
 /**
- * Requesting new digest access authentication instance.
+ * Requesting new authentication instance.
  */
-var digest = auth.digest({
-	authRealm : 'Private area with digest access authentication.',
-	authList : ['Shi:many222', 'Lota:123456'],
-	algorithm : 'MD5-sess' //Optional, default is MD5.
+var digest = auth({
+	authRealm : 'Private area.',
+	authList : ['Shi:many222', 'Lota:123456']
 });
 
 /**
@@ -23,10 +22,10 @@ var digest = auth.digest({
 var app = express.createServer();
 
 /**
- * Handler for digest path, with digest access authentication.
+ * Handler for path with authentication.
  */
 app.get('/', digest.apply, function(req, res) {
-	res.send('Welcome to private area with digest access authentication!');
+	res.send('Welcome to private area!');
 });
 
 /**

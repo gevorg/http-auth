@@ -9,10 +9,10 @@ var auth = require('../lib/http-auth');
 var http = require('http');
 
 /**
- * Requesting new digest access authentication instance.
+ * Requesting new authentication instance.
  */
-var digest = auth.digest({
-	authRealm : 'Private area with digest access authentication.',
+var digest = auth({
+	authRealm : 'Private area.',
 	authFile : __dirname + "/users.htpasswd"
 });
 
@@ -22,7 +22,7 @@ var digest = auth.digest({
 http.createServer(function(req, res) {
 	// Apply authentication to server.
 	digest.apply(req, res, function() {
-		res.end('Welcome to private area with digest access authentication!');
+		res.end('Welcome to private area!');
 	});
 }).listen(1337);
 

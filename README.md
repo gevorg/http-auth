@@ -13,15 +13,14 @@ Via [npm](http://npmjs.org/):
 ```bash
 $ npm install http-auth
 ```	
-## Digest access authentication usage
+## Example of usage
 ```javascript
 /**
- * Requesting new digest access authentication instance.
+ * Requesting new authentication instance.
  */
-var digest = auth.digest({
-	authRealm : 'Private area with digest access authentication.',
-	authList : ['Shi:many222', 'Lota:123456'],
-	algorithm : 'MD5-sess' //Optional, default is MD5.
+var digest = auth({
+	authRealm : 'Private area.',
+	authList : ['Shi:many222', 'Lota:123456']
 });
 
 /**
@@ -30,37 +29,17 @@ var digest = auth.digest({
 http.createServer(function(req, res) {
 	// Apply authentication to server.
 	digest.apply(req, res, function() {
-		res.end('Welcome to private area with digest access authentication!');
+		res.end('Welcome to private area!');
 	});
 }).listen(1337);
 ```
-## Basic access authentication usage
+## Example of loading list of users from file
 ```javascript	
 /**
- * Requesting new basic access authentication instance.
+ * Requesting new authentication instance.
  */
-var basic = auth.basic({
-	authRealm : 'Private area with basic access authentication.',
-	authList : ['mia:supergirl', 'Carlos:test456', 'Sam:oho']
-});
-
-/**
- * Creating new HTTP server.
- */
-http.createServer(function(req, res) {
-	// Apply authentication to server.
-	basic.apply(req, res, function() {
-		res.end('Welcome to private area with basic access authentication!');
-	});
-}).listen(1337);
-```
-## You can load users from file
-```javascript	
-/**
- * Requesting new digest access authentication instance.
- */
-var digest = auth.digest({
-	authRealm : 'Private area with digest access authentication.',
+var digest = auth({
+	authRealm : 'Private area.',
 	authFile : __dirname + "/users.htpasswd"
 });
 
@@ -70,34 +49,34 @@ var digest = auth.digest({
 http.createServer(function(req, res) {
 	// Apply authentication to server.
 	digest.apply(req, res, function() {
-		res.end('Welcome to private area with digest access authentication!');
+		res.end('Welcome to private area!');
 	});
 }).listen(1337);
 ```	
-## You can also use it with [express framework](http://expressjs.com/)
-```javascript	
+## Example with [express framework](http://expressjs.com/) integration
+```javascript
 /**
- * Requesting new digest access authentication instance.
+ * Requesting new authentication instance.
  */
-var digest = auth.digest({
-	authRealm : 'Private area with digest access authentication.',
-	authList : ['Shi:many222', 'Lota:123456'],
-	algorithm : 'MD5-sess' //Optional, default is MD5.
+var digest = auth({
+	authRealm : 'Private area.',
+	authList : ['Shi:many222', 'Lota:123456']
 });
 
 /**
- * Handler for digest path, with digest access authentication.
+ * Handler for path with authentication.
  */
 app.get('/', digest.apply, function(req, res) {
-	res.send('Welcome to private area with digest access authentication!');
+	res.send('Welcome to private area!');
 });
 ```
 ## Configurations
 
  - `authRealm` - Authentication realm.
- - `authFile` - File where user details are stored in format {user:pass}.
- - `authList` - List where user details are stored in format {user:pass}, ignored if `authFile` is specified.
- - `algorithm` - Algorithm that will be used for authentication, may be MD5 or MD5-sess, optional, default is MD5. ONLY FOR DIGEST!
+ - `authFile` - File where user details are stored in format '{user:pass}'.
+ - `authList` - List where user details are stored in format '{user:pass}', ignored if `authFile` is specified.
+ - `authType` - Type of authentication, may be 'basic' or 'digest', optional, default is 'digest'.
+ - `algorithm` - Algorithm that will be used for authentication, may be 'MD5' or 'MD5-sess', optional, default is 'MD5'. Only for 'digest' `authType`.
 
 ## Dependencies
 
