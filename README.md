@@ -82,6 +82,10 @@ app.get('/', digest.apply, function(req, res) {
 
  - **[node-uuid](https://github.com/broofa/node-uuid/)** - Generate RFC4122(v4) UUIDs, and also non-RFC compact ids.
 
+## Issues
+
+You can find list of issue using [this link](http://github.com/gevorg/http-auth/issues).
+
 ## License
 
 (The MIT License)
