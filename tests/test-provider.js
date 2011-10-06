@@ -9,7 +9,7 @@ var provider = require('../lib/provider');
 exports['testValidBasicAuth'] = function (test) {
 	// Requests basic access authentication instance.
 	var basic = provider.newInstance({
-		authRealm : 'Private area with basic access authentication.',
+		authRealm : "Private area with basic access authentication.",
 		authList : ['Kuka:pi2', 'suma:kramoke'],
 		authType : 'basic'
 	});
@@ -27,7 +27,7 @@ exports['testValidBasicAuth'] = function (test) {
 exports['testValidDigestAuth'] = function (test) {
 	// Requests digest access authentication instance.
 	var digest = provider.newInstance({
-		authRealm : 'Private area with digest access authentication.',
+		authRealm : "Private area with digest access authentication.",
 		authList : ['asdas:ssss', 'gira:makura'],
 		authType : 'digest'
 	});

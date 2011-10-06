@@ -9,7 +9,7 @@ var auth = require('../lib/http-auth');
 exports['testBasicAuth'] = function (test) {
 	// Requests basic access authentication instance.
 	var basic = auth({
-		authRealm : 'Private area with basic access authentication.',
+		authRealm : "Private area with basic access authentication.",
 		authList : ['Shi:many222', 'Lota:123456'],
 		authType : 'basic'
 	});
@@ -27,7 +27,7 @@ exports['testBasicAuth'] = function (test) {
 exports['testDigestAuth'] = function (test) {
 	// Requests digest access authentication instance.
 	var digest = auth({
-		authRealm : 'Private area with digest access authentication.',
+		authRealm : "Private area with digest access authentication.",
 		authList : ['2Shi:ma22y222', '3Lota:1123456'],
 		authType : 'digest'
 	});
