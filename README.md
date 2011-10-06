@@ -78,13 +78,25 @@ app.get('/', digest.apply, function(req, res) {
  - `authType` - Type of authentication, may be **basic** or **digest**, optional, default is **digest**.
  - `algorithm` - Algorithm that will be used for authentication, may be **MD5** or **MD5-sess**, optional, default is **MD5**. Only for **digest** `authType`.
 
-## Dependencies
+## Running tests
 
- - **[node-uuid](https://github.com/broofa/node-uuid/)** - Generate RFC4122(v4) UUIDs, and also non-RFC compact ids.
+It uses [nodeunit](https://github.com/caolan/nodeunit/), so just run following command in package directory:
+
+```bash
+$ nodeunit tests
+```
 
 ## Issues
 
 You can find list of issues using [this link](http://github.com/gevorg/http-auth/issues).
+
+## Dependencies
+
+ - **[node-uuid](https://github.com/broofa/node-uuid/)** - Generate RFC4122(v4) UUIDs, and also non-RFC compact ids.
+
+## Development dependencies
+
+ - **[nodeunit](https://github.com/caolan/nodeunit/)** - Easy unit testing in node.js and the browser, based on the assert module.
 
 ## License
 
