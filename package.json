@@ -22,7 +22,7 @@
 		}
 	],
 	"bugs": {
-		"web": "http://github.com/gevprg/http-auth/issues"
+		"web": "http://github.com/gevorg/http-auth/issues"
 	},
 	"dependencies": {
 		"node-uuid": "1.2.0"
