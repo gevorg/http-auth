@@ -19,7 +19,7 @@ $ npm install http-auth
  * Requesting new authentication instance.
  */
 var digest = auth({
-	authRealm : 'Private area.',
+	authRealm : "Private area.",
 	authList : ['Shi:many222', 'Lota:123456']
 });
 
@@ -29,7 +29,7 @@ var digest = auth({
 http.createServer(function(req, res) {
 	// Apply authentication to server.
 	digest.apply(req, res, function() {
-		res.end('Welcome to private area!');
+		res.end("Welcome to private area!");
 	});
 }).listen(1337);
 ```
@@ -39,8 +39,8 @@ http.createServer(function(req, res) {
  * Requesting new authentication instance.
  */
 var digest = auth({
-	authRealm : 'Private area.',
-	authFile : __dirname + "/users.htpasswd"
+	authRealm : "Private area.",
+	authFile : __dirname + '/users.htpasswd'
 });
 
 /**
@@ -49,7 +49,7 @@ var digest = auth({
 http.createServer(function(req, res) {
 	// Apply authentication to server.
 	digest.apply(req, res, function() {
-		res.end('Welcome to private area!');
+		res.end("Welcome to private area!");
 	});
 }).listen(1337);
 ```	
@@ -59,7 +59,7 @@ http.createServer(function(req, res) {
  * Requesting new authentication instance.
  */
 var digest = auth({
-	authRealm : 'Private area.',
+	authRealm : "Private area.",
 	authList : ['Shi:many222', 'Lota:123456']
 });
 
@@ -67,7 +67,7 @@ var digest = auth({
  * Handler for path with authentication.
  */
 app.get('/', digest.apply, function(req, res) {
-	res.send('Welcome to private area!');
+	res.send("Welcome to private area!");
 });
 ```
 ## Configurations
