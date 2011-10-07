@@ -438,6 +438,40 @@ code .this { color: #19469D; }</style>
 	<span class="keyword">return</span> <span class="variable">headerOptions</span>;
 }</code></pre>
 </td>
+</tr><tr class="filename"><td><h2 id="lib/http-auth.js"><a href="#">http-auth</a></h2></td><td>lib/http-auth.js</td></tr><tr class="code">
+<td class="docs">
+<p>Authentication provider.
+ </p>
+</td>
+<td class="code">
+<pre><code><span class="keyword">var</span> <span class="variable">provider</span> = <span class="variable">require</span>(<span class="string">'./provider'</span>);</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Parser module for authentication input options.
+ </p>
+</td>
+<td class="code">
+<pre><code><span class="keyword">var</span> <span class="variable">opt</span> = <span class="variable">require</span>(<span class="string">'./options'</span>);</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Requests authentication instance from provider.</p>
+
+<h2></h2>
+
+<ul><li><p><strong>param</strong>: <em>Array</em>  options options that may be used for authentication.</p><ul><li>authRealm authentication realm.</li><li>authFile file where user details are stored in format {user:pass}.</li><li>authList list where user details are stored in format {user:pass}, ignored if authFile is specified.</li><li>authType type of authentication, digest | basic, optional, default is digest.</li><li>algorithm algorithm that will be used, may be MD5 or MD5-sess, optional, default is MD5.</li></ul></li><li><p><strong>return</strong>: <em>Object</em>  authentication instance.</p></li></ul>
+</td>
+<td class="code">
+<pre><code><span class="variable">module</span>.<span class="variable">exports</span> = <span class="keyword">function</span>(<span class="variable">options</span>) {
+	<span class="comment">// Parsing options.</span>
+	<span class="keyword">var</span> <span class="variable">parsedOptions</span> = <span class="variable">opt</span>(<span class="variable">options</span>);
+	<span class="comment">// Requesting new authentication instance.</span>
+	<span class="keyword">return</span> <span class="variable">provider</span>.<span class="variable">newInstance</span>(<span class="variable">parsedOptions</span>);
+};</code></pre>
+</td>
 </tr><tr class="filename"><td><h2 id="lib/defaults.js"><a href="#">defaults</a></h2></td><td>lib/defaults.js</td></tr><tr class="code">
 <td class="docs">
 <p>Module for default setups.
@@ -592,40 +626,6 @@ code .this { color: #19469D; }</style>
 		<span class="keyword">throw</span> <span class="keyword">new</span> <span class="class">Error</span>(&<span class="variable">quot</span>;<span class="class">Invalid</span> <span class="variable">type</span>, <span class="variable">may</span> <span class="variable">be</span> <span class="variable">digest</span> | <span class="variable">basic</span>!&<span class="variable">quot</span>;);
 	}
 }};</code></pre>
-</td>
-</tr><tr class="filename"><td><h2 id="lib/http-auth.js"><a href="#">http-auth</a></h2></td><td>lib/http-auth.js</td></tr><tr class="code">
-<td class="docs">
-<p>Authentication provider.
- </p>
-</td>
-<td class="code">
-<pre><code><span class="keyword">var</span> <span class="variable">provider</span> = <span class="variable">require</span>(<span class="string">'./provider'</span>);</code></pre>
-</td>
-</tr>
-<tr class="code">
-<td class="docs">
-<p>Parser module for authentication input options.
- </p>
-</td>
-<td class="code">
-<pre><code><span class="keyword">var</span> <span class="variable">opt</span> = <span class="variable">require</span>(<span class="string">'./options'</span>);</code></pre>
-</td>
-</tr>
-<tr class="code">
-<td class="docs">
-<p>Requests authentication instance from provider.</p>
-
-<h2></h2>
-
-<ul><li><p><strong>param</strong>: <em>Array</em>  options options that may be used for authentication.</p><ul><li>authRealm authentication realm.</li><li>authFile file where user details are stored in format {user:pass}.</li><li>authList list where user details are stored in format {user:pass}, ignored if authFile is specified.</li><li>authType type of authentication, digest | basic, optional, default is digest.</li><li>algorithm algorithm that will be used, may be MD5 or MD5-sess, optional, default is MD5.</li></ul></li><li><p><strong>return</strong>: <em>Object</em>  authentication instance.</p></li></ul>
-</td>
-<td class="code">
-<pre><code><span class="variable">module</span>.<span class="variable">exports</span> = <span class="keyword">function</span>(<span class="variable">options</span>) {
-	<span class="comment">// Parsing options.</span>
-	<span class="keyword">var</span> <span class="variable">parsedOptions</span> = <span class="variable">opt</span>(<span class="variable">options</span>);
-	<span class="comment">// Requesting new authentication instance.</span>
-	<span class="keyword">return</span> <span class="variable">provider</span>.<span class="variable">newInstance</span>(<span class="variable">parsedOptions</span>);
-};</code></pre>
 </td>
 </tr><tr class="filename"><td><h2 id="lib/utils.js"><a href="#">utils</a></h2></td><td>lib/utils.js</td></tr><tr class="code">
 <td class="docs">
