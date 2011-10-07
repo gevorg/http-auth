@@ -88,7 +88,7 @@ $ nodeunit tests
 
 ## Generate docs
 
-It uses [dox](https://github.com/visionmedia/dox/), run following command in package directory to generate documentation.
+It uses [dox](https://github.com/visionmedia/dox/), run following command in package directory to generate documentation:
 
 ```bash
 $ ./gendocs
