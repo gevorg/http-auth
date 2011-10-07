@@ -1,0 +1,10 @@
+#!/bin/sh
+
+# Remove current documents.
+rm -r docs/*
+
+# List of js files.
+FILES=`find lib -name '*.js' | tr '\n' ' '`
+
+# Generating documents.
+dox --title "http-auth" --desc "Node.js package for HTTP basic and digest access authentication." $FILES > docs/index.html

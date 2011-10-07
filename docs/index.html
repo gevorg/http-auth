@@ -1,0 +1,679 @@
+<html>
+	<head>
+		<title>http-auth</title>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+		<style>body {
+    margin: 0;
+    padding: 0;
+    font: 14px/1.5 'Palatino Linotype', 'Book Antiqua', Palatino, FreeSerif, serif;
+    color: #252519;
+}
+a {
+    color: #252519;
+}
+a:hover {
+    text-decoration: underline;
+    color: #19469D;
+}
+p {
+    margin: 12px 0;
+}
+h1, h2, h3 {
+    margin: 0;
+    padding: 0;
+}
+table#source {
+    width: 100%;
+    border-collapse: collapse;
+}
+table#source td:first-child {
+    padding: 30px 40px 30px 40px;
+    vertical-align: top;
+}
+table#source td:first-child,
+table#source td:first-child pre {
+    width: 450px;
+}
+table#source td:last-child {
+    padding: 30px 0 30px 40px;
+    border-left: 1px solid #E5E5EE;
+    background: #F5F5FF;
+}
+table#source tr {
+    border-bottom: 1px solid #E5E5EE;
+}
+table#source tr.filename {
+    padding-top: 40px;
+    border-top: 1px solid #E5E5EE;
+}
+table#source tr.filename td:first-child {
+    text-transform: capitalize;
+}
+table#source tr.filename td:last-child {
+    font-size: 12px;
+}
+table#source tr.filename h2 {
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+}
+table#source tr.code h1,
+table#source tr.code h2,
+table#source tr.code h3 {
+    margin-top: 30px;
+    font-family: "Lucida Grande", "Helvetica Nueue", Arial, sans-serif;
+    font-size: 18px;
+}
+table#source tr.code h2 {
+    font-size: 16px;
+}
+table#source tr.code h3 {
+    font-size: 14px;
+}
+table#source tr.code ul {
+    margin: 15px 0 15px 35px;
+    padding: 0;
+}
+table#source tr.code ul li {
+    margin: 0;
+    padding: 1px 0;
+}
+table#source tr.code ul li p {
+    margin: 0;
+    padding: 0;
+}
+table#source tr.code td:first-child pre {
+    padding: 20px;
+}
+#ribbon {
+    position: fixed;
+    top: 0;
+    right: 0;
+}
+code .string { color: #219161; }
+code .regexp { color: #219161; }
+code .keyword { color: #954121; }
+code .number { color: #19469D; }
+code .comment { color: #bbb; }
+code .this { color: #19469D; }</style>
+		<script>
+			$(function(){
+				$('tr.code').hide();
+				$('tr.filename').toggle(function(){
+					$(this).nextUntil('.filename').fadeIn();
+				}, function(){
+					$(this).nextUntil('.filename').fadeOut();
+				});
+			});
+		</script>
+	</head>
+	<body>
+<table id="source"><tbody><tr><td><h1>http-auth</h1><p>Node.js package for HTTP basic and digest access authentication.</p></td><td></td></tr><tr class="filename"><td><h2 id="lib/auth/basic.js"><a href="#">basic</a></h2></td><td>lib/auth/basic.js</td></tr><tr class="code">
+<td class="docs">
+<p>Default setup module.
+ </p>
+</td>
+<td class="code">
+<pre><code><span class="keyword">var</span> <span class="variable">defaults</span> = <span class="variable">require</span>(<span class="string">'../defaults'</span>);</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Exporting module.
+ </p>
+</td>
+<td class="code">
+<pre><code><span class="variable">module</span>.<span class="variable">exports</span> = <span class="class">Basic</span>;</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Basic Access Authentication.</p>
+
+<h2></h2>
+
+<ul><li><p><strong>param</strong>: <em>String</em>  authRealm authentication realm.</p></li><li><p><strong>param</strong>: <em>Array</em>  authUsers array of users.</p></li></ul>
+</td>
+<td class="code">
+<pre><code><span class="keyword">function</span> <span class="class">Basic</span>(<span class="variable">authRealm</span>, <span class="variable">authUsers</span>) {
+
+<span class="comment">// Realm.</span>
+<span class="this">this</span>.<span class="variable">realm</span> = <span class="variable">authRealm</span>;
+<span class="comment">// Users.</span>
+<span class="this">this</span>.<span class="variable">users</span> = <span class="variable">authUsers</span>;
+
+<span class="comment">// Used for async callback.</span>
+<span class="keyword">var</span> <span class="variable">self</span> = <span class="this">this</span>;</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Applies basic authentication and calls next after user is authenticated.</p>
+
+<h2></h2>
+
+<ul><li><p><strong>param</strong>: <em>Request</em>  request HTTP request object.</p></li><li><p><strong>param</strong>: <em>Response</em>  response HTTP response object.</p></li><li><p><strong>param</strong>: <em>Function</em>  next function that will be called after user is authenticated.</p></li></ul>
+</td>
+<td class="code">
+<pre><code><span class="this">this</span>.<span class="variable">apply</span> = <span class="keyword">function</span>(<span class="variable">request</span>, <span class="variable">response</span>, <span class="variable">next</span>) {
+	<span class="keyword">var</span> <span class="variable">authenticated</span> = <span class="variable">self</span>.<span class="variable">isAuthenticated</span>(<span class="variable">request</span>, <span class="variable">response</span>);
+	<span class="keyword">if</span>(!<span class="variable">authenticated</span>) {
+		<span class="variable">self</span>.<span class="variable">ask</span>(<span class="variable">request</span>, <span class="variable">response</span>);
+	} <span class="keyword">else</span> {
+		<span class="variable">next</span>();
+	}
+}};</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Checks authorization header in request.</p>
+
+<h2></h2>
+
+<ul><li><p><strong>param</strong>: <em>Request</em>  request HTTP request object.</p></li><li><p><strong>param</strong>: <em>Response</em>  response HTTP response object.</p></li><li><p><strong>return</strong>: <em>Boolean</em>  true if is authenticated, else false.</p></li></ul>
+</td>
+<td class="code">
+<pre><code><span class="class">Basic</span>.<span class="variable">prototype</span>.<span class="variable">isAuthenticated</span> = <span class="keyword">function</span>(<span class="variable">request</span>, <span class="variable">response</span>) {
+	<span class="keyword">var</span> <span class="variable">authenticated</span> = <span class="variable">false</span>;
+
+	<span class="comment">// If header exists.</span>
+	<span class="keyword">if</span>(&<span class="variable">quot</span>;<span class="variable">authorization</span>&<span class="variable">quot</span>; <span class="keyword">in</span> <span class="variable">request</span>.<span class="variable">headers</span>) {
+		<span class="keyword">var</span> <span class="variable">header</span> = <span class="variable">request</span>.<span class="variable">headers</span>.<span class="variable">authorization</span>;
+		<span class="keyword">var</span> <span class="variable">user</span> = <span class="variable">header</span>.<span class="variable">split</span>(&<span class="variable">quot</span>; &<span class="variable">quot</span>;)[<span class="number integer">1</span>];
+
+		<span class="comment">// Searching for user in user list.</span>
+		<span class="keyword">if</span>(<span class="variable">user</span>) {
+			<span class="variable">authenticated</span> = <span class="this">this</span>.<span class="variable">users</span>.<span class="variable">indexOf</span>(<span class="variable">user</span>) != -<span class="number integer">1</span>;
+		}
+	}
+
+	<span class="keyword">return</span> <span class="variable">authenticated</span>;
+}</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Asks client for authentication.</p>
+
+<h2></h2>
+
+<ul><li><p><strong>param</strong>: <em>Request</em>  request HTTP request object.</p></li><li><p><strong>param</strong>: <em>Response</em>  response HTTP response object.</p></li></ul>
+</td>
+<td class="code">
+<pre><code><span class="class">Basic</span>.<span class="variable">prototype</span>.<span class="variable">ask</span> = <span class="keyword">function</span>(<span class="variable">request</span>, <span class="variable">response</span>) {
+	<span class="keyword">var</span> <span class="variable">header</span> = &<span class="variable">quot</span>;<span class="class">Basic</span> <span class="variable">realm</span>=\&<span class="variable">quot</span>;&<span class="variable">quot</span>; + <span class="this">this</span>.<span class="variable">realm</span> + &<span class="variable">quot</span>;\&<span class="variable">quot</span>;&<span class="variable">quot</span>;;
+
+	<span class="variable">response</span>.<span class="variable">setHeader</span>(&<span class="variable">quot</span>;<span class="class">WWW</span>-<span class="class">Authenticate</span>&<span class="variable">quot</span>;, <span class="variable">header</span>);
+	<span class="variable">response</span>.<span class="variable">writeHead</span>(<span class="number integer">401</span>);
+	<span class="variable">response</span>.<span class="variable">end</span>(<span class="variable">defaults</span>.<span class="class">HTML_401</span>);
+}</code></pre>
+</td>
+</tr><tr class="filename"><td><h2 id="lib/auth/digest.js"><a href="#">digest</a></h2></td><td>lib/auth/digest.js</td></tr><tr class="code">
+<td class="docs">
+<p>Default setup module.
+ </p>
+</td>
+<td class="code">
+<pre><code><span class="keyword">var</span> <span class="variable">defaults</span> = <span class="variable">require</span>(<span class="string">'../defaults'</span>);</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Utility module.
+ </p>
+</td>
+<td class="code">
+<pre><code><span class="keyword">var</span> <span class="variable">utils</span> = <span class="variable">require</span>(<span class="string">'../utils'</span>);</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Module for generating unique id.
+ </p>
+</td>
+<td class="code">
+<pre><code><span class="keyword">var</span> <span class="variable">uuid</span> = <span class="variable">require</span>(<span class="string">'node-uuid'</span>);</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Exporting module.
+ </p>
+</td>
+<td class="code">
+<pre><code><span class="variable">module</span>.<span class="variable">exports</span> = <span class="class">Digest</span>;</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Digest Access Authentication.</p>
+
+<h2></h2>
+
+<ul><li><p><strong>param</strong>: <em>String</em>  authRealm authentication realm.</p></li><li><p><strong>param</strong>: <em>Array</em>  authUsers array of users.</p></li><li><p><strong>param</strong>: <em>String</em>  algorithm algorithm for authentication.</p></li></ul>
+</td>
+<td class="code">
+<pre><code><span class="keyword">function</span> <span class="class">Digest</span>(<span class="variable">authRealm</span>, <span class="variable">authUsers</span>, <span class="variable">algorithm</span>) {
+<span class="comment">// Realm.</span>
+<span class="this">this</span>.<span class="variable">realm</span> = <span class="variable">authRealm</span>;
+<span class="comment">// Users.</span>
+<span class="this">this</span>.<span class="variable">users</span> = <span class="variable">authUsers</span>;
+<span class="comment">// Nonces.</span>
+<span class="this">this</span>.<span class="variable">nonces</span> = <span class="keyword">new</span> <span class="class">Array</span>();
+<span class="comment">// Algorithm.</span>
+<span class="this">this</span>.<span class="variable">algorithm</span> = <span class="variable">algorithm</span>;
+
+<span class="comment">// Used for async callback.</span>
+<span class="keyword">var</span> <span class="variable">self</span> = <span class="this">this</span>;</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Applies digest authentication and calls next after user is authenticated.</p>
+
+<h2></h2>
+
+<ul><li><p><strong>param</strong>: <em>Request</em>  request HTTP request object.</p></li><li><p><strong>param</strong>: <em>Response</em>  response HTTP response object.</p></li><li><p><strong>param</strong>: <em>Function</em>  next function that will be called after user is authenticated.</p></li></ul>
+</td>
+<td class="code">
+<pre><code><span class="this">this</span>.<span class="variable">apply</span> = <span class="keyword">function</span>(<span class="variable">request</span>, <span class="variable">response</span>, <span class="variable">next</span>) {
+	<span class="keyword">var</span> <span class="variable">requestBody</span> = &<span class="variable">quot</span>;&<span class="variable">quot</span>;;
+
+	<span class="comment">// Reading request body.</span>
+	<span class="variable">request</span>.<span class="variable">on</span>(<span class="string">'data'</span>, <span class="keyword">function</span>(<span class="variable">chunk</span>) {
+		<span class="comment">// append the current chunk of data to the requestBody variable.</span>
+		<span class="variable">requestBody</span> += <span class="variable">chunk</span>.<span class="variable">toString</span>();
+	});
+	<span class="comment">// Processing authentication part.</span>
+	<span class="variable">request</span>.<span class="variable">on</span>(<span class="string">'end'</span>, <span class="keyword">function</span>() {
+		<span class="keyword">var</span> <span class="variable">authenticated</span> = <span class="variable">self</span>.<span class="variable">isAuthenticated</span>(<span class="variable">request</span>, <span class="variable">response</span>, <span class="variable">requestBody</span>);
+		<span class="keyword">if</span>(!<span class="variable">authenticated</span>) {
+			<span class="variable">self</span>.<span class="variable">ask</span>(<span class="variable">request</span>, <span class="variable">response</span>, <span class="variable">requestBody</span>);
+		} <span class="keyword">else</span> {
+			<span class="variable">next</span>();
+		}
+	});
+}};</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Checks authorization header in request.</p>
+
+<h2></h2>
+
+<ul><li><p><strong>param</strong>: <em>Request</em>  request HTTP request object.</p></li><li><p><strong>param</strong>: <em>Response</em>  response HTTP response object.</p></li><li><p><strong>param</strong>: <em>String</em>  requestBody HTTP request body string.</p></li><li><p><strong>return</strong>: <em>Boolean</em>  true if is authenticated, else false.</p></li></ul>
+</td>
+<td class="code">
+<pre><code><span class="class">Digest</span>.<span class="variable">prototype</span>.<span class="variable">isAuthenticated</span> = <span class="keyword">function</span>(<span class="variable">request</span>, <span class="variable">response</span>, <span class="variable">requestBody</span>) {
+	<span class="keyword">var</span> <span class="variable">authenticated</span> = <span class="variable">false</span>;
+
+	<span class="comment">// If header exists.</span>
+	<span class="keyword">if</span>(&<span class="variable">quot</span>;<span class="variable">authorization</span>&<span class="variable">quot</span>; <span class="keyword">in</span> <span class="variable">request</span>.<span class="variable">headers</span>) {
+		<span class="keyword">var</span> <span class="variable">header</span> = <span class="variable">request</span>.<span class="variable">headers</span>.<span class="variable">authorization</span>;
+		<span class="keyword">var</span> <span class="variable">co</span> = <span class="this">this</span>.<span class="variable">parseAuthHeader</span>(<span class="variable">header</span>);
+
+		<span class="comment">// Check for expiration.</span>
+		<span class="keyword">if</span>(<span class="variable">co</span>.<span class="variable">nonce</span> <span class="keyword">in</span> <span class="this">this</span>.<span class="variable">nonces</span>) {
+			<span class="comment">// Sencond hash in digest access authentication.</span>
+			<span class="keyword">var</span> <span class="variable">ha2</span>;
+			<span class="comment">// Calculating second hash.</span>
+			<span class="keyword">if</span>(<span class="variable">co</span>.<span class="variable">qop</span> == &<span class="variable">quot</span>;<span class="variable">auth</span>-<span class="variable">int</span>&<span class="variable">quot</span>;) {
+				<span class="variable">ha2</span> = <span class="variable">utils</span>.<span class="variable">md5</span>(<span class="variable">request</span>.<span class="variable">method</span> + &<span class="variable">quot</span>;:&<span class="variable">quot</span>; + <span class="variable">co</span>.<span class="variable">uri</span> + &<span class="variable">quot</span>;:&<span class="variable">quot</span>; + <span class="variable">utils</span>.<span class="variable">md5</span>(<span class="variable">requestBody</span>));
+			} <span class="keyword">else</span> {
+				<span class="variable">ha2</span> = <span class="variable">utils</span>.<span class="variable">md5</span>(<span class="variable">request</span>.<span class="variable">method</span> + &<span class="variable">quot</span>;:&<span class="variable">quot</span>; + <span class="variable">co</span>.<span class="variable">uri</span>);
+			}
+
+			<span class="comment">// Checking response for username.</span>
+			<span class="keyword">var</span> <span class="variable">userHash</span> = <span class="this">this</span>.<span class="variable">users</span>[<span class="variable">co</span>.<span class="variable">username</span>];
+			
+			<span class="comment">// Username is correct.</span>
+			<span class="keyword">if</span>(<span class="variable">userHash</span> &<span class="variable">amp</span>;&<span class="variable">amp</span>; <span class="keyword">typeof</span> <span class="variable">userHash</span> === <span class="string">'string'</span>) {
+				<span class="keyword">var</span> <span class="variable">ha1</span> = <span class="variable">utils</span>.<span class="variable">md5</span>(<span class="this">this</span>.<span class="variable">users</span>[<span class="variable">co</span>.<span class="variable">username</span>]);
+	
+				<span class="comment">// If algorithm is MD5-sess.</span>
+				<span class="keyword">if</span>(<span class="variable">co</span>.<span class="variable">algorithm</span> == <span class="string">'MD5-sess'</span>) {
+					<span class="variable">ha1</span> = <span class="variable">utils</span>.<span class="variable">md5</span>(<span class="variable">ha1</span> + &<span class="variable">quot</span>;:&<span class="variable">quot</span>; + <span class="variable">co</span>.<span class="variable">nonce</span> + &<span class="variable">quot</span>;:&<span class="variable">quot</span>; + <span class="variable">co</span>.<span class="variable">cnonce</span>);
+				}
+	
+				<span class="comment">// If qop is specified.</span>
+				<span class="keyword">if</span>(<span class="variable">co</span>.<span class="variable">qop</span>) {
+					<span class="keyword">if</span>(<span class="variable">co</span>.<span class="variable">nc</span> &<span class="variable">gt</span>; <span class="this">this</span>.<span class="variable">nonces</span>[<span class="variable">co</span>.<span class="variable">nonce</span>]) {
+						<span class="comment">// Updating nonce count.</span>
+						<span class="this">this</span>.<span class="variable">nonces</span>[<span class="variable">co</span>.<span class="variable">nonce</span>] = <span class="variable">co</span>.<span class="variable">nc</span>;
+	
+						<span class="comment">// Evaluating final authentication response.</span>
+						<span class="keyword">var</span> <span class="variable">authRes</span> = <span class="variable">utils</span>.<span class="variable">md5</span>(<span class="variable">ha1</span> + &<span class="variable">quot</span>;:&<span class="variable">quot</span>; + <span class="variable">co</span>.<span class="variable">nonce</span> + &<span class="variable">quot</span>;:&<span class="variable">quot</span>; + <span class="variable">co</span>.<span class="variable">nc</span> + &<span class="variable">quot</span>;:&<span class="variable">quot</span>; + <span class="variable">co</span>.<span class="variable">cnonce</span> + &<span class="variable">quot</span>;:&<span class="variable">quot</span>; + <span class="variable">co</span>.<span class="variable">qop</span> + &<span class="variable">quot</span>;:&<span class="variable">quot</span>; + <span class="variable">ha2</span>);
+						<span class="variable">authenticated</span> = (<span class="variable">authRes</span> == <span class="variable">co</span>.<span class="variable">response</span>);
+					}
+				} <span class="keyword">else</span> {
+					<span class="comment">// Evaluating final authentication response.</span>
+					<span class="keyword">var</span> <span class="variable">authRes</span> = <span class="variable">utils</span>.<span class="variable">md5</span>(<span class="variable">ha1</span> + &<span class="variable">quot</span>;:&<span class="variable">quot</span>; + <span class="variable">co</span>.<span class="variable">nonce</span> + &<span class="variable">quot</span>;:&<span class="variable">quot</span>; + <span class="variable">ha2</span>);
+					<span class="variable">authenticated</span> = (<span class="variable">authRes</span> == <span class="variable">co</span>.<span class="variable">response</span>);
+				}
+			}
+		}
+	}
+
+	<span class="keyword">return</span> <span class="variable">authenticated</span>;
+}</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Asks client for authentication.</p>
+
+<h2></h2>
+
+<ul><li><p><strong>param</strong>: <em>Request</em>  request HTTP request object.</p></li><li><p><strong>param</strong>: <em>Response</em>  response HTTP response object.</p></li><li><p><strong>param</strong>: <em>String</em>  requestBody HTTP request body string.</p></li></ul>
+</td>
+<td class="code">
+<pre><code><span class="class">Digest</span>.<span class="variable">prototype</span>.<span class="variable">ask</span> = <span class="keyword">function</span>(<span class="variable">request</span>, <span class="variable">response</span>, <span class="variable">requestBody</span>) {
+	<span class="comment">// Generating unique nonce.</span>
+	<span class="keyword">var</span> <span class="variable">nonce</span> = <span class="variable">utils</span>.<span class="variable">md5</span>(<span class="variable">uuid</span>());
+	<span class="comment">// Adding nonce.</span>
+	<span class="this">this</span>.<span class="variable">nonces</span>[<span class="variable">nonce</span>] = <span class="number integer">0</span>;
+	<span class="comment">// Scheduling async timeout function call.</span>
+	<span class="variable">setTimeout</span>(<span class="this">this</span>.<span class="variable">expireNonce</span>, <span class="variable">defaults</span>.<span class="class">NONCE_EXPIRE_TIMEOUT</span>, <span class="variable">nonce</span>, <span class="this">this</span>.<span class="variable">nonces</span>);
+
+	<span class="comment">// Generating authentication header.</span>
+	<span class="keyword">var</span> <span class="variable">header</span> = &<span class="variable">quot</span>;<span class="class">Digest</span> <span class="variable">realm</span>=\&<span class="variable">quot</span>;&<span class="variable">quot</span>; + <span class="this">this</span>.<span class="variable">realm</span> + &<span class="variable">quot</span>;\&<span class="variable">quot</span>;, <span class="variable">qop</span>=\&<span class="variable">quot</span>;<span class="variable">auth</span>, <span class="variable">auth</span>-<span class="variable">int</span>\&<span class="variable">quot</span>;, <span class="variable">nonce</span>=\&<span class="variable">quot</span>;&<span class="variable">quot</span>; + <span class="variable">nonce</span> + &<span class="variable">quot</span>;\&<span class="variable">quot</span>;, <span class="variable">algorithm</span>=\&<span class="variable">quot</span>;&<span class="variable">quot</span>; + <span class="this">this</span>.<span class="variable">algorithm</span> + &<span class="variable">quot</span>;\&<span class="variable">quot</span>;&<span class="variable">quot</span>;;
+
+	<span class="variable">response</span>.<span class="variable">setHeader</span>(&<span class="variable">quot</span>;<span class="class">WWW</span>-<span class="class">Authenticate</span>&<span class="variable">quot</span>;, <span class="variable">header</span>);
+	<span class="variable">response</span>.<span class="variable">writeHead</span>(<span class="number integer">401</span>);
+	<span class="variable">response</span>.<span class="variable">end</span>(<span class="variable">defaults</span>.<span class="class">HTML_401</span>);
+}</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Method for clearing not used nonces.</p>
+
+<h2></h2>
+
+<ul><li><p><strong>param</strong>: <em>String</em>  nonce nonce to delete.</p></li><li><p><strong>param</strong>: <em>Array</em>  nonces array of nonces.</p></li></ul>
+</td>
+<td class="code">
+<pre><code><span class="class">Digest</span>.<span class="variable">prototype</span>.<span class="variable">expireNonce</span> = <span class="keyword">function</span>(<span class="variable">nonce</span>, <span class="variable">nonces</span>) {
+	<span class="keyword">delete</span> <span class="variable">nonces</span>[<span class="variable">nonce</span>];
+}</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Method for parsing authorization header.</p>
+
+<h2></h2>
+
+<ul><li><p><strong>param</strong>: <em>String</em>  header authorization header.</p></li><li><p><strong>return</strong>: <em>Array</em>  parsed array with authorization header data.</p></li></ul>
+</td>
+<td class="code">
+<pre><code><span class="class">Digest</span>.<span class="variable">prototype</span>.<span class="variable">parseAuthHeader</span> = <span class="keyword">function</span>(<span class="variable">header</span>) {
+	<span class="keyword">var</span> <span class="variable">headerOptions</span> = <span class="keyword">new</span> <span class="class">Array</span>();
+
+	<span class="comment">// Replacing internal quotes.</span>
+	<span class="keyword">var</span> <span class="variable">searchHeader</span> = <span class="variable">header</span>.<span class="variable">replace</span>(<span class="regexp">/\\&quot;/g</span>, &<span class="variable">quot</span>;&<span class="variable">quot</span>;&<span class="variable">quot</span>;);
+	<span class="comment">// Padding with quotes not padding values.</span>
+	<span class="variable">searchHeader</span> = <span class="variable">searchHeader</span>.<span class="variable">replace</span>(<span class="regexp">/(\w+)=([^,&quot; ]+)/g</span>, <span class="string">'$1=\&quot;$2\&quot;'</span>);
+	<span class="comment">// Initial tokens.</span>
+	<span class="keyword">var</span> <span class="variable">tokens</span> = <span class="variable">searchHeader</span>.<span class="variable">match</span>(<span class="regexp">/(\w+)=&quot;([^&quot;]+)&quot;/g</span>);
+
+	<span class="comment">// If tokens were found.</span>
+	<span class="keyword">if</span>(<span class="variable">tokens</span>) {
+		<span class="comment">// Adding tokens to final Object.</span>
+		<span class="keyword">for</span>(<span class="keyword">var</span> <span class="variable">i</span> = <span class="number integer">0</span>; <span class="variable">i</span> &<span class="variable">lt</span>; <span class="variable">tokens</span>.<span class="variable">length</span>; ++<span class="variable">i</span>) {
+			<span class="keyword">var</span> <span class="variable">token</span> = <span class="variable">tokens</span>[<span class="variable">i</span>];
+			<span class="comment">// Searching for first equal sign.</span>
+			<span class="keyword">var</span> <span class="variable">equalIndex</span> = <span class="variable">token</span>.<span class="variable">indexOf</span>(&<span class="variable">quot</span>;=&<span class="variable">quot</span>;);
+			<span class="comment">// Extracting key.</span>
+			<span class="keyword">var</span> <span class="variable">key</span> = <span class="variable">token</span>.<span class="variable">substr</span>(<span class="number integer">0</span>, <span class="variable">equalIndex</span>);
+			<span class="comment">// Extracting value.</span>
+			<span class="keyword">var</span> <span class="variable">value</span> = <span class="variable">token</span>.<span class="variable">substr</span>(<span class="variable">equalIndex</span> + <span class="number integer">2</span>, <span class="variable">token</span>.<span class="variable">length</span> - <span class="variable">equalIndex</span> - <span class="number integer">3</span>);
+			<span class="comment">// Adding to options.</span>
+			<span class="variable">headerOptions</span>[<span class="variable">key</span>] = <span class="variable">value</span>;
+		}
+	}
+
+	<span class="keyword">return</span> <span class="variable">headerOptions</span>;
+}</code></pre>
+</td>
+</tr><tr class="filename"><td><h2 id="lib/defaults.js"><a href="#">defaults</a></h2></td><td>lib/defaults.js</td></tr><tr class="code">
+<td class="docs">
+<p>Module for default setups.
+ </p>
+</td>
+<td class="code">
+<pre><code><span class="variable">module</span>.<span class="variable">exports</span> = {</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<pre><code> * Default HTML for not authorized page.
+ </code></pre>
+</td>
+<td class="code">
+<pre><code><span class="string">'HTML_401'</span> : &<span class="variable">quot</span>;&<span class="variable">lt</span>;!<span class="class">DOCTYPE</span> <span class="variable">html</span>&<span class="variable">gt</span>;\<span class="variable">n</span>&<span class="variable">lt</span>;<span class="variable">html</span>&<span class="variable">gt</span>;&<span class="variable">lt</span>;<span class="variable">head</span>&<span class="variable">gt</span>;&<span class="variable">lt</span>;<span class="variable">title</span>&<span class="variable">gt</span>;<span class="number integer">401</span> <span class="class">Unauthorized</span>&<span class="variable">lt</span>;<span class="regexp">/title&gt;&lt;/head</span>&<span class="variable">gt</span>;&<span class="variable">lt</span>;<span class="variable">body</span>&<span class="variable">gt</span>;&<span class="variable">lt</span>;<span class="variable">h1</span>&<span class="variable">gt</span>;<span class="number integer">401</span> <span class="class">Unauthorized</span>&<span class="variable">lt</span>;<span class="regexp">/h1&gt;&lt;p&gt;This page requires authorization.&lt;/p</span>&<span class="variable">gt</span>;&<span class="variable">lt</span>;<span class="regexp">/body&gt;&lt;/html</span>&<span class="variable">gt</span>;&<span class="variable">quot</span>;,</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<pre><code> * Nonce expire timeout.
+ </code></pre>
+</td>
+<td class="code">
+<pre><code><span class="string">'NONCE_EXPIRE_TIMEOUT'</span> : <span class="number integer">3600000</span>,</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<pre><code> * Default algorithm for Digest Access Authentication.
+ </code></pre>
+</td>
+<td class="code">
+<pre><code><span class="string">'DEFAULT_ALGO'</span> : <span class="string">'MD5'</span>
+}</code></pre>
+</td>
+</tr><tr class="filename"><td><h2 id="lib/options.js"><a href="#">options</a></h2></td><td>lib/options.js</td></tr><tr class="code">
+<td class="docs">
+<p>Modules.
+ </p>
+</td>
+<td class="code">
+<pre><code><span class="keyword">var</span> <span class="variable">fs</span> = <span class="variable">require</span>(<span class="string">'fs'</span>), <span class="variable">utils</span> = <span class="variable">require</span>(<span class="string">'./utils'</span>), <span class="variable">defaults</span> = <span class="variable">require</span>(<span class="string">'./defaults'</span>);</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Parsing input options for authentication.</p>
+
+<h2></h2>
+
+<ul><li><p><strong>param</strong>: <em>Array</em>  options initial options.</p></li><li><p><strong>return</strong>: <em>Array</em>  array with parsed options.</p></li></ul>
+</td>
+<td class="code">
+<pre><code><span class="variable">module</span>.<span class="variable">exports</span> = <span class="keyword">function</span>(<span class="variable">options</span>) {
+	<span class="comment">// Checking for options.</span>
+	<span class="keyword">if</span>(!<span class="variable">options</span>) {
+		<span class="keyword">throw</span> <span class="keyword">new</span> <span class="class">Error</span>(&<span class="variable">quot</span>;<span class="class">Authentication</span> <span class="variable">options</span> <span class="variable">are</span> <span class="variable">empty</span>!&<span class="variable">quot</span>;);
+	}
+	
+	<span class="comment">// Checking authType.</span>
+	<span class="keyword">var</span> <span class="variable">authType</span> = <span class="variable">options</span>[<span class="string">'authType'</span>];
+	<span class="keyword">if</span>(!<span class="variable">authType</span>) {
+		<span class="variable">authType</span> = <span class="variable">options</span>[<span class="string">'authType'</span>] = <span class="string">'digest'</span>;
+	}
+			
+	<span class="keyword">if</span>(!(<span class="variable">authType</span> <span class="keyword">in</span> {<span class="string">'digest'</span> : <span class="number integer">1</span>, <span class="string">'basic'</span> : <span class="number integer">1</span>})) {
+		<span class="keyword">throw</span> <span class="keyword">new</span> <span class="class">Error</span>(&<span class="variable">quot</span>;<span class="class">Authentication</span> <span class="variable">type</span> <span class="variable">may</span> <span class="variable">be</span> <span class="variable">digest</span> <span class="variable">or</span> <span class="variable">basic</span>!&<span class="variable">quot</span>;);		
+	}
+	
+	<span class="comment">// Checking for algorithm.</span>
+	<span class="keyword">if</span>(!<span class="variable">options</span>.<span class="variable">algorithm</span>) {
+		<span class="variable">options</span>[<span class="string">'algorithm'</span>] = <span class="variable">defaults</span>.<span class="class">DEFAULT_ALGO</span>;
+	}
+	<span class="keyword">if</span>(!(<span class="variable">options</span>.<span class="variable">algorithm</span> <span class="keyword">in</span> {<span class="string">'MD5'</span> : <span class="number integer">1</span>, <span class="string">'MD5-sess'</span> : <span class="number integer">1</span>})) {
+		<span class="keyword">throw</span> <span class="keyword">new</span> <span class="class">Error</span>(&<span class="variable">quot</span>;<span class="class">Authentication</span> <span class="variable">algorithm</span> <span class="variable">may</span> <span class="variable">be</span> <span class="class">MD5</span> <span class="variable">or</span> <span class="class">MD5</span>-<span class="variable">sess</span>!&<span class="variable">quot</span>;);		
+	}
+	
+	<span class="comment">// Checking authentication realm.</span>
+	<span class="keyword">var</span> <span class="variable">authRealm</span> = <span class="variable">options</span>[<span class="string">'authRealm'</span>];
+	<span class="keyword">if</span>(!<span class="variable">authRealm</span>) {
+		<span class="keyword">throw</span> <span class="keyword">new</span> <span class="class">Error</span>(&<span class="variable">quot</span>;<span class="class">Authentication</span> <span class="variable">realm</span> <span class="variable">is</span> <span class="variable">mandatory</span>!&<span class="variable">quot</span>;);
+	}
+
+	<span class="comment">// Authentication users.</span>
+	<span class="keyword">var</span> <span class="variable">authUsers</span> = <span class="keyword">new</span> <span class="class">Array</span>();
+	<span class="keyword">var</span> <span class="variable">authList</span> = <span class="variable">options</span>[<span class="string">'authList'</span>];
+
+	<span class="comment">// If authFile is provided.</span>
+	<span class="keyword">var</span> <span class="variable">authFile</span> = <span class="variable">options</span>[<span class="string">'authFile'</span>];
+	<span class="keyword">if</span>(<span class="variable">authFile</span>) {
+		<span class="variable">authList</span> = <span class="variable">fs</span>.<span class="variable">readFileSync</span>(<span class="variable">authFile</span>, <span class="string">'UTF-8'</span>).<span class="variable">toString</span>().<span class="variable">split</span>(<span class="string">'\n'</span>);
+	}
+	
+	<span class="comment">// Checking authentication list.</span>
+	<span class="keyword">if</span>(!<span class="variable">authList</span> || <span class="variable">authList</span>.<span class="variable">length</span> == <span class="number integer">0</span>) {
+		<span class="keyword">throw</span> <span class="keyword">new</span> <span class="class">Error</span>(&<span class="variable">quot</span>;<span class="class">Authentication</span> <span class="variable">list</span> <span class="variable">cannot</span> <span class="variable">be</span> <span class="variable">empty</span>!&<span class="variable">quot</span>;);			
+	}
+
+	<span class="keyword">for</span>(<span class="keyword">var</span> <span class="variable">i</span> = <span class="number integer">0</span>; <span class="variable">i</span> &<span class="variable">lt</span>; <span class="variable">authList</span>.<span class="variable">length</span>; ++<span class="variable">i</span>) {
+		<span class="keyword">var</span> <span class="variable">authLine</span> = <span class="variable">authList</span>[<span class="variable">i</span>];
+
+		<span class="keyword">if</span>(<span class="variable">authType</span> == <span class="string">'digest'</span>) {
+			<span class="keyword">var</span> <span class="variable">authTokens</span> = <span class="variable">authLine</span>.<span class="variable">split</span>(&<span class="variable">quot</span>;:&<span class="variable">quot</span>;);
+			<span class="comment">// Constructing A1 for digest access authentication.</span>
+			<span class="variable">authUsers</span>[<span class="variable">authTokens</span>[<span class="number integer">0</span>]] = <span class="variable">authTokens</span>[<span class="number integer">0</span>] + &<span class="variable">quot</span>;:&<span class="variable">quot</span>; + <span class="variable">authRealm</span> + &<span class="variable">quot</span>;:&<span class="variable">quot</span>; + <span class="variable">authTokens</span>[<span class="number integer">1</span>];
+		} <span class="keyword">else</span> <span class="keyword">if</span>(<span class="variable">authType</span> == <span class="string">'basic'</span>) {
+			<span class="comment">// Pushing token to users array.</span>
+			<span class="variable">authUsers</span>.<span class="variable">push</span>(<span class="variable">utils</span>.<span class="variable">base64</span>(<span class="variable">authLine</span>));
+		}
+	}
+
+	<span class="comment">// Setting authUsers.</span>
+	<span class="variable">options</span>[<span class="string">'authUsers'</span>] = <span class="variable">authUsers</span>;
+
+	<span class="keyword">return</span> <span class="variable">options</span>;
+}</code></pre>
+</td>
+</tr><tr class="filename"><td><h2 id="lib/provider.js"><a href="#">provider</a></h2></td><td>lib/provider.js</td></tr><tr class="code">
+<td class="docs">
+<p>Digest and basic modules.
+ </p>
+</td>
+<td class="code">
+<pre><code><span class="keyword">var</span> <span class="class">Digest</span> = <span class="variable">require</span>(<span class="string">'./auth/digest'</span>), <span class="class">Basic</span> = <span class="variable">require</span>(<span class="string">'./auth/basic'</span>);</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Provider creates new basic or digest authentication instance.
+ </p>
+</td>
+<td class="code">
+<pre><code><span class="variable">module</span>.<span class="variable">exports</span> = {</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Creates new authentication instance.</p>
+
+<h2></h2>
+
+<ul><li><p><strong>param</strong>: <em>Array</em>  options authentication options.</p></li><li><p><strong>return</strong>: <em>Object</em>  authentication instance.</p></li></ul>
+</td>
+<td class="code">
+<pre><code><span class="string">'newInstance'</span> : <span class="keyword">function</span>(<span class="variable">options</span>) {
+	<span class="keyword">if</span>(<span class="variable">options</span> &<span class="variable">amp</span>;&<span class="variable">amp</span>; <span class="variable">options</span>.<span class="variable">authType</span> == <span class="string">'digest'</span>) {
+		<span class="keyword">return</span> <span class="keyword">new</span> <span class="class">Digest</span>(<span class="variable">options</span>.<span class="variable">authRealm</span>, <span class="variable">options</span>.<span class="variable">authUsers</span>, <span class="variable">options</span>.<span class="variable">algorithm</span>);
+	} <span class="keyword">else</span> <span class="keyword">if</span>(<span class="variable">options</span> &<span class="variable">amp</span>;&<span class="variable">amp</span>; <span class="variable">options</span>.<span class="variable">authType</span> == <span class="string">'basic'</span>) {
+		<span class="keyword">return</span> <span class="keyword">new</span> <span class="class">Basic</span>(<span class="variable">options</span>.<span class="variable">authRealm</span>, <span class="variable">options</span>.<span class="variable">authUsers</span>);			
+	} <span class="keyword">else</span> {
+		<span class="keyword">throw</span> <span class="keyword">new</span> <span class="class">Error</span>(&<span class="variable">quot</span>;<span class="class">Invalid</span> <span class="variable">type</span>, <span class="variable">may</span> <span class="variable">be</span> <span class="variable">digest</span> | <span class="variable">basic</span>!&<span class="variable">quot</span>;);
+	}
+}};</code></pre>
+</td>
+</tr><tr class="filename"><td><h2 id="lib/http-auth.js"><a href="#">http-auth</a></h2></td><td>lib/http-auth.js</td></tr><tr class="code">
+<td class="docs">
+<p>Authentication provider.
+ </p>
+</td>
+<td class="code">
+<pre><code><span class="keyword">var</span> <span class="variable">provider</span> = <span class="variable">require</span>(<span class="string">'./provider'</span>);</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Parser module for authentication input options.
+ </p>
+</td>
+<td class="code">
+<pre><code><span class="keyword">var</span> <span class="variable">opt</span> = <span class="variable">require</span>(<span class="string">'./options'</span>);</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Requests authentication instance from provider.</p>
+
+<h2></h2>
+
+<ul><li><p><strong>param</strong>: <em>Array</em>  options options that may be used for authentication.</p><ul><li>authRealm authentication realm.</li><li>authFile file where user details are stored in format {user:pass}.</li><li>authList list where user details are stored in format {user:pass}, ignored if authFile is specified.</li><li>authType type of authentication, digest | basic, optional, default is digest.</li><li>algorithm algorithm that will be used, may be MD5 or MD5-sess, optional, default is MD5.</li></ul></li><li><p><strong>return</strong>: <em>Object</em>  authentication instance.</p></li></ul>
+</td>
+<td class="code">
+<pre><code><span class="variable">module</span>.<span class="variable">exports</span> = <span class="keyword">function</span>(<span class="variable">options</span>) {
+	<span class="comment">// Parsing options.</span>
+	<span class="keyword">var</span> <span class="variable">parsedOptions</span> = <span class="variable">opt</span>(<span class="variable">options</span>);
+	<span class="comment">// Requesting new authentication instance.</span>
+	<span class="keyword">return</span> <span class="variable">provider</span>.<span class="variable">newInstance</span>(<span class="variable">parsedOptions</span>);
+};</code></pre>
+</td>
+</tr><tr class="filename"><td><h2 id="lib/utils.js"><a href="#">utils</a></h2></td><td>lib/utils.js</td></tr><tr class="code">
+<td class="docs">
+<p>Crypto module.
+ </p>
+</td>
+<td class="code">
+<pre><code><span class="keyword">var</span> <span class="variable">crypto</span> = <span class="variable">require</span>(<span class="string">'crypto'</span>);</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Utility module.
+ </p>
+</td>
+<td class="code">
+<pre><code><span class="variable">module</span>.<span class="variable">exports</span> = {</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Function for encoding string to base64.</p>
+
+<h2></h2>
+
+<ul><li><p><strong>param</strong>: <em>String</em>  str string to encode.</p></li><li><p><strong>return</strong>: <em>String</em>  bas64 encoded string.</p></li></ul>
+</td>
+<td class="code">
+<pre><code><span class="string">'base64'</span> : <span class="keyword">function</span>(<span class="variable">str</span>) {
+	<span class="keyword">return</span> <span class="keyword">new</span> <span class="class">Buffer</span>(<span class="variable">str</span>, <span class="string">'UTF-8'</span>).<span class="variable">toString</span>(<span class="string">'base64'</span>);
+},</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>MD5 hash method.</p>
+
+<h2></h2>
+
+<ul><li><p><strong>param</strong>: <em>String</em>  str string to hash.</p></li><li><p><strong>return</strong>: <em>String</em>  md5 hash of string.</p></li></ul>
+</td>
+<td class="code">
+<pre><code><span class="string">'md5'</span> : <span class="keyword">function</span>(<span class="variable">str</span>) {
+	<span class="keyword">var</span> <span class="variable">hash</span> = <span class="variable">crypto</span>.<span class="variable">createHash</span>(<span class="string">'MD5'</span>);
+	<span class="variable">hash</span>.<span class="variable">update</span>(<span class="variable">str</span>);
+
+	<span class="keyword">return</span> <span class="variable">hash</span>.<span class="variable">digest</span>(<span class="string">'hex'</span>);
+}};</code></pre>
+</td>
+</tr>	</body>
+</html></tbody></table>
