@@ -1,15 +1,15 @@
 {
 	"name": "http-auth",
 	"description": "Node.js package for HTTP basic and digest access authentication.",
-	"version": "1.0.7",
+	"version": "1.0.8",
 	"author": "Gevorg Harutyunyan (http://github.com/gevorg)",
 	"maintainers": [
 		{
 			"name": "gevorg",
-			"email": "i@gevorg.me"
+			"email": "gevorg.ha@gmail.com"
 		}
 	],
-	"homepage": "http://gevorg.me/http-auth.html",
+	"homepage": "http://github.com/gevorg/http-auth",
 	"repository": {
 		"type": "git",
 		"url": "http://github.com/gevorg/http-auth.git"
