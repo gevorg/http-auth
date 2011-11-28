@@ -324,58 +324,6 @@ code .this { color: #19469D; }</style>
 	<span class="variable">test</span>.<span class="variable">done</span>();
 };</code></pre>
 </td>
-</tr><tr class="filename"><td><h2 id="tests/test-http-auth.js"><a href="#">test-http-auth</a></h2></td><td>tests/test-http-auth.js</td></tr><tr class="code">
-<td class="docs">
-<p>HTTP authentication module.
- </p>
-</td>
-<td class="code">
-<pre><code><span class="keyword">var</span> <span class="variable">auth</span> = <span class="variable">require</span>(<span class="string">'../lib/http-auth'</span>);</code></pre>
-</td>
-</tr>
-<tr class="code">
-<td class="docs">
-<p>Test for basic access authentication.
- </p>
-</td>
-<td class="code">
-<pre><code><span class="variable">exports</span>[<span class="string">'testBasicAuth'</span>] = <span class="keyword">function</span> (<span class="variable">test</span>) {
-	<span class="comment">// Requests basic access authentication instance.</span>
-	<span class="keyword">var</span> <span class="variable">basic</span> = <span class="variable">auth</span>({
-		<span class="variable">authRealm</span> : &<span class="variable">quot</span>;<span class="class">Private</span> <span class="variable">area</span> <span class="keyword">with</span> <span class="variable">basic</span> <span class="variable">access</span> <span class="variable">authentication</span>.&<span class="variable">quot</span>;,
-		<span class="variable">authList</span> : [<span class="string">'Shi:many222'</span>, <span class="string">'Lota:123456'</span>],
-		<span class="variable">authType</span> : <span class="string">'basic'</span>
-	});
-	<span class="comment">// Checking instance itself.</span>
-	<span class="variable">test</span>.<span class="variable">notEqual</span>(<span class="variable">basic</span>, <span class="keyword">null</span>, &<span class="variable">quot</span>;<span class="class">Basic</span> <span class="variable">access</span> <span class="variable">authentication</span> <span class="variable">instance</span> <span class="variable">is</span> <span class="variable">empty</span>!&<span class="variable">quot</span>;);
-	<span class="comment">// Checking apply method.</span>
-	<span class="variable">test</span>.<span class="variable">notEqual</span>(<span class="variable">basic</span>.<span class="variable">apply</span>, <span class="keyword">null</span>, &<span class="variable">quot</span>;<span class="class">Basic</span> <span class="variable">access</span> <span class="variable">authentication</span> <span class="variable">instance</span> <span class="variable">has</span> <span class="variable">no</span> <span class="variable">apply</span> <span class="variable">method</span>!&<span class="variable">quot</span>;);
-	<span class="comment">// Test is done.</span>
-	<span class="variable">test</span>.<span class="variable">done</span>();
-};</code></pre>
-</td>
-</tr>
-<tr class="code">
-<td class="docs">
-<p>Test for digest access authentication.
- </p>
-</td>
-<td class="code">
-<pre><code><span class="variable">exports</span>[<span class="string">'testDigestAuth'</span>] = <span class="keyword">function</span> (<span class="variable">test</span>) {
-	<span class="comment">// Requests digest access authentication instance.</span>
-	<span class="keyword">var</span> <span class="variable">digest</span> = <span class="variable">auth</span>({
-		<span class="variable">authRealm</span> : &<span class="variable">quot</span>;<span class="class">Private</span> <span class="variable">area</span> <span class="keyword">with</span> <span class="variable">digest</span> <span class="variable">access</span> <span class="variable">authentication</span>.&<span class="variable">quot</span>;,
-		<span class="variable">authList</span> : [<span class="string">'2Shi:ma22y222'</span>, <span class="string">'3Lota:1123456'</span>],
-		<span class="variable">authType</span> : <span class="string">'digest'</span>
-	});
-	<span class="comment">// Checking instance itself.</span>
-	<span class="variable">test</span>.<span class="variable">notEqual</span>(<span class="variable">digest</span>, <span class="keyword">null</span>, &<span class="variable">quot</span>;<span class="class">Digest</span> <span class="variable">access</span> <span class="variable">authentication</span> <span class="variable">instance</span> <span class="variable">is</span> <span class="variable">empty</span>!&<span class="variable">quot</span>;);
-	<span class="comment">// Checking apply method.</span>
-	<span class="variable">test</span>.<span class="variable">notEqual</span>(<span class="variable">digest</span>.<span class="variable">apply</span>, <span class="keyword">null</span>, &<span class="variable">quot</span>;<span class="class">Digest</span> <span class="variable">access</span> <span class="variable">authentication</span> <span class="variable">instance</span> <span class="variable">has</span> <span class="variable">no</span> <span class="variable">apply</span> <span class="variable">method</span>!&<span class="variable">quot</span>;);
-	<span class="comment">// Test is done.</span>
-	<span class="variable">test</span>.<span class="variable">done</span>();
-};</code></pre>
-</td>
 </tr><tr class="filename"><td><h2 id="tests/test-provider.js"><a href="#">test-provider</a></h2></td><td>tests/test-provider.js</td></tr><tr class="code">
 <td class="docs">
 <p>Provider module.
@@ -520,6 +468,58 @@ code .this { color: #19469D; }</style>
 <pre><code><span class="variable">exports</span>[<span class="string">'testMD5Unicode'</span>] = <span class="keyword">function</span> (<span class="variable">test</span>) {
 	<span class="comment">// Checking generated hash.</span>
 	<span class="variable">test</span>.<span class="variable">equal</span>(<span class="variable">utils</span>.<span class="variable">base64</span>(&<span class="variable">quot</span>;այնպես&<span class="variable">quot</span>;), &<span class="variable">quot</span>;<span class="variable">aHVtdW21brVpdW9</span>&<span class="variable">quot</span>;, &<span class="variable">quot</span>;<span class="class">MD5</span> <span class="variable">hash</span> <span class="variable">is</span> <span class="variable">not</span> <span class="variable">correct</span> <span class="keyword">for</span> <span class="variable">unicode</span> <span class="variable">string</span>!&<span class="variable">quot</span>;);
+	<span class="comment">// Test is done.</span>
+	<span class="variable">test</span>.<span class="variable">done</span>();
+};</code></pre>
+</td>
+</tr><tr class="filename"><td><h2 id="tests/test-http-auth.js"><a href="#">test-http-auth</a></h2></td><td>tests/test-http-auth.js</td></tr><tr class="code">
+<td class="docs">
+<p>HTTP authentication module.
+ </p>
+</td>
+<td class="code">
+<pre><code><span class="keyword">var</span> <span class="variable">auth</span> = <span class="variable">require</span>(<span class="string">'../lib/http-auth'</span>);</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Test for basic access authentication.
+ </p>
+</td>
+<td class="code">
+<pre><code><span class="variable">exports</span>[<span class="string">'testBasicAuth'</span>] = <span class="keyword">function</span> (<span class="variable">test</span>) {
+	<span class="comment">// Requests basic access authentication instance.</span>
+	<span class="keyword">var</span> <span class="variable">basic</span> = <span class="variable">auth</span>({
+		<span class="variable">authRealm</span> : &<span class="variable">quot</span>;<span class="class">Private</span> <span class="variable">area</span> <span class="keyword">with</span> <span class="variable">basic</span> <span class="variable">access</span> <span class="variable">authentication</span>.&<span class="variable">quot</span>;,
+		<span class="variable">authList</span> : [<span class="string">'Shi:many222'</span>, <span class="string">'Lota:123456'</span>],
+		<span class="variable">authType</span> : <span class="string">'basic'</span>
+	});
+	<span class="comment">// Checking instance itself.</span>
+	<span class="variable">test</span>.<span class="variable">notEqual</span>(<span class="variable">basic</span>, <span class="keyword">null</span>, &<span class="variable">quot</span>;<span class="class">Basic</span> <span class="variable">access</span> <span class="variable">authentication</span> <span class="variable">instance</span> <span class="variable">is</span> <span class="variable">empty</span>!&<span class="variable">quot</span>;);
+	<span class="comment">// Checking apply method.</span>
+	<span class="variable">test</span>.<span class="variable">notEqual</span>(<span class="variable">basic</span>.<span class="variable">apply</span>, <span class="keyword">null</span>, &<span class="variable">quot</span>;<span class="class">Basic</span> <span class="variable">access</span> <span class="variable">authentication</span> <span class="variable">instance</span> <span class="variable">has</span> <span class="variable">no</span> <span class="variable">apply</span> <span class="variable">method</span>!&<span class="variable">quot</span>;);
+	<span class="comment">// Test is done.</span>
+	<span class="variable">test</span>.<span class="variable">done</span>();
+};</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Test for digest access authentication.
+ </p>
+</td>
+<td class="code">
+<pre><code><span class="variable">exports</span>[<span class="string">'testDigestAuth'</span>] = <span class="keyword">function</span> (<span class="variable">test</span>) {
+	<span class="comment">// Requests digest access authentication instance.</span>
+	<span class="keyword">var</span> <span class="variable">digest</span> = <span class="variable">auth</span>({
+		<span class="variable">authRealm</span> : &<span class="variable">quot</span>;<span class="class">Private</span> <span class="variable">area</span> <span class="keyword">with</span> <span class="variable">digest</span> <span class="variable">access</span> <span class="variable">authentication</span>.&<span class="variable">quot</span>;,
+		<span class="variable">authList</span> : [<span class="string">'2Shi:ma22y222'</span>, <span class="string">'3Lota:1123456'</span>],
+		<span class="variable">authType</span> : <span class="string">'digest'</span>
+	});
+	<span class="comment">// Checking instance itself.</span>
+	<span class="variable">test</span>.<span class="variable">notEqual</span>(<span class="variable">digest</span>, <span class="keyword">null</span>, &<span class="variable">quot</span>;<span class="class">Digest</span> <span class="variable">access</span> <span class="variable">authentication</span> <span class="variable">instance</span> <span class="variable">is</span> <span class="variable">empty</span>!&<span class="variable">quot</span>;);
+	<span class="comment">// Checking apply method.</span>
+	<span class="variable">test</span>.<span class="variable">notEqual</span>(<span class="variable">digest</span>.<span class="variable">apply</span>, <span class="keyword">null</span>, &<span class="variable">quot</span>;<span class="class">Digest</span> <span class="variable">access</span> <span class="variable">authentication</span> <span class="variable">instance</span> <span class="variable">has</span> <span class="variable">no</span> <span class="variable">apply</span> <span class="variable">method</span>!&<span class="variable">quot</span>;);
 	<span class="comment">// Test is done.</span>
 	<span class="variable">test</span>.<span class="variable">done</span>();
 };</code></pre>
