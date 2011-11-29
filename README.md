@@ -70,6 +70,35 @@ app.get('/', basic.apply, function(req, res) {
 	res.send("Welcome to private area!");
 });
 ```
+## Example with [http-proxy](https://github.com/nodejitsu/node-http-proxy/) integration
+```javascript
+/**
+ * Requesting new authentication instance.
+ */
+var basic = auth({
+	authRealm : "Private area.",
+	authList : ['mia:supergirl', 'Carlos:test456', 'Sam:oho']
+});
+
+/**
+ * Create a proxy server with custom application logic.
+ */
+httpProxy.createServer(function(req, res, proxy) {
+	basic.apply(req, res, function() {
+		proxy.proxyRequest(req, res, {
+			host : 'localhost',
+			port : 9000
+		});
+	});
+}).listen(8000);
+
+/**
+ * Destination server.
+ */
+http.createServer(function(req, res) {
+	res.end('request successfully proxied!');
+}).listen(9000);
+```
 ## Configurations
 
  - `authRealm` - Authentication realm.
