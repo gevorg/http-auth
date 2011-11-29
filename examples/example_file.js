@@ -11,7 +11,7 @@ var http = require('http');
 /**
  * Requesting new authentication instance.
  */
-var digest = auth({
+var basic = auth({
 	authRealm : "Private area.",
 	authFile : __dirname + '/users.htpasswd'
 });
@@ -21,7 +21,7 @@ var digest = auth({
  */
 http.createServer(function(req, res) {
 	// Apply authentication to server.
-	digest.apply(req, res, function() {
+	basic.apply(req, res, function() {
 		res.end("Welcome to private area!");
 	});
 }).listen(1337);

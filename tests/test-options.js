@@ -42,7 +42,7 @@ exports['testDefaultAuthType'] = function (test) {
 		authList : ['aa2sdas:s3sss', 'gi33ra:makaura']			
 	});
 	// Default authType check.
-	test.equals(options.authType, 'digest', "Default authType must be digest!")
+	test.equals(options.authType, 'basic', "Default authType must be basic!")
 	// Test is done.
 	test.done();
 };
@@ -116,7 +116,8 @@ exports['testValidAuthListDigest'] = function (test) {
 	// Checking for valid authList.
 	var options = opt({
 		authRealm : "Some realm",
-		authList : ['karo:seed', 'samvel:beed']			
+		authList : ['karo:seed', 'samvel:beed'],
+		authType : 'digest'			
 	});
 	// Checking not empty.
 	test.notEqual(options.authUsers, null, "authUsers must not be empty!");		

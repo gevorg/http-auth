@@ -18,7 +18,7 @@ $ npm install http-auth
 /**
  * Requesting new authentication instance.
  */
-var digest = auth({
+var basic = auth({
 	authRealm : "Private area.",
 	authList : ['Shi:many222', 'Lota:123456']
 });
@@ -38,7 +38,7 @@ http.createServer(function(req, res) {
 /**
  * Requesting new authentication instance.
  */
-var digest = auth({
+var basic = auth({
 	authRealm : "Private area.",
 	authFile : __dirname + '/users.htpasswd'
 });
@@ -48,7 +48,7 @@ var digest = auth({
  */
 http.createServer(function(req, res) {
 	// Apply authentication to server.
-	digest.apply(req, res, function() {
+	basic.apply(req, res, function() {
 		res.end("Welcome to private area!");
 	});
 }).listen(1337);
@@ -58,7 +58,7 @@ http.createServer(function(req, res) {
 /**
  * Requesting new authentication instance.
  */
-var digest = auth({
+var basic = auth({
 	authRealm : "Private area.",
 	authList : ['Shi:many222', 'Lota:123456']
 });
@@ -66,7 +66,7 @@ var digest = auth({
 /**
  * Handler for path with authentication.
  */
-app.get('/', digest.apply, function(req, res) {
+app.get('/', basic.apply, function(req, res) {
 	res.send("Welcome to private area!");
 });
 ```
@@ -75,7 +75,7 @@ app.get('/', digest.apply, function(req, res) {
  - `authRealm` - Authentication realm.
  - `authFile` - File where user details are stored in format **{user:pass}**.
  - `authList` - List where user details are stored in format **{user:pass}**, ignored if `authFile` is specified.
- - `authType` - Type of authentication, may be **basic** or **digest**, optional, default is **digest**.
+ - `authType` - Type of authentication, may be **basic** or **digest**, optional, default is **basic**.
  - `algorithm` - Algorithm that will be used for authentication, may be **MD5** or **MD5-sess**, optional, default is **MD5**. Only for **digest** `authType`.
 
 ## Running tests

@@ -11,7 +11,7 @@ var express = require('express');
 /**
  * Requesting new authentication instance.
  */
-var digest = auth({
+var basic = auth({
 	authRealm : "Private area.",
 	authList : ['Shi:many222', 'Lota:123456']
 });
@@ -24,7 +24,7 @@ var app = express.createServer();
 /**
  * Handler for path with authentication.
  */
-app.get('/', digest.apply, function(req, res) {
+app.get('/', basic.apply, function(req, res) {
 	res.send("Welcome to private area!");
 });
 
