@@ -86,14 +86,6 @@ It uses [nodeunit](https://github.com/caolan/nodeunit/), so just run following c
 $ nodeunit tests
 ```
 
-## Generate docs
-
-It uses [dox](https://github.com/visionmedia/dox/), run following command in package directory to generate documentation:
-
-```bash
-$ ./gendocs
-```
-
 ## Issues
 
 You can find list of issues using **[this link](http://github.com/gevorg/http-auth/issues)**.
@@ -105,7 +97,6 @@ You can find list of issues using **[this link](http://github.com/gevorg/http-au
 ## Development dependencies
 
  - **[nodeunit](https://github.com/caolan/nodeunit/)** - Easy unit testing in node.js and the browser, based on the assert module.
- - **[dox](https://github.com/visionmedia/dox/)** - Dox is a JavaScript documentation generator written for [node](http://nodejs.org/).
 
 ## License
 

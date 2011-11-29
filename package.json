@@ -28,8 +28,7 @@
 		"node-uuid": "1.2.0"
 	},
 	"devDependencies": {
-		"nodeunit": "0.5.5",
-		"dox": "0.0.5"
+		"nodeunit": "0.5.5"
 	},
 	"engines": {
 		"node": ">=0.4.1"
