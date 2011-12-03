@@ -126,6 +126,7 @@ You can find list of issues using **[this link](http://github.com/gevorg/http-au
 ## Development dependencies
 
  - **[nodeunit](https://github.com/caolan/nodeunit/)** - Easy unit testing in node.js and the browser, based on the assert module.
+ - **[nodemock](https://github.com/arunoda/nodemock/)** - Simple Yet Powerful Mocking Framework for NodeJs.
 
 ## License
 
