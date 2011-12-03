@@ -28,7 +28,7 @@
 		"node-uuid": "1.2.0"
 	},
 	"devDependencies": {
-		"nodeunit": "0.5.5",
+		"nodeunit": "0.6.4",
 		"nodemock": "0.2.16"
 	},
 	"engines": {

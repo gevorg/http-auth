@@ -112,7 +112,7 @@ http.createServer(function(req, res) {
 It uses [nodeunit](https://github.com/caolan/nodeunit/), so just run following command in package directory:
 
 ```bash
-$ nodeunit tests
+$ nodeunit tests/*
 ```
 
 ## Issues
