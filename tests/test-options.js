@@ -33,6 +33,21 @@ exports['testInvalidAuthType'] = function (test) {
 };
 
 /**
+ * Test for default password.
+ */
+exports['testDefaultPassword'] = function (test) {
+	// Checking for default authType.
+	var options = opt({
+		authRealm : "Private area with digest access authentication.",
+		authList : ['aa2sdas:s3sss', 'gi33ra:makaura']			
+	});
+	// Default authType check.
+	test.equals(options.password, 'plaintext', "Default password must be plaintext!")
+	// Test is done.
+	test.done();
+};
+
+/**
  * Test for default authType.
  */
 exports['testDefaultAuthType'] = function (test) {

@@ -23,7 +23,7 @@ var source;
  */
 exports['setUp'] = function(callback) {
 	// Initiates basic instance before each test.
-	source = new Basic("AweSome REALM", ["userhash1", "userhash2"]);
+	source = new Basic("AweSome REALM", ["userhash1", "userhash2"], "plaintext");
 	// GOD knows why I need to call this.
 	callback();
 };

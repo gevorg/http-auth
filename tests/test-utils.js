@@ -4,6 +4,26 @@
 var utils = require('../lib/utils');
 
 /**
+ * Base64 decode test with ASCII.
+ */
+exports['testDecodeBase64ASCII'] = function(test) {
+	// Checking decoded string.
+	test.equal(utils.decodeBase64("c29tZSB0ZXh0"), "some text", 
+		"ASCII string is not decoded correctly!");
+	// Test is done.
+	test.done();
+};
+/**
+ * Base64 decode test with unicode.
+ */
+exports['testDecodeBase64Unicode'] = function(test) {
+	// Checking decoded string.
+	test.equal(utils.decodeBase64("1aHVtdW91brVpdW9"), "այսպես", 
+		"Unicode string is not decoded correctly!");
+	// Test is done.
+	test.done();
+};
+/**
  * Base64 test with ASCII.
  */
 exports['testBase64ASCII'] = function(test) {

@@ -20,7 +20,8 @@ $ npm install http-auth
  */
 var basic = auth({
 	authRealm : "Private area.",
-	authList : ['Shi:many222', 'Lota:123456']
+	authList : ['mia:ec00f63f319ce3720c613cf337780f81'],
+	password : 'encrypted'
 });
 
 /**
@@ -28,7 +29,7 @@ var basic = auth({
  */
 http.createServer(function(req, res) {
 	// Apply authentication to server.
-	digest.apply(req, res, function() {
+	basic.apply(req, res, function() {
 		res.end("Welcome to private area!");
 	});
 }).listen(1337);
@@ -105,6 +106,7 @@ http.createServer(function(req, res) {
  - `authFile` - File where user details are stored in format **{user:pass}**.
  - `authList` - List where user details are stored in format **{user:pass}**, ignored if `authFile` is specified.
  - `authType` - Type of authentication, may be **basic** or **digest**, optional, default is **basic**.
+ - `password` - Password store type, may be **plaintext** or **encrypted**, default is **plaintext**.
  - `algorithm` - Algorithm that will be used for authentication, may be **MD5** or **MD5-sess**, optional, default is **MD5**. Only for **digest** `authType`.
 
 ## Running tests
@@ -122,6 +124,7 @@ You can find list of issues using **[this link](http://github.com/gevorg/http-au
 ## Dependencies
 
  - **[node-uuid](https://github.com/broofa/node-uuid/)** - Generate RFC4122(v4) UUIDs, and also non-RFC compact ids.
+ - **[htpasswd](https://github.com/gevorg/htpasswd/)** - Node.js package for HTTP Basic Authentication password file utility.
 
 ## Development dependencies
 
