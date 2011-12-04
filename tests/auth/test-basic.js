@@ -9,6 +9,11 @@ var Basic = require('../../lib/auth/basic');
 var defaults = require('../../lib/defaults');
 
 /**
+ * Utility module.
+ */
+var utils = require('../../lib/utils');
+
+/**
  * Mock module.
  */
 var nodemock = require("nodemock");
@@ -23,7 +28,7 @@ var source;
  */
 exports['setUp'] = function(callback) {
 	// Initiates basic instance before each test.
-	source = new Basic("AweSome REALM", ["userhash1", "userhash2"], "plaintext");
+	source = new Basic("AweSome REALM", ["user:hash1", "user:hash2"]);
 	// GOD knows why I need to call this.
 	callback();
 };
@@ -61,7 +66,8 @@ exports['testAsk'] = function(test) {
  */
 exports['testIsAuthenticatedTrue'] = function(test) {
 	// Initiates input request.
-	var request = {headers : {authorization : "Basic: userhash1"}};
+	var header = "Basic: " + utils.base64('user:hash1');
+	var request = {headers : {authorization : header}};
 		
 	// Source method call, that must return true.
 	test.ok(source.isAuthenticated(request), "User must be valid!");
@@ -87,7 +93,8 @@ exports['testIsAuthenticatedFalse'] = function(test) {
  */
 exports['testApplyPass'] = function(test) {
 	// Initiates input request.
-	var request = {headers : {authorization : "Basic: userhash1"}};
+	var header = "Basic: " + utils.base64('user:hash1');
+	var request = {headers : {authorization : header}};
 	// Initiates response.
 	var response = {};
 	// Initiates callback.

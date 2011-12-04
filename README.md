@@ -20,8 +20,8 @@ $ npm install http-auth
  */
 var basic = auth({
 	authRealm : "Private area.",
-	authList : ['mia:ec00f63f319ce3720c613cf337780f81'],
-	password : 'encrypted'
+	// username is mia, password is supergirl.
+	authList : ['mia:{SHA}x511ncXd+4fOnYAotcGPFD0peYo=']
 });
 
 /**
@@ -106,7 +106,6 @@ http.createServer(function(req, res) {
  - `authFile` - File where user details are stored in format **{user:pass}**.
  - `authList` - List where user details are stored in format **{user:pass}**, ignored if `authFile` is specified.
  - `authType` - Type of authentication, may be **basic** or **digest**, optional, default is **basic**.
- - `password` - Password store type, may be **plaintext** or **encrypted**, default is **plaintext**.
  - `algorithm` - Algorithm that will be used for authentication, may be **MD5** or **MD5-sess**, optional, default is **MD5**. Only for **digest** `authType`.
 
 ## Running tests

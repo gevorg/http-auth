@@ -33,21 +33,6 @@ exports['testInvalidAuthType'] = function (test) {
 };
 
 /**
- * Test for default password.
- */
-exports['testDefaultPassword'] = function (test) {
-	// Checking for default authType.
-	var options = opt({
-		authRealm : "Private area with digest access authentication.",
-		authList : ['aa2sdas:s3sss', 'gi33ra:makaura']			
-	});
-	// Default authType check.
-	test.equals(options.password, 'plaintext', "Default password must be plaintext!")
-	// Test is done.
-	test.done();
-};
-
-/**
  * Test for default authType.
  */
 exports['testDefaultAuthType'] = function (test) {
@@ -156,8 +141,8 @@ exports['testValidAuthListBasic'] = function (test) {
 	// Checking not empty.
 	test.notEqual(options.authUsers, null, "authUsers must not be empty!");		
 	// Checking for items.
-	test.equals(options.authUsers[0], utils.base64('karo:seed'), "User item is wrong!");
-	test.equals(options.authUsers[1], utils.base64('samvel:beed'), "User item is wrong!");
+	test.equals(options.authUsers[0], 'karo:seed', "User item is wrong!");
+	test.equals(options.authUsers[1], 'samvel:beed', "User item is wrong!");
 	// Test is done.
 	test.done();
 };
@@ -176,10 +161,10 @@ exports['testValidAuthFile'] = function (test) {
 	// Checking not empty.
 	test.notEqual(options.authUsers, null, "authUsers must not be empty!");		
 	// Checking for items.
-	test.equals(options.authUsers[0], utils.base64('Sarah:testpass'), "User item is wrong!");
-	test.equals(options.authUsers[1], utils.base64('John:itismypass'), "User item is wrong!");
-	test.equals(options.authUsers[2], utils.base64('Shanon:noneof'), "User item is wrong!");
-	test.equals(options.authUsers[3], utils.base64('Mike:pass123'), "User item is wrong!");
+	test.equals(options.authUsers[0], 'Sarah:testpass', "User item is wrong!");
+	test.equals(options.authUsers[1], 'John:itismypass', "User item is wrong!");
+	test.equals(options.authUsers[2], 'Shanon:noneof', "User item is wrong!");
+	test.equals(options.authUsers[3], 'Mike:pass123', "User item is wrong!");
 	// Test is done.
 	test.done();
 };
