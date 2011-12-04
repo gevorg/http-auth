@@ -28,7 +28,8 @@ defaults.NONCE_EXPIRE_TIMEOUT = 0;
  */
 exports['setUp'] = function(callback) {
 	// Initiates basic instance before each test.
-	source = new Digest("AweSome REALM", {"mia" : "mia:Private area.:supergirl"}, 'MD5');
+	source = new Digest("AweSome REALM", {"mia" : 
+		"mia:Private area.:3a556dc7260e8e7f032d247fb668b06b"}, 'MD5');
 	// GOD knows why I need to call this.
 	callback();
 };

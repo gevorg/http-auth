@@ -116,14 +116,17 @@ exports['testValidAuthListDigest'] = function (test) {
 	// Checking for valid authList.
 	var options = opt({
 		authRealm : "Some realm",
-		authList : ['karo:seed', 'samvel:beed'],
+		authList : ['samvel:Some realm:a14d1baeb46dd3f44d177cd28331f921', 
+					'karo:Some realm:24b0b93d4e91583f77ee6da31ebeebc8'],
 		authType : 'digest'			
 	});
 	// Checking not empty.
 	test.notEqual(options.authUsers, null, "authUsers must not be empty!");		
 	// Checking for items.
-	test.equals(options.authUsers['karo'], 'karo:Some realm:seed', "User item is wrong!");
-	test.equals(options.authUsers['samvel'], 'samvel:Some realm:beed', "User item is wrong!");
+	test.equals(options.authUsers['karo'], 'karo:Some realm:24b0b93d4e91583f77ee6da31ebeebc8', 
+		"User item is wrong!");
+	test.equals(options.authUsers['samvel'], 'samvel:Some realm:a14d1baeb46dd3f44d177cd28331f921', 
+		"User item is wrong!");
 	// Test is done.
 	test.done();
 };
