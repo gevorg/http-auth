@@ -13,7 +13,7 @@ var http = require('http');
  */
 var basic = auth({
 	authRealm : "Private area.",
-	authList : ['mia:supergirl']
+	authList : ['mia:{SHA}x511ncXd+4fOnYAotcGPFD0peYo=']
 });
 
 /**
