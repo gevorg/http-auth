@@ -103,8 +103,8 @@ http.createServer(function(req, res) {
 ## Configurations
 
  - `authRealm` - Authentication realm.
- - `authFile` - File where user details are stored in format **{user:pass}**.
- - `authList` - List where user details are stored in format **{user:pass}**, ignored if `authFile` is specified.
+ - `authFile` - File where user details are stored in format **{user:pass}** or **{user:passHash}** for basic access and **{user:realm:passHash}** for digest access.
+ - `authList` - List where user details are stored in format **{user:pass}** or **{user:passHash}** for basic access and **{user:realm:passHash}** for digest access, ignored if `authFile` is specified.
  - `authType` - Type of authentication, may be **basic** or **digest**, optional, default is **basic**.
  - `algorithm` - Algorithm that will be used for authentication, may be **MD5** or **MD5-sess**, optional, default is **MD5**. Only for **digest** `authType`.
 
@@ -124,6 +124,7 @@ You can find list of issues using **[this link](http://github.com/gevorg/http-au
 
  - **[node-uuid](https://github.com/broofa/node-uuid/)** - Generate RFC4122(v4) UUIDs, and also non-RFC compact ids.
  - **[htpasswd](https://github.com/gevorg/htpasswd/)** - Node.js package for HTTP Basic Authentication password file utility.
+ - **[htdigest](https://github.com/gevorg/htdigest/)** - Node.js package for HTTP Digest Authentication password file utility.
 
 ## Development dependencies
 

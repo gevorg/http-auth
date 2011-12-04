@@ -13,6 +13,7 @@ var http = require('http');
  */
 var basic = auth({
 	authRealm : "Private area.",
+	// username is mia, password is supergirl.
 	authList : ['mia:{SHA}x511ncXd+4fOnYAotcGPFD0peYo=']
 });
 
