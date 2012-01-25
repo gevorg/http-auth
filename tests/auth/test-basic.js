@@ -89,6 +89,21 @@ exports['testIsAuthenticatedFalse'] = function(test) {
 	test.done();
 };
 /**
+ * Test for isAuthenticated, false case, where the password
+ * is valid but the username is not.
+ */
+exports['testIsAuthenticatedFalseSamePassword'] = function(test) {
+	// Initiates input request.
+	var header = "Basic: " + utils.base64('user_DOES_NOT_EXIST:hash1');
+	var request = {headers : {authorization : header}};
+
+	// Source method call, that must return false.
+	test.ok(!source.isAuthenticated(request), "User must not be valid!");
+
+	// Test is done.
+	test.done();
+};
+/**
  * Test for apply, pass case.
  */
 exports['testApplyPass'] = function(test) {
