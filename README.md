@@ -29,8 +29,8 @@ var basic = auth({
  */
 http.createServer(function(req, res) {
 	// Apply authentication to server.
-	basic.apply(req, res, function() {
-		res.end("Welcome to private area!");
+	basic.apply(req, res, function(username) {
+		res.end("Welcome to private area - " + username + "!");
 	});
 }).listen(1337);
 ```
@@ -67,8 +67,10 @@ var basic = auth({
 /**
  * Handler for path with authentication.
  */
-app.get('/', basic.apply, function(req, res) {
-	res.send("Welcome to private area!");
+app.get('/', function(req, res) {
+    basic.apply(req, res, function(username) {
+        res.send("Welcome to private area - " + username + "!");
+    });
 });
 ```
 ## Example with [http-proxy](https://github.com/nodejitsu/node-http-proxy/) integration

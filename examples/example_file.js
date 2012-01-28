@@ -21,8 +21,8 @@ var basic = auth({
  */
 http.createServer(function(req, res) {
 	// Apply authentication to server.
-	basic.apply(req, res, function() {
-		res.end("Welcome to private area!");
+	basic.apply(req, res, function(username) {
+		res.end("Welcome to private area - " + username + "!");
 	});
 }).listen(1337);
 

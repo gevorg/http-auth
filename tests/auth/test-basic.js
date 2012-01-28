@@ -69,8 +69,8 @@ exports['testIsAuthenticatedTrue'] = function(test) {
 	var header = "Basic: " + utils.base64('user:hash1');
 	var request = {headers : {authorization : header}};
 		
-	// Source method call, that must return true.
-	test.ok(source.isAuthenticated(request), "User must be valid!");
+	// Source method call, that must return username.
+	test.equals(source.isAuthenticated(request), "user", "User must be valid!");
 	
 	// Test is done.
 	test.done();
