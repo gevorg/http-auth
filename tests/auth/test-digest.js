@@ -124,23 +124,42 @@ exports['testIsAuthenticatedTrue'] = function(test) {
 	test.done();
 };
 /**
+ * Test for isAuthenticated, false header case.
+ */
+exports['testIsAuthenticatedFalseHeader'] = function(test) {
+    // Header.
+    var header = 'Digest username="mia", realm="Private area.", ' +
+        'nonce="2675ef554c8c872e80b946657e2e36a9", uri="/", algorithm=MD5, ' +
+        'response="51045d0e1925225054e2435599ad67f3", qop=auth, nc=00000001, ' +
+        'cnonce="68f1a150020e0928"';
+
+    // Initiates input request.
+    var request = {headers : {authorizationWrong : header}};
+
+    // Source method call, that must return false.
+    test.ok(!source.isAuthenticated(request), "User must be invalid!");
+
+    // Test is done.
+    test.done();
+};
+/**
  * Test for isAuthenticated, false nc case.
  */
 exports['testIsAuthenticatedFalseNC'] = function(test) {
-	// Header.
-	var header = 'Digest username="mia", realm="Private area.", ' + 
-		'nonce="2675ef554c8c872e80b946657e2e36a9", uri="/", algorithm=MD5, ' + 
-		'response="51045d0e1925225054e2435599ad67f3", qop=auth, nc=00000001, ' +
-		'cnonce="68f1a150020e0928"';
+    // Header.
+    var header = 'Digest username="mia", realm="Private area.", ' +
+        'nonce="2675ef554c8c872e80b946657e2e36a9", uri="/", algorithm=MD5, ' +
+        'response="51045d0e1925225054e2435599ad67f3", qop=auth, nc=00000001, ' +
+        'cnonce="68f1a150020e0928"';
 
-	// Initiates input request.
-	var request = {headers : {authorization : header}};
-		
-	// Source method call, that must return false.
-	test.ok(!source.isAuthenticated(request), "User must be invalid!");
-	
-	// Test is done.
-	test.done();
+    // Initiates input request.
+    var request = {headers : {authorization : header}};
+
+    // Source method call, that must return 'stale'.
+    test.equals(source.isAuthenticated(request), "stale", "User must be invalid!");
+
+    // Test is done.
+    test.done();
 };
 /**
  * Test for isAuthenticated, false response case.
