@@ -156,7 +156,7 @@ exports['testIsAuthenticatedFalseNC'] = function(test) {
     var request = {headers : {authorization : header}};
 
     // Source method call, that must return 'stale'.
-    test.equals(source.isAuthenticated(request), "stale", "User must be invalid!");
+    test.equals(source.isAuthenticated(request), source.STALE, "User must be invalid!");
 
     // Test is done.
     test.done();
