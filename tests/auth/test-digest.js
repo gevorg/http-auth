@@ -111,7 +111,7 @@ exports['testIsAuthenticatedTrue'] = function(test) {
 	// Header.
 	var header = 'Digest username="mia", realm="Private area.", ' + 
 		'nonce="2675ef554c8c872e80b946657e2e36a9", uri="/", algorithm=MD5, ' + 
-		'response="51045d0e1925225054e2435599ad67f3", qop=auth, nc=00000001, ' +
+		'response="96f7ba7d6319d0246b28e2db307b5eaa", qop=auth, nc=00000001, ' +
 		'cnonce="68f1a150020e0928"';
 
 	// Initiates input request.
@@ -191,7 +191,7 @@ exports['testApplyPass'] = function(test) {
 	// Header.
 	var header = 'Digest username="mia", realm="Private area.", ' + 
 		'nonce="2675ef554c8c872e80b946657e2e36a9", uri="/", algorithm=MD5, ' + 
-		'response="51045d0e1925225054e2435599ad67f3", qop=auth, nc=00000001, ' +
+		'response="96f7ba7d6319d0246b28e2db307b5eaa", qop=auth, nc=00000001, ' +
 		'cnonce="68f1a150020e0928"';
 
 	// Initiates input request.
