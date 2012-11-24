@@ -102,6 +102,29 @@ exports['testParseAuthHeader'] = function(test) {
 	// Test is done.
 	test.done();	
 };
+
+/**
+ * Test for isAuthenticated, with empty cnonce.
+ */
+exports['testIsAuthenticatedEmptyCnonce'] = function(test) {
+	source.nonces["2675ef554c8c872e80b946657e2e36a9"] = 0;
+	
+	// Header.
+	var header = 'Digest username="mia", realm="Private area.", ' + 
+		'nonce="2675ef554c8c872e80b946657e2e36a9", uri="/", algorithm=MD5, ' + 
+		'response="ad1e6d4a5c1892b8cd153f89b93b8aa9", qop=auth, nc=00000001, ' +
+		'cnonce=""';
+
+	// Initiates input request.
+	var request = {headers : {authorization : header}};
+		
+	// Source method call, that must return username.
+	test.equals(source.isAuthenticated(request), "mia", "User must be valid!");
+	
+	// Test is done.
+	test.done();
+};
+
 /**
  * Test for isAuthenticated, true case.
  */
@@ -123,6 +146,7 @@ exports['testIsAuthenticatedTrue'] = function(test) {
 	// Test is done.
 	test.done();
 };
+
 /**
  * Test for isAuthenticated, false header case.
  */
