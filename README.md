@@ -122,6 +122,11 @@ $ npm test
 
 You can find list of issues using **[this link](http://github.com/gevorg/http-auth/issues)**.
 
+## Requirements
+
+ - **[Node.js](http://nodejs.org)** - Event-driven I/O server-side JavaScript environment based on V8.
+ - **[npm](http://npmjs.org)** - Package manager. Installs, publishes and manages node programs.
+
 ## Dependencies
 
  - **[node-uuid](https://github.com/broofa/node-uuid/)** - Generate RFC4122(v4) UUIDs, and also non-RFC compact ids.
