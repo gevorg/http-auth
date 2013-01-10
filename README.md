@@ -107,6 +107,7 @@ http.createServer(function(req, res) {
 ## Configurations
 
  - `authRealm` - Authentication realm.
+ - `authHelper` - Function that allows to override standard authentication method by providing custom user loading mechanism. Works only with digest authentication.
  - `authFile` - File where user details are stored in format **{user:pass}** or **{user:passHash}** for basic access and **{user:realm:passHash}** for digest access.
  - `authList` - List where user details are stored in format **{user:pass}** or **{user:passHash}** for basic access and **{user:realm:passHash}** for digest access, ignored if `authFile` is specified.
  - `authType` - Type of authentication, may be **basic** or **digest**, optional, default is **basic**.
@@ -144,7 +145,7 @@ You can find list of issues using **[this link](http://github.com/gevorg/http-au
 
 (The MIT License)
 
-Copyright (c) 2012 Gevorg Harutyunyan <gevorg.ha@gmail.com>
+Copyright (c) 2013 Gevorg Harutyunyan <gevorg.ha@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the **Software**), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
