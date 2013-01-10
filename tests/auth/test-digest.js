@@ -118,11 +118,12 @@ exports['testIsAuthenticatedEmptyCnonce'] = function(test) {
 	// Initiates input request.
 	var request = {headers : {authorization : header}};
 		
-	// Source method call, that must return username.
-	test.equals(source.isAuthenticated(request), "mia", "User must be valid!");
-	
-	// Test is done.
-	test.done();
+
+   // Source method call, that must return username.
+   source.isAuthenticated(request, function(authenticated) {
+      test.equals(authenticated, "mia", "User must be valid!");
+      test.done();
+   });
 };
 
 /**
@@ -139,12 +140,12 @@ exports['testIsAuthenticatedTrue'] = function(test) {
 
 	// Initiates input request.
 	var request = {headers : {authorization : header}};
-		
-	// Source method call, that must return username.
-	test.equals(source.isAuthenticated(request), "mia", "User must be valid!");
 	
-	// Test is done.
-	test.done();
+	// Source method call, that must return username.
+	source.isAuthenticated(request, function(authenticated) {
+      test.equals(authenticated, "mia", "User must be valid!");
+      test.done();
+   });
 };
 
 /**
@@ -160,11 +161,13 @@ exports['testIsAuthenticatedFalseHeader'] = function(test) {
     // Initiates input request.
     var request = {headers : {authorizationWrong : header}};
 
+    
     // Source method call, that must return false.
-    test.ok(!source.isAuthenticated(request), "User must be invalid!");
+    source.isAuthenticated(request, function(authenticated) {
+      test.ok(!authenticated, "User must be invalid!");
+      test.done();   
+    });
 
-    // Test is done.
-    test.done();
 };
 /**
  * Test for isAuthenticated, false nc case.
@@ -178,12 +181,12 @@ exports['testIsAuthenticatedFalseNC'] = function(test) {
 
     // Initiates input request.
     var request = {headers : {authorization : header}};
-
+   
     // Source method call, that must return 'stale'.
-    test.equals(source.isAuthenticated(request), source.STALE, "User must be invalid!");
-
-    // Test is done.
-    test.done();
+    source.isAuthenticated(request, function(authenticated) {
+      test.equals(authenticated, source.STALE, "User must be invalid!");
+      test.done();     
+    });
 };
 /**
  * Test for isAuthenticated, false response case.
@@ -201,10 +204,10 @@ exports['testIsAuthenticatedFalseRes'] = function(test) {
 	var request = {headers : {authorization : header}};
 		
 	// Source method call, that must return false.
-	test.ok(!source.isAuthenticated(request), "User must be invalid!");
-	
-	// Test is done.
-	test.done();
+	source.isAuthenticated(request, function(authenticated) {
+      test.ok(!authenticated, "User must be invalid!");
+      test.done();
+   });
 };
 /**
  * Test for apply, pass case.
@@ -255,7 +258,7 @@ exports['testApplyAuth'] = function(test) {
 	response.mock("end").takes(defaults.HTML_401);
 	
 	// Source method call.
-	source.apply(request, response, function() {
+	source.apply(request, response, function(user) {
 		test.ok(false, "Callback should not be called!");
 	});
 	
