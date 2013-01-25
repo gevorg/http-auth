@@ -82,7 +82,8 @@ app.get('/', function(req, res) {
  */
 var basic = auth({
 	authRealm : "Private area.",
-	authList : ['mia:supergirl', 'Carlos:test456', 'Sam:oho']
+	authList : ['mia:supergirl', 'Carlos:test456', 'Sam:oho'],
+   proxy : true
 });
 
 /**
@@ -112,7 +113,7 @@ http.createServer(function(req, res) {
  - `authList` - List where user details are stored in format **{user:pass}** or **{user:passHash}** for basic access and **{user:realm:passHash}** for digest access, ignored if `authFile` is specified.
  - `authType` - Type of authentication, may be **basic** or **digest**, optional, default is **basic**.
  - `algorithm` - Algorithm that will be used for authentication, may be **MD5** or **MD5-sess**, optional, default is **MD5**. Only for **digest** `authType`.
-
+ - `proxy` - Identifies if authentication is done for proxy or not, optional, default is **false**.
 ## Running tests
 
 It uses [nodeunit](https://github.com/caolan/nodeunit/), so just run following command in package directory:

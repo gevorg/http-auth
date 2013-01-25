@@ -19,7 +19,8 @@ var httpProxy = require('http-proxy');
  */
 var basic = auth({
 	authRealm : "Private area.",
-	authList : ['mia:supergirl', 'Carlos:test456', 'Sam:oho']
+	authList : ['mia:supergirl', 'Carlos:test456', 'Sam:oho'],
+   proxy : true
 });
 
 /**
