@@ -11,17 +11,17 @@ var http = require('http');
 /**
  * Requesting new authentication instance.
  */
-var digest = auth({
+var basic = auth({
 	authRealm : "Private area.",
 	// username is mia, password is supergirl.
 	authHelper : function(user, callback) {
       if ( user === 'mia' ) {
-         callback('mia:Private area.:3a556dc7260e8e7f032d247fb668b06b');
+         callback('{SHA}x511ncXd+4fOnYAotcGPFD0peYo=');
       } else {
          callback();
       }
    },
-   authType : 'digest'
+   authType : 'basic'
 });
 
 /**
@@ -29,7 +29,7 @@ var digest = auth({
  */
 http.createServer(function(req, res) {
 	// Apply authentication to server.
-	digest.apply(req, res, function(username) {
+	basic.apply(req, res, function(username) {
 		res.end("Welcome to private area - " + username + "!");
 	});
 }).listen(1337);

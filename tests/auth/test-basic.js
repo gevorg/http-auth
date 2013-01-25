@@ -70,10 +70,10 @@ exports['testIsAuthenticatedTrue'] = function(test) {
 	var request = {headers : {authorization : header}};
 		
 	// Source method call, that must return username.
-	test.equals(source.isAuthenticated(request), "user", "User must be valid!");
-	
-	// Test is done.
-	test.done();
+   source.isAuthenticated(request, function(authenticated) {
+      test.equals(authenticated, "user", "User must be valid!");
+      test.done();
+   });
 };
 /**
  * Test for isAuthenticated, false case.
@@ -83,10 +83,10 @@ exports['testIsAuthenticatedFalse'] = function(test) {
 	var request = {headers : {authorization : "Basic: userhash4"}};
 		
 	// Source method call, that must return false.
-	test.ok(!source.isAuthenticated(request), "User must not be valid!");
-	
-	// Test is done.
-	test.done();
+	source.isAuthenticated(request, function(authenticated) {
+      test.ok(!authenticated, "User must not be valid!");
+      test.done();
+   });
 };
 /**
  * Test for isAuthenticated, false case, where the password
@@ -98,10 +98,10 @@ exports['testIsAuthenticatedFalseSamePassword'] = function(test) {
 	var request = {headers : {authorization : header}};
 
 	// Source method call, that must return false.
-	test.ok(!source.isAuthenticated(request), "User must not be valid!");
-
-	// Test is done.
-	test.done();
+	source.isAuthenticated(request, function(authenticated) {
+      test.ok(!authenticated, "User must not be valid!");
+      test.done();
+   });
 };
 /**
  * Test for apply, pass case.

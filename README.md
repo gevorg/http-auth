@@ -107,7 +107,7 @@ http.createServer(function(req, res) {
 ## Configurations
 
  - `authRealm` - Authentication realm.
- - `authHelper` - Function that allows to override standard authentication method by providing custom user loading mechanism. Works only with digest authentication.
+ - `authHelper` - Function that allows to override standard authentication method by providing custom user loading mechanism.
  - `authFile` - File where user details are stored in format **{user:pass}** or **{user:passHash}** for basic access and **{user:realm:passHash}** for digest access.
  - `authList` - List where user details are stored in format **{user:pass}** or **{user:passHash}** for basic access and **{user:realm:passHash}** for digest access, ignored if `authFile` is specified.
  - `authType` - Type of authentication, may be **basic** or **digest**, optional, default is **basic**.
