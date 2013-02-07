@@ -20,6 +20,7 @@ $ npm install http-auth
 /**
  * Requesting new authentication instance.
  */
+var auth = require('http-auth')
 var basic = auth({
 	authRealm : "Private area.",
 	// username is mia, password is supergirl.
@@ -32,6 +33,7 @@ var basic = auth({
 http.createServer(function(req, res) {
 	// Apply authentication to server.
 	basic.apply(req, res, function(username) {
+	    // Your request handling logic goes there
 		res.end("Welcome to private area - " + username + "!");
 	});
 }).listen(1337);
@@ -41,6 +43,7 @@ http.createServer(function(req, res) {
 /**
  * Requesting new authentication instance.
  */
+var auth = require('http-auth')
 var basic = auth({
 	authRealm : "Private area.",
 	authFile : __dirname + '/users.htpasswd'
@@ -52,6 +55,7 @@ var basic = auth({
 http.createServer(function(req, res) {
 	// Apply authentication to server.
 	basic.apply(req, res, function(username) {
+	    // Your request handling logic goes there
 		res.end("Welcome to private area, " + username + "!");
 	});
 }).listen(1337);
@@ -61,6 +65,7 @@ http.createServer(function(req, res) {
 /**
  * Requesting new authentication instance.
  */
+var auth = require('http-auth')
 var basic = auth({
 	authRealm : "Private area.",
 	authList : ['Shi:many222', 'Lota:123456']
@@ -71,6 +76,7 @@ var basic = auth({
  */
 app.get('/', function(req, res) {
     basic.apply(req, res, function(username) {
+        // Your request handling logic goes there
         res.send("Welcome to private area - " + username + "!");
     });
 });
@@ -80,6 +86,7 @@ app.get('/', function(req, res) {
 /**
  * Requesting new authentication instance.
  */
+var auth = require('http-auth')
 var basic = auth({
 	authRealm : "Private area.",
 	authList : ['mia:supergirl', 'Carlos:test456', 'Sam:oho'],
@@ -102,7 +109,8 @@ httpProxy.createServer(function(req, res, proxy) {
  * Destination server.
  */
 http.createServer(function(req, res) {
-	res.end('request successfully proxied!');
+    // Your request handling logic goes there	
+    res.end('request successfully proxied!');
 }).listen(9000);
 ```
 ## Configurations
