@@ -2,6 +2,7 @@
 [Node.js](http://nodejs.org/) package for HTTP basic and digest access authentication.
 
 [![Build Status](https://api.travis-ci.org/gevorg/http-auth.png)](https://travis-ci.org/gevorg/http-auth)
+[![Dependency Status](https://david-dm.org/gevorg/http-auth.png)](https://david-dm.org/gevorg/http-auth)
 
 ## Installation
 
