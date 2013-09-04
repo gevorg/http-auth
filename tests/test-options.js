@@ -4,11 +4,6 @@
 var opt = require('../lib/options');
 
 /**
- * Utils module.
- */
-var utils = require('../lib/utils');
-
-/**
  * Test for empty options.
  */
 exports['testEmptyOptions'] = function (test) {
@@ -42,7 +37,7 @@ exports['testDefaultAuthType'] = function (test) {
 		authList : ['aa2sdas:s3sss', 'gi33ra:makaura']			
 	});
 	// Default authType check.
-	test.equals(options.authType, 'basic', "Default authType must be basic!")
+	test.equals(options.authType, 'basic', "Default authType must be basic!");
 	// Test is done.
 	test.done();
 };
@@ -74,7 +69,7 @@ exports['testDefaultAlgo'] = function (test) {
 		authList : ['aa2sdasa:s3s2ss', 'gi3q3ra:mwakaura']			
 	});
 	// Default algorithm check.
-	test.equals(options.algorithm, 'MD5', "Default algorithm must be MD5!")
+	test.equals(options.algorithm, 'MD5', "Default algorithm must be MD5!");
 	// Test is done.
 	test.done();
 };

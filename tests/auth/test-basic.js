@@ -1,3 +1,6 @@
+// We use CoffeeScript.
+require('coffee-script');
+
 /**
  * Basic authentication module.
  */
