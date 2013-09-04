@@ -141,16 +141,21 @@ You can find list of issues using **[this link](http://github.com/gevorg/http-au
  - **[Node.js](http://nodejs.org)** - Event-driven I/O server-side JavaScript environment based on V8.
  - **[npm](http://npmjs.org)** - Package manager. Installs, publishes and manages node programs.
 
+## Utilities
+
+ - **[htpasswd](https://github.com/gevorg/htpasswd/)** - Node.js package for HTTP Basic Authentication password file utility.
+ - **[htdigest](https://github.com/gevorg/htdigest/)** - Node.js package for HTTP Digest Authentication password file utility.
+
 ## Dependencies
 
  - **[node-uuid](https://github.com/broofa/node-uuid/)** - Generate RFC4122(v4) UUIDs, and also non-RFC compact ids.
- - **[htpasswd](https://github.com/gevorg/htpasswd/)** - Node.js package for HTTP Basic Authentication password file utility.
- - **[htdigest](https://github.com/gevorg/htdigest/)** - Node.js package for HTTP Digest Authentication password file utility.
 
 ## Development dependencies
 
  - **[nodeunit](https://github.com/caolan/nodeunit/)** - Easy unit testing in node.js and the browser, based on the assert module.
  - **[nodemock](https://github.com/arunoda/nodemock/)** - Simple Yet Powerful Mocking Framework for NodeJs.
+ - **[express](http://expressjs.com/)** - Sinatra inspired web development framework for node.js -- insanely fast, flexible, and simple.
+ - **[http-proxy](https://github.com/nodejitsu/node-http-proxy/)** - A full-featured http proxy for node.js.
 
 ## License
 
