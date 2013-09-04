@@ -148,6 +148,7 @@ You can find list of issues using **[this link](http://github.com/gevorg/http-au
 
 ## Dependencies
 
+ - **[coffee-script](http://coffeescript.org/)** - CoffeeScript is a little language that compiles into JavaScript.
  - **[node-uuid](https://github.com/broofa/node-uuid/)** - Generate RFC4122(v4) UUIDs, and also non-RFC compact ids.
 
 ## Development dependencies
