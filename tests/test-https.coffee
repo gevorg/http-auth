@@ -25,7 +25,7 @@ module.exports =
       cert: fs.readFileSync(__dirname + "/../data/cert.pem")
     }
 
-    # Creating new HTTP server.
+    # Creating new HTTPS server.
     @server = https.createServer basic, options, (req, res) ->
       res.end "Welcome to private area - #{req.user}!"    
     # Start server.
