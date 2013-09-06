@@ -1,5 +1,5 @@
 # Importing module.
-utils = require '../lib/utils'
+utils = require '../lib/auth/utils'
 
 module.exports = 
   

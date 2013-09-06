@@ -16,113 +16,81 @@ Via [npm](http://npmjs.org/):
 ```bash
 $ npm install http-auth
 ```	
-## Example of usage
+
+## Basic example
 ```javascript
 /**
  * Requesting new authentication instance.
  */
-var auth = require('http-auth')
-var basic = auth({
-	authRealm : "Private area.",
-	// username is mia, password is supergirl.
-	authList : ['mia:{SHA}x511ncXd+4fOnYAotcGPFD0peYo=']
+// Authentication module.
+var auth = require('http-auth');
+var basic = auth.basic({
+	realm: "Simon Area.",
+	file: __dirname + "/../data/users.htpasswd" // gevorg:gpass, Sarah:testpass ...
 });
 
-/**
- * Creating new HTTP server.
- */
-http.createServer(function(req, res) {
-	// Apply authentication to server.
-	basic.apply(req, res, function(username) {
-	    // Your request handling logic goes there
-		res.end("Welcome to private area - " + username + "!");
-	});
+// Creating new HTTP server.
+http.createServer(basic, function(req, res) {
+	res.end("Welcome to private area - " + req.user + "!");
 }).listen(1337);
-```
-## Example of loading list of users from file
-```javascript	
-/**
- * Requesting new authentication instance.
- */
-var auth = require('http-auth')
-var basic = auth({
-	authRealm : "Private area.",
-	authFile : __dirname + '/users.htpasswd'
-});
 
-/**
- * Creating new HTTP server.
- */
-http.createServer(function(req, res) {
-	// Apply authentication to server.
-	basic.apply(req, res, function(username) {
-	    // Your request handling logic goes there
-		res.end("Welcome to private area, " + username + "!");
-	});
+```
+## Custom authentication function
+```javascript	
+// Authentication module.
+var auth = require('http-auth');
+var basic = auth.basic({
+		realm: "Simon Area."
+	}, function (username, password, callback) { // Custom authentication method.
+		callback(username === "Tina" && password === "Bullock");
+	}
+);
+
+// Creating new HTTP server.
+http.createServer(basic, function(req, res) {
+	res.end("Welcome to private area - " + req.user + "!");
 }).listen(1337);
 ```	
-## Example with [express framework](http://expressjs.com/) integration
+## [express framework](http://expressjs.com/) integration
 ```javascript
-/**
- * Requesting new authentication instance.
- */
-var auth = require('http-auth')
-var basic = auth({
-	authRealm : "Private area.",
-	authList : ['Shi:many222', 'Lota:123456']
+// Authentication module.
+var auth = require('http-auth');
+var basic = auth.basic({
+	realm: "Simon Area.",
+	file: __dirname + "/../data/users.htpasswd" // gevorg:gpass, Sarah:testpass ...
 });
 
-/**
- * Handler for path with authentication.
- */
-app.get('/', function(req, res) {
-    basic.apply(req, res, function(username) {
-        // Your request handling logic goes there
-        res.send("Welcome to private area - " + username + "!");
-    });
+// Application setup.
+var app = express();
+app.use(auth.connect(basic));
+
+// Setup route.
+app.get('/', function(req, res){
+  res.send("Hello from express - " + req.user + "!");
 });
 ```
-## Example with [http-proxy](https://github.com/nodejitsu/node-http-proxy/) integration
+## [http-proxy](https://github.com/nodejitsu/node-http-proxy/) integration
 ```javascript
-/**
- * Requesting new authentication instance.
- */
-var auth = require('http-auth')
-var basic = auth({
-	authRealm : "Private area.",
-	authList : ['mia:supergirl', 'Carlos:test456', 'Sam:oho'],
-   proxy : true
+// Authentication module.
+var auth = require('http-auth');
+var basic = auth.basic({
+	realm: "Simon Area.",
+	file: __dirname + "/../data/users.htpasswd" // gevorg:gpass, Sarah:testpass ...
 });
 
-/**
- * Create a proxy server with custom application logic.
- */
-httpProxy.createServer(function(req, res, proxy) {
-	basic.apply(req, res, function() {
-		proxy.proxyRequest(req, res, {
-			host : 'localhost',
-			port : 9000
-		});
-	});
-}).listen(8000);
+// Create your proxy server.
+httpProxy.createServer(basic, 1338, "127.0.0.1").listen(1337);
 
-/**
- * Destination server.
- */
-http.createServer(function(req, res) {
-    // Your request handling logic goes there	
-    res.end('request successfully proxied!');
-}).listen(9000);
+// Create your target server.
+http.createServer(function (req, res) {
+	res.end("Request successfully proxied!");
+}).listen(1338);
 ```
 ## Configurations
 
- - `authRealm` - Authentication realm.
- - `authHelper` - Function that allows to override standard authentication method by providing custom user loading mechanism.
- - `authFile` - File where user details are stored in format **{user:pass}** or **{user:passHash}** for basic access and **{user:realm:passHash}** for digest access.
- - `authList` - List where user details are stored in format **{user:pass}** or **{user:passHash}** for basic access and **{user:realm:passHash}** for digest access, ignored if `authFile` is specified.
- - `authType` - Type of authentication, may be **basic** or **digest**, optional, default is **basic**.
- - `algorithm` - Algorithm that will be used for authentication, may be **MD5** or **MD5-sess**, optional, default is **MD5**. Only for **digest** `authType`.
- - `proxy` - Identifies if authentication is done for proxy or not, optional, default is **false**.
+ - `realm` - Authentication realm.
+ - `file` - File where user details are stored in format **{user:pass}** or **{user:passHash}** for basic access and **{user:realm:passHash}** for digest access.
+ - `algorithm` - Algorithm that will be used for authentication, may be **MD5** or **MD5-sess**, optional, default is **MD5**. Only for **digest** access.
 
 ## Running tests
 
@@ -154,7 +122,6 @@ You can find list of issues using **[this link](http://github.com/gevorg/http-au
 ## Development dependencies
 
  - **[nodeunit](https://github.com/caolan/nodeunit/)** - Easy unit testing in node.js and the browser, based on the assert module.
- - **[nodemock](https://github.com/arunoda/nodemock/)** - Simple Yet Powerful Mocking Framework for NodeJs.
  - **[express](http://expressjs.com/)** - Sinatra inspired web development framework for node.js -- insanely fast, flexible, and simple.
  - **[http-proxy](https://github.com/nodejitsu/node-http-proxy/)** - A full-featured http proxy for node.js.
 
