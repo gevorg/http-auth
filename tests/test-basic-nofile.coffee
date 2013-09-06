@@ -12,9 +12,10 @@ module.exports =
   # Before each test.
   setUp: (callback) ->
     basic = auth.basic { # Configure authentication.
-      realm: "Private Area.",
-      file: __dirname + "/../data/users.htpasswd"
-    }
+        realm: "Private Area."
+      }, 
+      (username, password, callback) =>
+        callback.apply this, [username is "mia" and password is "supergirl"]
 
     # Creating new HTTP server.
     @server = http.createServer basic, (req, res) ->
@@ -27,25 +28,17 @@ module.exports =
   tearDown: (callback) ->
     @server.close() # Stop server.    
     callback()
+
   
-  # Correct encrypted details.
+  # Correct details.
   testSuccess: (test) ->
     callback = (error, response, body) -> # Callback.
-      test.equals body, "Welcome to private area - gevorg!"
+      test.equals body, "Welcome to private area - mia!"
       test.done()
       
     # Test request.    
-    (request.get 'http://127.0.0.1:1337', callback).auth 'gevorg', 'gpass'
-  
-  # Correct plain details.
-  testSuccessPlain: (test) ->
-    callback = (error, response, body) -> # Callback.
-      test.equals body, "Welcome to private area - Sarah!"
-      test.done()
+    (request.get 'http://127.0.0.1:1337', callback).auth 'mia', 'supergirl'
       
-    # Test request.    
-    (request.get 'http://127.0.0.1:1337', callback).auth 'Sarah', 'testpass'
-    
   # Wrong password.
   testWrongPassword: (test) ->
     callback = (error, response, body) -> # Callback.
@@ -53,7 +46,7 @@ module.exports =
       test.done()
       
     # Test request.    
-    (request.get 'http://127.0.0.1:1337', callback).auth 'gevorg', 'duck'
+    (request.get 'http://127.0.0.1:1337', callback).auth 'mia', 'cute'
     
   # Wrong user.
   testWrongUser: (test) ->
@@ -62,4 +55,4 @@ module.exports =
       test.done()
       
     # Test request.    
-    (request.get 'http://127.0.0.1:1337', callback).auth 'solomon', 'gpass'
+    (request.get 'http://127.0.0.1:1337', callback).auth 'Tina', 'supergirl'
