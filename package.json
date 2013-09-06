@@ -31,7 +31,8 @@
 	"devDependencies": {
 		"nodeunit": "0.8.1",
 		"express": "3.3.8",
-		"http-proxy": "0.10.3"
+		"http-proxy": "0.10.3",
+		"request": "2.27.0"
 	},
 	"engines": {
 		"node": ">=0.4.1"

@@ -124,6 +124,7 @@ You can find list of issues using **[this link](http://github.com/gevorg/http-au
  - **[nodeunit](https://github.com/caolan/nodeunit/)** - Easy unit testing in node.js and the browser, based on the assert module.
  - **[express](http://expressjs.com/)** - Sinatra inspired web development framework for node.js -- insanely fast, flexible, and simple.
  - **[http-proxy](https://github.com/nodejitsu/node-http-proxy/)** - A full-featured http proxy for node.js.
+ - **[request](https://github.com/randymized/request/)** - Simplified HTTP request client.
 
 ## License
 
