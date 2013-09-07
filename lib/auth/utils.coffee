@@ -24,8 +24,8 @@ module.exports =
   decodeBase64: (encoded) ->
     (new Buffer encoded, 'base64').toString 'utf8'
   
-  # Check if module is loaded.
-  isLoaded: (path) ->
+  # Check if module is available.
+  isAvailable: (path) ->
     try
       return not not require.resolve path
     catch
