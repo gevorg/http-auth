@@ -62,7 +62,7 @@ class Digest extends Base
   
   # Searching for user.
   findUser: (req, co, callback) ->        
-    if co.nonce in @nonces
+    if @validateNonce co.nonce
       ha2 = utils.md5 "#{req.method}:#{co.uri}"
       
       if @checker # Custom authentication.
@@ -79,20 +79,35 @@ class Digest extends Base
     else
       callback.apply this, [{stale: true}]
     
-  # Remove nonce.
-  removeNonce: (nonce, nonces) ->
-    index = nonces.indexOf nonce
-    
-    if index != -1 # Nonce found.
-      nonces.splice index, 1 # Remove it from array.
+  # Remove nonces.
+  removeNonces: (noncesToRemove) ->
+    for nonce in noncesToRemove
+      index = @nonces.indexOf nonce
+      
+      if index != -1 # Nonce found.
+        @nonces.splice index, 1 # Remove it from array.
+      
+  # Validate nonce.
+  validateNonce: (nonce) ->
+    now = Date.now() # Current time.       
+    noncesToRemove = [] # Nonces for removal.
 
+    for serverNonce in @nonces # Searching for not expired ones.
+      if (serverNonce[1] + 3600000) > now # Not expired ones (1 hour lifetime). 
+        if serverNonce[0] is nonce
+          found = true
+      else # Removing expired ones.
+        noncesToRemove.push serverNonce 
+
+    @removeNonces noncesToRemove
+                  
+    return found
+        
   # Generates and returns new random nonce.
   askNonce: () ->
     nonce = utils.md5 uuid.v4() # Random nonce.
-    @nonces.push nonce # Push into nonces.
-    
-    # Schedule deletion from 1 hour.
-    setTimeout @removeNonce, 3600000, nonce, @nonces
+    @nonces.push [nonce, Date.now()] # Push into nonces.    
+
     return nonce # Return it.
   
   # Generates request header.
