@@ -32,3 +32,13 @@ module.exports =
   testDecodeBase64Unicode: (test) ->
     test.equal (utils.decodeBase64 "0J3RgyDRgtGLIQ=="), "Ну ты!", "decoded string is wrong!"
     test.done()
+
+  # Test isLoaded for existing module.
+  testIsLoadedExisting: (test) ->
+    test.ok utils.isLoaded 'http-proxy'
+    test.done()
+    
+  # Test isLoaded for not existing module.
+  testIsLoadedNotExisting: (test) ->
+    test.ok not utils.isLoaded 'stupid-name'
+    test.done()
