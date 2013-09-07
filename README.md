@@ -92,7 +92,7 @@ http.createServer(function (req, res) {
  - `algorithm` - Algorithm that will be used only for **digest** access authentication.
  	- **MD5** by default.
  	- **MD5-sess** can be set.
- - `qop` - Quality of protection.
+ - `qop` - Quality of protection that is used only for **digest** access authentication.
  	- **auth** is set by default.
  	- **none** this option is disabling protection.
 
