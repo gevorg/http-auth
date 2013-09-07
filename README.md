@@ -86,8 +86,12 @@ http.createServer(function (req, res) {
 ## Configurations
 
  - `realm` - Authentication realm.
- - `file` - File where user details are stored in format **{user:pass}** or **{user:passHash}** for basic access and **{user:realm:passHash}** for digest access.
- - `algorithm` - Algorithm that will be used for authentication, may be **MD5** or **MD5-sess**, optional, default is **MD5**. Only for **digest** access.
+ - `file` - File where user details are stored.
+ 	- Line format is **{user:pass}** or **{user:passHash}** for basic access. 
+ 	- Line format is **{user:realm:passHash}** for digest access.
+ - `algorithm` - Algorithm that will be used only for **digest** access authentication.
+ 	- **MD5** by default.
+ 	- **MD5-sess** can be set.
 
 ## Running tests
 
