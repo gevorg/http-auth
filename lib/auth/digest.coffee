@@ -15,7 +15,9 @@ class Digest extends Base
     # Array of random strings sent to clients.
     @nonces = []    
     # Algorithm of encryption, could be MD5 or MD5-sess, default is MD5.
-    @options.algorithm = 'MD5' if not @options.algorithm
+    @options.algorithm = if @options.algorithm is 'MD5-sess' then 'MD5-sess' else 'MD5'
+    # Quality of protection is by default auth.
+    @options.qop = if @options.qop is 'none' then '' else 'auth'
 
   # Processes line from authentication file.
   processLine: (line) ->
@@ -99,7 +101,7 @@ class Digest extends Base
     stale = if result.stale then true else false
     
     # Returning it.
-    return "Digest realm=\"#{@options.realm}\", qop=\"auth\", nonce=\"#{nonce}\", algorithm=\"#{@options.algorithm}\", stale=\"#{stale}\""
+    return "Digest realm=\"#{@options.realm}\", qop=\"#{@options.qop}\", nonce=\"#{nonce}\", algorithm=\"#{@options.algorithm}\", stale=\"#{stale}\""
     
 # Exporting.
 module.exports = (options, checker) ->
