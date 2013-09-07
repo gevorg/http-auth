@@ -61,7 +61,7 @@ class Base
         @ask res, result
       else # Apply default listener.
         req.user = result.user
-        callback.apply this, [req, res]
+        (callback.apply this, [req, res]) if callback
             
 # Exporting.
 module.exports = Base
