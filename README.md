@@ -19,9 +19,6 @@ $ npm install http-auth
 
 ## Basic example
 ```javascript
-/**
- * Requesting new authentication instance.
- */
 // Authentication module.
 var auth = require('http-auth');
 var basic = auth.basic({
