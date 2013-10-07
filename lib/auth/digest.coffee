@@ -36,8 +36,11 @@ class Digest extends Base
       
       clientOptions = [] # Collecting options.     
       
-      for token in tokens # Looping tokens.        
-        [name, value] = token.split "=", 2
+      for token in tokens # Looping tokens.   
+        sepIndex = token.indexOf "=" # Separator index.
+        
+        name = token.substr 0, sepIndex # First part with name.
+        value = token.substr sepIndex + 1 # Second part with value.
                 
         if (value.indexOf "\"") != -1 
           value = value.substr 1, (value.length - 2) # Strip quotes.

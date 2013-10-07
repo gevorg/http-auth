@@ -36,6 +36,15 @@ module.exports =
       
     # Test request.    
     (request.get 'http://127.0.0.1:1337', callback).auth 'vivi', 'anna', false
+  
+  # Correct details, but special uri.
+  testSuccessSpecialURI: (test) ->
+    callback = (error, response, body) -> # Callback.
+      test.equals body, "Welcome to private area - vivi!"
+      test.done()
+      
+    # Test request.    
+    (request.get 'http://127.0.0.1:1337/?coffee=rocks', callback).auth 'vivi', 'anna', false
       
   # Wrong password.
   testWrongPassword: (test) ->
