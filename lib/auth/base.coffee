@@ -35,7 +35,7 @@ class Base
       
   # Loading files with user details.
   loadUsers: () ->
-    lines = ((fs.readFileSync @options.file, 'UTF-8').replace "\r\n", "\n").split "\n"
+    lines = ((fs.readFileSync @options.file, 'UTF-8').replace /\r\n/g, "\n").split "\n"
     
     for line in lines  
       if line # If line is not empty, process it.
