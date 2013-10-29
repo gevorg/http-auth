@@ -95,6 +95,9 @@ http.createServer(function (req, res) {
  - `qop` - Quality of protection that is used only for **digest** access authentication.
  	- **auth** is set by default.
  	- **none** this option is disabling protection.
+ - `msg401` - Message for failed authentication 401 page.
+ - `msg407` - Message for failed authentication 407 page.
+ - `contentType` - Content type for failed authentication page.
 
 ## Running tests
 
