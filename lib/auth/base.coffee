@@ -7,7 +7,8 @@ class Base
   constructor: (@options, @checker) ->
     @options.msg401 = "401 Unauthorized" if not @options.msg401
     @options.msg407 = "407 Proxy authentication required" if not @options.msg407
-
+    @options.contentType = "text/plain" if not @options.contentType
+	
     # Loading users from file, if file is set.
     @options.users = []    
     @loadUsers() if not @checker and @options.file    
@@ -43,8 +44,11 @@ class Base
 
   # Ask for authentication.
   ask: (res, result) ->
-    header = @generateHeader result    
-        
+	
+    header = @generateHeader result
+
+    res.setHeader "Content-Type", @options.contentType
+
     if @proxy # Proxy authentication.
       res.setHeader "Proxy-Authenticate", header
       res.writeHead 407
