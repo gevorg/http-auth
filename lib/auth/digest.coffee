@@ -30,13 +30,17 @@ class Digest extends Base
     clientOptions = [] # Parsed options.
 
     # Split using comma.
-    tokens = header.split ", "      
+    # this is for IE, Chrome sends space after ',' while IE don't, so split on , exactly and trim below
+    tokens = header.split ","      
+   
     if (tokens[0].substr 0, 6) is "Digest" # is Digest. 
       tokens[0] = tokens[0].substr 7 # Remove type.
       
       clientOptions = [] # Collecting options.     
       
       for token in tokens # Looping tokens.   
+        # this is for IE, Chrome sends space after ',' while IE don't
+        token = token.trim()
         sepIndex = token.indexOf "=" # Separator index.
         
         name = token.substr 0, sepIndex # First part with name.
