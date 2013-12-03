@@ -15,7 +15,6 @@ module.exports =
       realm: "Private Area.",
       file: __dirname + "/../data/users.htpasswd"
     }
-    @basic = basic
 
     # Creating new HTTP server.
     @server = http.createServer basic, (req, res) ->
@@ -64,21 +63,4 @@ module.exports =
       
     # Test request.    
     (request.get 'http://127.0.0.1:1337', callback).auth 'solomon', 'gpass'
-
-  # Passwords containing colons
-  testColonPassword: (test) ->
-    basic = @basic
-    username = 'ColonUser'
-    password = 'apasswordwith:acolon'
-
-    callback = (error, response, body) -> # Callback.
-      # Ensure that password was parsed correctly
-      for user in basic.options.users
-        if user.username is username
-          test.equals user.hash, password
-
-      test.equals body, "Welcome to private area - #{username}!"
-      test.done()
-
-    # Test request.
-    (request.get 'http://127.0.0.1:1337', callback).auth username, password
+    

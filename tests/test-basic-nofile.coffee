@@ -15,7 +15,9 @@ module.exports =
         realm: "Private Area."
       }, 
       (username, password, callback) =>
-        callback.apply this, [username is "mia" and password is "supergirl"]
+        success = (username is "mia" and password is "supergirl") or
+                  (username is "ColonUser" and password is "apasswordwith:acolon")
+        callback.apply this, [success]
 
     # Creating new HTTP server.
     @server = http.createServer basic, (req, res) ->
@@ -56,3 +58,12 @@ module.exports =
       
     # Test request.    
     (request.get 'http://127.0.0.1:1337', callback).auth 'Tina', 'supergirl'
+
+  # Passwords containing colons
+  testColonPassword: (test) ->
+    callback = (error, response, body) -> # Callback.
+      test.equals body, "Welcome to private area - ColonUser!"
+      test.done()
+
+    # Test request.
+    (request.get 'http://127.0.0.1:1337', callback).auth 'ColonUser', 'apasswordwith:acolon'

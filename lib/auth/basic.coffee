@@ -14,7 +14,7 @@ class Basic extends Base
   processLine: (line) ->
     lineSplit = line.split ":"
     username = lineSplit.shift()
-    hash = lineSplit.join(":")
+    hash = lineSplit.join ":"
     
     @options.users.push {username: username, hash: hash}
   
@@ -28,9 +28,9 @@ class Basic extends Base
   # Searching for user.
   findUser: (req, hash, callback) ->
     # Decode base64.
-    splitHash = (utils.decodeBase64 hash).split(":")
+    splitHash = (utils.decodeBase64 hash).split ":"
     username = splitHash.shift()
-    password = splitHash.join(":")
+    password = splitHash.join ":"
 
     if @checker # Custom authentication.
       @checker.apply this, [username, password, (success) =>
