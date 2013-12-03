@@ -12,7 +12,10 @@ class Basic extends Base
   
   # Processes line from authentication file.
   processLine: (line) ->
-    [username, hash] = line.split ":"
+    lineSplit = line.split ":"
+    username = lineSplit.shift()
+    hash = lineSplit.join(":")
+    
     @options.users.push {username: username, hash: hash}
   
   # Validates password.
@@ -25,8 +28,10 @@ class Basic extends Base
   # Searching for user.
   findUser: (req, hash, callback) ->
     # Decode base64.
-    [username, password] = (utils.decodeBase64 hash).split(":")
-        
+    splitHash = (utils.decodeBase64 hash).split(":")
+    username = splitHash.shift()
+    password = splitHash.join(":")
+
     if @checker # Custom authentication.
       @checker.apply this, [username, password, (success) =>
         callback.apply this, [{user: username if success}]
