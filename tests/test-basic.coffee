@@ -27,17 +27,27 @@ module.exports =
   tearDown: (callback) ->
     @server.close() # Stop server.    
     callback()
-  
-  # Correct encrypted details.
-  testSuccess: (test) ->
+
+  # Correct SHA1 details.
+  testSuccessSHA1: (test) ->
     callback = (error, response, body) -> # Callback.
       test.equals body, "Welcome to private area - gevorg!"
       test.done()
-      
+
     # Test request.    
     (request.get 'http://127.0.0.1:1337', callback).auth 'gevorg', 'gpass'
-  
-  # Correct plain details.
+
+  # Correct Crypt details.
+  testSuccessCrypt: (test) ->
+    callback = (error, response, body) -> # Callback.
+      test.equals body, "Welcome to private area - vera!"
+      test.done()
+
+    # Test request.
+    (request.get 'http://127.0.0.1:1337', callback).auth 'vera', 'kruta'
+
+
+# Correct plain details.
   testSuccessPlain: (test) ->
     callback = (error, response, body) -> # Callback.
       test.equals body, "Welcome to private area - Sarah!"

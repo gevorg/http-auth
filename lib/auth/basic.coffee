@@ -4,6 +4,9 @@ Base = require './base'
 # Utility module.
 utils = require './utils'
 
+# htpasswd verification is reused.
+htpasswd = require 'htpasswd'
+
 # Basic authentication class.
 class Basic extends Base    
   # Constructor.
@@ -18,13 +21,6 @@ class Basic extends Base
     
     @options.users.push {username: username, hash: hash}
   
-  # Validates password.
-  validate: (hash, password) ->    
-    if (hash.substr 0, 5) is '{SHA}'
-      hash = hash.substr 5
-      password = utils.sha1 password
-    hash is password
-  
   # Searching for user.
   findUser: (req, hash, callback) ->
     # Decode base64.
@@ -38,7 +34,7 @@ class Basic extends Base
       ]
     else # File based.
       for user in @options.users # Loop users to find the matching one.
-        if user.username is username and @validate user.hash, password
+        if user.username is username and htpasswd user.hash, password
           found = true
           break # Stop searching, we found him.
           
