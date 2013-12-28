@@ -46,8 +46,16 @@ module.exports =
     # Test request.
     (request.get 'http://127.0.0.1:1337', callback).auth 'vera', 'kruta'
 
+  # Correct MD5 details.
+  testSuccessMD5: (test) ->
+    callback = (error, response, body) -> # Callback.
+      test.equals body, "Welcome to private area - hera!"
+      test.done()
 
-# Correct plain details.
+    # Test request.
+    (request.get 'http://127.0.0.1:1337', callback).auth 'hera', 'gnu'
+
+  # Correct plain details.
   testSuccessPlain: (test) ->
     callback = (error, response, body) -> # Callback.
       test.equals body, "Welcome to private area - Sarah!"
