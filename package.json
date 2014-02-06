@@ -39,7 +39,7 @@
 		"node": ">=0.4.1"
 	},
    "scripts": {
-      "test": "./node_modules/nodeunit/bin/nodeunit tests/*"
+      "test": "node ./node_modules/nodeunit/bin/nodeunit tests"
    },
 	"keywords": ["node", "http", "server", "basic", "digest", "access", "authentication"]
 }
