@@ -34,7 +34,7 @@ class Basic extends Base
       ]
     else # File based.
       for user in @options.users # Loop users to find the matching one.
-        if user.username is username and htpasswd user.hash, password
+        if user.username is username and htpasswd.verify user.hash, password
           found = true
           break # Stop searching, we found him.
           

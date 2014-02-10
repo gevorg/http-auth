@@ -7,6 +7,9 @@ http = require 'http'
 # Authentication library.
 auth = require '../lib/http-auth'
 
+# htpasswd verification is reused.
+htpasswd = require 'htpasswd'
+
 module.exports =
   
   # Before each test.
@@ -39,12 +42,15 @@ module.exports =
 
   # Correct Crypt details.
   testSuccessCrypt: (test) ->
-    callback = (error, response, body) -> # Callback.
-      test.equals body, "Welcome to private area - vera!"
-      test.done()
+    if htpasswd.isCryptInstalled()
+      callback = (error, response, body) -> # Callback.
+        test.equals body, "Welcome to private area - vera!"
+        test.done()
 
-    # Test request.
-    (request.get 'http://127.0.0.1:1337', callback).auth 'vera', 'kruta'
+      # Test request.
+      (request.get 'http://127.0.0.1:1337', callback).auth 'vera', 'kruta'
+    else
+      test.done()
 
   # Correct MD5 details.
   testSuccessMD5: (test) ->
