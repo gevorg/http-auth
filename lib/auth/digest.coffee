@@ -27,7 +27,7 @@ class Digest extends Base
 
   # Parse authorization header.
   parseAuthorization: (header) ->
-    clientOptions = [] # Parsed options.
+    clientOptions = {} # Parsed options.
 
     # Split using comma.
     # this is for IE, Chrome sends space after ',' while IE don't, so split on , exactly and trim below
@@ -36,7 +36,7 @@ class Digest extends Base
     if (tokens[0].substr 0, 6) is "Digest" # is Digest. 
       tokens[0] = tokens[0].substr 7 # Remove type.
       
-      clientOptions = [] # Collecting options.     
+      clientOptions = {} # Collecting options.
       
       for token in tokens # Looping tokens.   
         # this is for IE, Chrome sends space after ',' while IE don't
