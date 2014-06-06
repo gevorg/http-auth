@@ -27,7 +27,7 @@
 	"dependencies": {
 		"coffee-script": "1.6.3",
 		"node-uuid": "1.4.1",
-        "htpasswd": "2.1.0"
+        "htpasswd": "2.1.2"
 	},
 	"devDependencies": {
 		"nodeunit": "0.8.1",
