@@ -98,6 +98,7 @@ http.createServer(function (req, res) {
  - `msg401` - Message for failed authentication 401 page.
  - `msg407` - Message for failed authentication 407 page.
  - `contentType` - Content type for failed authentication page.
+ - `skipUser` - Set this to **true**, if you don't want req.user to be filled with authentication info.
 
 ## Running tests
 

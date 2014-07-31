@@ -8,7 +8,7 @@ class Base
     @options.msg401 = "401 Unauthorized" if not @options.msg401
     @options.msg407 = "407 Proxy authentication required" if not @options.msg407
     @options.contentType = "text/plain" if not @options.contentType
-	
+
     # Loading users from file, if file is set.
     @options.users = []    
     @loadUsers() if not @checker and @options.file    
@@ -64,7 +64,7 @@ class Base
       if not result.user # Asking for authentication.
         @ask res, result
       else # Apply default listener.
-        req.user = result.user
+        req.user = result.user if not @options.skipUser
         (callback.apply this, [req, res]) if callback
             
 # Exporting.
