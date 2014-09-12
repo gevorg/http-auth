@@ -76,7 +76,7 @@ var basic = auth.basic({
 });
 
 // Create your proxy server.
-httpProxy.createServer(basic, 1338, "127.0.0.1").listen(1337);
+httpProxy.createServer(basic, { target: 'http://localhost:1338' }).listen(1337);
 
 // Create your target server.
 http.createServer(function (req, res) {

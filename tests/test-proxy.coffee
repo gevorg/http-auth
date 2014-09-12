@@ -20,7 +20,8 @@ module.exports =
     }
 
     # Create your proxy server.
-    @proxy = (httpProxy.createServer basic, 1338, "127.0.0.1").listen 1337
+    @proxy = (httpProxy.createServer basic, { target: 'http://localhost:1338' }).listen 1337
+
     # Create your target server.
     @server = http.createServer (req, res) ->
       res.end "Request successfully proxied!"
