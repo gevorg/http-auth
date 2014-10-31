@@ -1,4 +1,5 @@
 # http-auth
+[![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/gevorg/http-auth?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [Node.js](http://nodejs.org/) package for HTTP basic and digest access authentication.
 
 [![Build Status](https://api.travis-ci.org/gevorg/http-auth.png)](https://travis-ci.org/gevorg/http-auth)
