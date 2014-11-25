@@ -25,12 +25,12 @@
 		"url": "http://github.com/gevorg/http-auth/issues"
 	},
 	"dependencies": {
-		"coffee-script": "1.6.3",
+		"coffee-script": "1.8.0",
 		"node-uuid": "1.4.1",
         "htpasswd": "2.1.2"
 	},
 	"devDependencies": {
-		"nodeunit": "0.8.1",
+		"nodeunit": "0.9.0",
 		"express": "3.3.8",
 		"http-proxy": "1.4.2",
 		"request": "2.27.0"
