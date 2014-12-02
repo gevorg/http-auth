@@ -8,14 +8,15 @@ Base = require '../auth/base'
 oldCreateServer = httpProxy.createServer
 
 # Add authentication method.
-httpProxy.createServer = httpProxy.createProxyServer = httpProxy.createProxy = () ->
-  if arguments[0] instanceof Base # Mutated mode.
-    authentication = arguments[0]
-    authentication.proxy = true
-    delete arguments[0] # Remove bad argument.
+httpProxy.createServer = httpProxy.createProxyServer = httpProxy.createProxy = (authentication, options) ->
+  if authentication instanceof Base # Mutated mode.
+    authentication.proxy = true # Set proxy flag.
+  else
+    options = authentication # Set correct options.
+    authentication = null # Clear authentication value.
 
   # Default listener plus authentication check.
-  server = oldCreateServer.apply httpProxy, [arguments[1]]
+  server = oldCreateServer.apply httpProxy, [options]
 
   if authentication # Authentication provided.
     # Override proxyRequest.
