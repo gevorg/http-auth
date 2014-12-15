@@ -42,15 +42,12 @@ module.exports =
 
   # Correct Crypt details.
   testSuccessCrypt: (test) ->
-    if htpasswd.isCryptInstalled()
-      callback = (error, response, body) -> # Callback.
-        test.equals body, "Welcome to private area - vera!"
-        test.done()
-
-      # Test request.
-      (request.get 'http://127.0.0.1:1337', callback).auth 'vera', 'kruta'
-    else
+    callback = (error, response, body) -> # Callback.
+      test.equals body, "Welcome to private area - vera!"
       test.done()
+
+    # Test request.
+    (request.get 'http://127.0.0.1:1337', callback).auth 'vera', 'kruta'
 
   # Correct MD5 details.
   testSuccessMD5: (test) ->
