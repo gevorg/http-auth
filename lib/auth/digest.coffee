@@ -27,32 +27,40 @@ class Digest extends Base
 
   # Parse authorization header.
   parseAuthorization: (header) ->
-    clientOptions = {} # Parsed options.
+    results = {}
+    parameterPairs = []
+    isInQuotes = false
+    lastStringStartingBoundary = 0
 
-    # Split using comma.
-    # this is for IE, Chrome sends space after ',' while IE don't, so split on , exactly and trim below
-    tokens = header.split ","      
-   
-    if (tokens[0].substr 0, 6) is "Digest" # is Digest. 
-      tokens[0] = tokens[0].substr 7 # Remove type.
-      
-      clientOptions = {} # Collecting options.
-      
-      for token in tokens # Looping tokens.   
-        # this is for IE, Chrome sends space after ',' while IE don't
-        token = token.trim()
-        sepIndex = token.indexOf "=" # Separator index.
-        
-        name = token.substr 0, sepIndex # First part with name.
-        value = token.substr sepIndex + 1 # Second part with value.
-                
-        if (value.indexOf "\"") != -1 
-          value = value.substr 1, (value.length - 2) # Strip quotes.
-        
-        # Add option.
-        clientOptions[name] = value; 
-                     
-      return clientOptions # Returning options.
+    #Need to pull off authentication type first
+    results.type = /^([a-zA-Z]+)\s/.exec(authorizationHeader)[1]
+
+    authorizationHeader = authorizationHeader.substring(results.type.length + 1) # type + 1 whitespace
+
+    i = 0
+    while i < authorizationHeader.length
+      if authorizationHeader[i] == '\"' and authorizationHeader[i - 1] != '\\'
+        # WE've found an un-escaped quote (do escaped quotes exist, need to check the RFC)
+        isInQuotes = !isInQuotes;
+
+      # If we got to the end of a key value pair or the end of the header
+      if (authorizationHeader[i] == ',' or i == authorizationHeader.length - 1) and !isInQuotes
+        currentValueLen = (if i == authorizationHeader.length - 1 then authorizationHeader.length else i) - lastStringStartingBoundary
+        keyValue = authorizationHeader.substr(lastStringStartingBoundary, currentValueLen)
+
+        #Strip whitespace..
+        keyValue = keyValue.replace(/^\s+|\s+$/g, '')
+        pair = /^(.+)?=(.+)/.exec(keyValue)
+
+        #de-code quotes and un-escape inter-stitial quotes if appropriate
+        # I'm lost as to the correct behaviour of this bit tbh, the rfcs don't seem to be specifc
+        # around whether quoted strings need to quote the quotes or not!! (that I can find anyway :) )
+        value = pair[2].replace(/^"|"$/g, '')
+        results[pair[1]] = value
+        lastStringStartingBoundary = i + 1  # skip the comma.
+
+      i++
+    results
   
   # Validating hash.
   validate: (ha2, co, hash) ->
