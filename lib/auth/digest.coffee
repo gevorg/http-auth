@@ -28,7 +28,6 @@ class Digest extends Base
   # Parse authorization header.
   parseAuthorization: (header) ->
     results = {}
-    parameterPairs = []
     isInQuotes = false
     lastStringStartingBoundary = 0
 
