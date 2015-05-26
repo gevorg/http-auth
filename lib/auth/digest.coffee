@@ -27,32 +27,20 @@ class Digest extends Base
 
   # Parse authorization header.
   parseAuthorization: (header) ->
-    clientOptions = {} # Parsed options.
+    opts = {}
+    parts = header.split(' ')
+    params = parts.slice(1).join(' ')
+    tokens = params.split(/,(?=(?:[^"]|"[^"]*")*$)/) #split the parameters by comma
 
-    # Split using comma.
-    # this is for IE, Chrome sends space after ',' while IE don't, so split on , exactly and trim below
-    tokens = header.split ","      
-   
-    if (tokens[0].substr 0, 6) is "Digest" # is Digest. 
-      tokens[0] = tokens[0].substr 7 # Remove type.
-      
-      clientOptions = {} # Collecting options.
-      
-      for token in tokens # Looping tokens.   
-        # this is for IE, Chrome sends space after ',' while IE don't
-        token = token.trim()
-        sepIndex = token.indexOf "=" # Separator index.
-        
-        name = token.substr 0, sepIndex # First part with name.
-        value = token.substr sepIndex + 1 # Second part with value.
-                
-        if (value.indexOf "\"") != -1 
-          value = value.substr 1, (value.length - 2) # Strip quotes.
-        
-        # Add option.
-        clientOptions[name] = value; 
-                     
-      return clientOptions # Returning options.
+    i = 0
+    len = tokens.length
+    while i < len
+      param = /(\w+)=["]?([^"]*)["]?$/.exec(tokens[i]) #strip quotes and whitespace
+      if param
+        opts[param[1]] = param[2]
+      i++
+
+    opts
   
   # Validating hash.
   validate: (ha2, co, hash) ->
