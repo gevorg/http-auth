@@ -27,39 +27,19 @@ class Digest extends Base
 
   # Parse authorization header.
   parseAuthorization: (header) ->
-    results = {}
-    isInQuotes = false
-    lastStringStartingBoundary = 0
-
-    #Need to pull off authentication type first
-    results.type = /^([a-zA-Z]+)\s/.exec(authorizationHeader)[1]
-
-    authorizationHeader = authorizationHeader.substring(results.type.length + 1) # type + 1 whitespace
-
+    opts = {}
+    parts = header.split(' ')
+    params = parts.slice(1).join(' ')
+    tokens = params.split(/,(?=(?:[^"]|"[^"]*")*$)/) #split the parameters by comma
+                    
     i = 0
-    while i < authorizationHeader.length
-      if authorizationHeader[i] == '\"' and authorizationHeader[i - 1] != '\\'
-        # WE've found an un-escaped quote (do escaped quotes exist, need to check the RFC)
-        isInQuotes = !isInQuotes;
-
-      # If we got to the end of a key value pair or the end of the header
-      if (authorizationHeader[i] == ',' or i == authorizationHeader.length - 1) and !isInQuotes
-        currentValueLen = (if i == authorizationHeader.length - 1 then authorizationHeader.length else i) - lastStringStartingBoundary
-        keyValue = authorizationHeader.substr(lastStringStartingBoundary, currentValueLen)
-
-        #Strip whitespace..
-        keyValue = keyValue.replace(/^\s+|\s+$/g, '')
-        pair = /^(.+)?=(.+)/.exec(keyValue)
-
-        #de-code quotes and un-escape inter-stitial quotes if appropriate
-        # I'm lost as to the correct behaviour of this bit tbh, the rfcs don't seem to be specifc
-        # around whether quoted strings need to quote the quotes or not!! (that I can find anyway :) )
-        value = pair[2].replace(/^"|"$/g, '')
-        results[pair[1]] = value
-        lastStringStartingBoundary = i + 1  # skip the comma.
-
+    len = tokens.length
+    while i < len
+      param = /(\w+)=["]?([^"]+)["]?$/.exec(tokens[i]) #strip quotes and whitespace
+      if param
+        opts[param[1]] = param[2]
       i++
-    results
+    opts
   
   # Validating hash.
   validate: (ha2, co, hash) ->
