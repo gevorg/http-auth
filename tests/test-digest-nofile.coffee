@@ -44,6 +44,15 @@ module.exports =
       
     # Test request.    
     (request.get 'http://127.0.0.1:1337', callback).auth 'simon', 'smart', false
+
+  # Correct with comma URI details.
+  testSuccessCommaURI: (test) ->
+    callback = (error, response, body) -> # Callback.
+      test.equals body, "Welcome to private area - simon!"
+      test.done()
+
+    # Test request.
+    (request.get 'http://127.0.0.1:1337/comma,/', callback).auth 'simon', 'smart', false
       
   # Wrong password.
   testWrongPassword: (test) ->

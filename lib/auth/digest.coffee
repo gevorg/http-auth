@@ -30,15 +30,17 @@ class Digest extends Base
     opts = {}
     parts = header.split(' ')
     params = parts.slice(1).join(' ')
-    tokens = params.split(/,(?=(?:[^"]|"[^"]*")*$)/) #split the parameters by comma
+    tokens = params.split(/,(?=(?:[^"]|"[^"]*")*$)/) # Split the parameters by comma.
 
-    i = 0
-    len = tokens.length
-    while i < len
-      param = /(\w+)=["]?([^"]*)["]?$/.exec(tokens[i]) #strip quotes and whitespace
-      if param
-        opts[param[1]] = param[2]
-      i++
+    if (parts[0].substr 0, 6) is "Digest" # is Digest.
+      # Parse parameters.
+      i = 0
+      len = tokens.length
+      while i < len
+        param = /(\w+)=["]?([^"]*)["]?$/.exec(tokens[i]) # Strip quotes and whitespace.
+        if param
+          opts[param[1]] = param[2]
+        i++
 
     opts
   
