@@ -31,14 +31,15 @@ class Digest extends Base
     parts = header.split(' ')
     params = parts.slice(1).join(' ')
     tokens = params.split(/,(?=(?:[^"]|"[^"]*")*$)/) #split the parameters by comma
-                    
+
     i = 0
     len = tokens.length
     while i < len
-      param = /(\w+)=["]?([^"]+)["]?$/.exec(tokens[i]) #strip quotes and whitespace
+      param = /(\w+)=["]?([^"]*)["]?$/.exec(tokens[i]) #strip quotes and whitespace
       if param
         opts[param[1]] = param[2]
       i++
+
     opts
   
   # Validating hash.
