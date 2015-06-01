@@ -124,12 +124,12 @@ You can find list of issues using **[this link](http://github.com/gevorg/http-au
 
 ## Dependencies
 
- - **[coffee-script](http://coffeescript.org/)** - CoffeeScript is a little language that compiles into JavaScript.
  - **[node-uuid](https://github.com/broofa/node-uuid/)** - Generate RFC4122(v4) UUIDs, and also non-RFC compact ids.
  - **[htpasswd](https://github.com/gevorg/htpasswd/)** - Node.js package for HTTP Basic Authentication password file utility.
 
 ## Development dependencies
 
+ - **[coffee-script](http://coffeescript.org/)** - CoffeeScript is a little language that compiles into JavaScript.
  - **[nodeunit](https://github.com/caolan/nodeunit/)** - Easy unit testing in node.js and the browser, based on the assert module.
  - **[express](http://expressjs.com/)** - Sinatra inspired web development framework for node.js -- insanely fast, flexible, and simple.
  - **[http-proxy](https://github.com/nodejitsu/node-http-proxy/)** - A full-featured http proxy for node.js.
