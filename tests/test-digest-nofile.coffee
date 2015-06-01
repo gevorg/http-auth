@@ -5,10 +5,10 @@ request = require 'request'
 http = require 'http'
 
 # Authentication library.
-auth = require '../lib/http-auth'
+auth = require '../gensrc/http-auth'
 
 # Utility library.
-utils = require '../lib/auth/utils'
+utils = require '../gensrc/auth/utils'
 
 module.exports =
   

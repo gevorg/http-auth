@@ -2,7 +2,7 @@
 var http = require('http');
 
 // Authentication module.
-var auth = require('../lib/http-auth');
+var auth = require('../gensrc/http-auth');
 var digest = auth.digest({
 	realm: "Simon Area.",
 	file: __dirname + "/../data/users.htdigest" // vivi:anna, sona:testpass

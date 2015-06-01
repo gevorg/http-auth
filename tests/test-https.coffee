@@ -8,7 +8,7 @@ https = require 'https'
 fs = require 'fs'
 
 # Authentication library.
-auth = require '../lib/http-auth'
+auth = require '../gensrc/http-auth'
 
 module.exports =
   

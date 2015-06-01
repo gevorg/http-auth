@@ -8,7 +8,7 @@ http = require 'http'
 httpProxy = require 'http-proxy'
 
 # Authentication library.
-auth = require '../lib/http-auth'
+auth = require '../gensrc/http-auth'
 
 module.exports =
   

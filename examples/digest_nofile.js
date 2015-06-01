@@ -2,13 +2,13 @@
 require('coffee-script');
 
 // Utility module.
-var utils = require('../lib/auth/utils');
+var utils = require('../gensrc/auth/utils');
 
 // HTTP module
 var http = require('http');
 
 // Authentication module.
-var auth = require('../lib/http-auth');
+var auth = require('../gensrc/http-auth');
 var digest = auth.digest({
 		realm: "Simon Area."
 	}, function (username, callback) { // Expecting md5(username:realm:password) in callback.		

@@ -2,7 +2,7 @@
 var http = require('http');
 
 // Authentication module.
-var auth = require('../lib/http-auth');
+var auth = require('../gensrc/http-auth');
 var basic = auth.basic({
 		realm: "Simon Area."
 	}, function (username, password, callback) { // Custom authentication method.

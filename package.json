@@ -1,7 +1,7 @@
 {
 	"name": "http-auth",
 	"description": "Node.js package for HTTP basic and digest access authentication.",
-	"version": "2.2.6",
+	"version": "2.2.7",
 	"author": "Gevorg Harutyunyan (http://github.com/gevorg)",
 	"maintainers": [
 		{
@@ -14,7 +14,7 @@
 		"type": "git",
 		"url": "http://github.com/gevorg/http-auth.git"
 	},
-	"main": "./lib/http-auth.js",
+	"main": "./gensrc/http-auth.js",
 	"licenses": [
 		{
 			"type": "MIT",
@@ -39,8 +39,8 @@
 		"node": ">=0.4.1"
 	},
 	"scripts": {
-		"test": "nodeunit tests/*",
-		"prepublish": "rm -rf lib; coffee --compile -o lib src",
+        "test": "node ./node_modules/nodeunit/bin/nodeunit tests",
+		"prepublish": "rm -rf gensrc && node ./node_modules/coffee-script/bin/coffee --compile -o gensrc src",
 		"pretest": "npm run prepublish"
 	},
 	"keywords": ["node", "http", "server", "basic", "digest", "access", "authentication"]

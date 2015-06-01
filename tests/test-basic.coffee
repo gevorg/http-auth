@@ -5,7 +5,7 @@ request = require 'request'
 http = require 'http'
 
 # Authentication library.
-auth = require '../lib/http-auth'
+auth = require '../gensrc/http-auth'
 
 # htpasswd verification is reused.
 htpasswd = require 'htpasswd'

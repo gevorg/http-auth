@@ -2,7 +2,7 @@
 var express = require('express');
 
 // Authentication module.
-var auth = require('../lib/http-auth');
+var auth = require('../gensrc/http-auth');
 var basic = auth.basic({
 	realm: "Simon Area.",
 	file: __dirname + "/../data/users.htpasswd" // gevorg:gpass, Sarah:testpass ...
