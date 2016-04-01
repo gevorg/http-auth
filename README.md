@@ -110,7 +110,7 @@ $ npm test
 
 ## Issues
 
-You can find list of issues using **[this link](http://github.com/gevorg/http-auth/issues)**.
+You can find list of issues using **[this link](http://github.com/http-auth/http-auth/issues)**.
 
 ## Requirements
 
@@ -125,7 +125,7 @@ You can find list of issues using **[this link](http://github.com/gevorg/http-au
 ## Dependencies
 
  - **[node-uuid](https://github.com/broofa/node-uuid/)** - Generate RFC4122(v4) UUIDs, and also non-RFC compact ids.
- - **[htpasswd](https://github.com/gevorg/htpasswd/)** - Node.js package for HTTP Basic Authentication password file utility.
+ - **[htpasswd](https://github.com/http-auth/htpasswd/)** - Node.js package for HTTP Basic Authentication password file utility.
 
 ## Development dependencies
 
