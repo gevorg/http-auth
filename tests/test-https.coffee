@@ -21,8 +21,8 @@ module.exports =
 
     # HTTPS server options.
     options = {
-      key: fs.readFileSync(__dirname + "/../data/key.pem"),
-      cert: fs.readFileSync(__dirname + "/../data/cert.pem")
+      key: fs.readFileSync(__dirname + "/../data/server.key"),
+      cert: fs.readFileSync(__dirname + "/../data/server.crt")
     }
 
     # Creating new HTTPS server.

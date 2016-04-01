@@ -1,7 +1,7 @@
 {
 	"name": "http-auth",
 	"description": "Node.js package for HTTP basic and digest access authentication.",
-	"version": "2.2.8",
+	"version": "2.2.9",
 	"author": "Gevorg Harutyunyan (http://github.com/gevorg)",
 	"maintainers": [
 		{
@@ -21,19 +21,20 @@
 			"url": "http://github.com/http-auth/http-auth/blob/master/LICENSE"
 		}
 	],
+	"license": "MIT",
 	"bugs": {
 		"url": "http://github.com/http-auth/http-auth/issues"
 	},
 	"dependencies": {
 		"node-uuid": "1.4.1",
-		"htpasswd": "2.2.0"
+		"htpasswd": "2.2.2"
 	},
 	"devDependencies": {
 		"coffee-script": "1.8.0",
 		"nodeunit": "0.9.0",
 		"express": "3.3.8",
 		"http-proxy": "1.11.1",
-		"request": "2.27.0"
+		"request": "2.69.0"
 	},
 	"engines": {
 		"node": ">=0.4.1"

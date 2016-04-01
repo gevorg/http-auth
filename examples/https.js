@@ -13,8 +13,8 @@ var basic = auth.basic({
 
 // HTTPS server options.
 var options = {
-	key: fs.readFileSync(__dirname + "/../data/key.pem"),
-	cert: fs.readFileSync(__dirname + "/../data/cert.pem")
+	key: fs.readFileSync(__dirname + "/../data/server.key"),
+	cert: fs.readFileSync(__dirname + "/../data/server.crt")
 };
 
 // Starting server.
