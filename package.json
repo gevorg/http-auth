@@ -12,7 +12,7 @@
 	"homepage": "http://http-auth.info",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/http-auth/http-auth.git"
+		"url": "http://github.com/http-auth/http-auth.git"
 	},
 	"main": "./gensrc/http-auth.js",
 	"licenses": [
