@@ -12,17 +12,17 @@
 	"homepage": "http://http-auth.info",
 	"repository": {
 		"type": "git",
-		"url": "http://github.com/gevorg/http-auth.git"
+		"url": "git@github.com:http-auth/http-auth.git"
 	},
 	"main": "./gensrc/http-auth.js",
 	"licenses": [
 		{
 			"type": "MIT",
-			"url": "http://github.com/gevorg/http-auth/blob/master/LICENSE"
+			"url": "http://github.com/http-auth/http-auth/blob/master/LICENSE"
 		}
 	],
 	"bugs": {
-		"url": "http://github.com/gevorg/http-auth/issues"
+		"url": "http://github.com/http-auth/http-auth/issues"
 	},
 	"dependencies": {
 		"node-uuid": "1.4.1",
