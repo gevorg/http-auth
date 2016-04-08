@@ -108,6 +108,14 @@ It uses [nodeunit](https://github.com/caolan/nodeunit/), so just run following c
 $ npm test
 ```
 
+## Tips and Techniques
+
+If you only want to protect certain URLs and leave others open, you can look this snippet:
+https://gist.github.com/gevorg/7168d5f02c1ca5362b2a
+
+For proxy authentication you can look this snippet:
+https://gist.github.com/gevorg/7918633
+
 ## Issues
 
 You can find list of issues using **[this link](http://github.com/http-auth/http-auth/issues)**.
