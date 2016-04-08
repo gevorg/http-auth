@@ -47,7 +47,8 @@ var basic = auth.basic({
 http.createServer(basic, function(req, res) {
 	res.end("Welcome to private area - " + req.user + "!");
 }).listen(1337);
-```	
+```
+
 ## [express framework](http://expressjs.com/) integration
 ```javascript
 // Authentication module.
@@ -66,6 +67,30 @@ app.get('/', function(req, res){
   res.send("Hello from express - " + req.user + "!");
 });
 ```
+
+## Protecting specific path
+```javascript
+// Authentication module.
+var auth = require('http-auth');
+var basic = auth.basic({
+	realm: "Simon Area.",
+	file: __dirname + "/../data/users.htpasswd" // gevorg:gpass, Sarah:testpass ...
+});
+
+// Application setup.
+var app = express();
+
+// Setup route.
+app.get('/admin', auth.connect(basic), function(req, res){
+  res.send("Hello from admin area - " + req.user + "!");
+});
+
+// Setup route.
+app.get('/', function(req, res){
+  res.send("Not protected area!");
+});
+```
+
 ## [http-proxy](https://github.com/nodejitsu/node-http-proxy/) integration
 ```javascript
 // Authentication module.
