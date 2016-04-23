@@ -8,6 +8,7 @@ class Base
     @options.msg401 = "401 Unauthorized" if not @options.msg401
     @options.msg407 = "407 Proxy authentication required" if not @options.msg407
     @options.contentType = "text/plain" if not @options.contentType
+    @options.realm = "Users" if not @options.realm
 
     # Loading users from file, if file is set.
     @options.users = []    

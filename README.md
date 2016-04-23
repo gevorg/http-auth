@@ -110,7 +110,7 @@ http.createServer(function (req, res) {
 ```
 ## Configurations
 
- - `realm` - Authentication realm.
+ - `realm` - Authentication realm, by default it is **Users**.
  - `file` - File where user details are stored.
  	- Line format is **{user:pass}** or **{user:passHash}** for basic access. 
  	- Line format is **{user:realm:passHash}** for digest access.
