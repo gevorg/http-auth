@@ -18,7 +18,7 @@ app.get('/', function(req, res){
 });
 
 // Start server.
-app.listen(1337);
-
-// Log URL.
-console.log("Server running at http://127.0.0.1:1337/");
+app.listen(1337, function () {
+	// Log URL.
+	console.log("Server running at http://127.0.0.1:1337/");
+});

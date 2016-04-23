@@ -14,4 +14,5 @@ module.exports = {
   basic: (options, checker) -> require('./auth/basic')(options, checker)
   digest: (options, checker) -> require('./auth/digest')(options, checker)
   connect: (authentication) -> require('./server/connect')(authentication)
+  passport: (authentication) -> require('./server/passport')(authentication)
 }

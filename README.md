@@ -91,6 +91,31 @@ app.get('/', function(req, res){
 });
 ```
 
+## [passport](http://passportjs.org/) integration
+```javascript
+// Authentication module.
+var auth = require('http-auth');
+var basic = auth.basic({
+	realm: "Simon Area.",
+	file: __dirname + "/../data/users.htpasswd" // gevorg:gpass, Sarah:testpass ...
+});
+
+// Application setup.
+var app = express();
+
+// Setup strategy.
+var passport = require('passport');
+passport.use(auth.passport(basic));
+
+// Setup passport.
+app.use(passport.initialize());
+
+// Setup route.
+app.get('/', passport.authenticate('http', { session: false }), function(req, res) {
+    res.end("Welcome to private area - " + req.user + "!");
+});
+```
+
 ## [http-proxy](https://github.com/nodejitsu/node-http-proxy/) integration
 ```javascript
 // Authentication module.
@@ -159,6 +184,7 @@ You can find list of issues using **[this link](http://github.com/http-auth/http
  - **[express](http://expressjs.com/)** - Sinatra inspired web development framework for node.js -- insanely fast, flexible, and simple.
  - **[http-proxy](https://github.com/nodejitsu/node-http-proxy/)** - A full-featured http proxy for node.js.
  - **[request](https://github.com/request/request/)** - Simplified HTTP request client.
+ - **[passport](http://passportjs.org/)** - Simple, unobtrusive authentication for Node.js.
 
 ## License
 
