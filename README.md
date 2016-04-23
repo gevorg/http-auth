@@ -107,9 +107,6 @@ var app = express();
 var passport = require('passport');
 passport.use(auth.passport(basic));
 
-// Setup passport.
-app.use(passport.initialize());
-
 // Setup route.
 app.get('/', passport.authenticate('http', { session: false }), function(req, res) {
     res.end("Welcome to private area - " + req.user + "!");
