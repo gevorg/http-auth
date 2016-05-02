@@ -23,7 +23,7 @@ $ npm install http-auth
 var auth = require('http-auth');
 var basic = auth.basic({
 	realm: "Simon Area.",
-	file: __dirname + "/../data/users.htpasswd" // gevorg:gpass, Sarah:testpass ...
+	file: __dirname + "/../data/users.htpasswd" // gevorg:gpass, Sarah:testpass
 });
 
 // Creating new HTTP server.
@@ -32,13 +32,13 @@ http.createServer(basic, function(req, res) {
 }).listen(1337);
 
 ```
-## Custom authentication function
+## Custom authentication
 ```javascript	
 // Authentication module.
 var auth = require('http-auth');
 var basic = auth.basic({
 		realm: "Simon Area."
-	}, function (username, password, callback) { // Custom authentication method.
+	}, function (username, password, callback) { // Custom authentication
 		callback(username === "Tina" && password === "Bullock");
 	}
 );
@@ -55,7 +55,7 @@ http.createServer(basic, function(req, res) {
 var auth = require('http-auth');
 var basic = auth.basic({
 	realm: "Simon Area.",
-	file: __dirname + "/../data/users.htpasswd" // gevorg:gpass, Sarah:testpass ...
+	file: __dirname + "/../data/users.htpasswd" // gevorg:gpass, Sarah:testpass
 });
 
 // Application setup.
@@ -74,7 +74,7 @@ app.get('/', function(req, res){
 var auth = require('http-auth');
 var basic = auth.basic({
 	realm: "Simon Area.",
-	file: __dirname + "/../data/users.htpasswd" // gevorg:gpass, Sarah:testpass ...
+	file: __dirname + "/../data/users.htpasswd" // gevorg:gpass, Sarah:testpass
 });
 
 // Application setup.
@@ -97,7 +97,7 @@ app.get('/', function(req, res){
 var auth = require('http-auth');
 var basic = auth.basic({
 	realm: "Simon Area.",
-	file: __dirname + "/../data/users.htpasswd" // gevorg:gpass, Sarah:testpass ...
+	file: __dirname + "/../data/users.htpasswd" // gevorg:gpass, Sarah:testpass
 });
 
 // Application setup.
@@ -108,9 +108,11 @@ var passport = require('passport');
 passport.use(auth.passport(basic));
 
 // Setup route.
-app.get('/', passport.authenticate('http', { session: false }), function(req, res) {
-    res.end("Welcome to private area - " + req.user + "!");
-});
+app.get('/', passport.authenticate('http', {session: false}),
+    function(req, res) {
+        res.end("Welcome to private area - " + req.user + "!");
+    }
+);
 ```
 
 ## [http-proxy](https://github.com/nodejitsu/node-http-proxy/) integration
@@ -119,11 +121,11 @@ app.get('/', passport.authenticate('http', { session: false }), function(req, re
 var auth = require('http-auth');
 var basic = auth.basic({
 	realm: "Simon Area.",
-	file: __dirname + "/../data/users.htpasswd" // gevorg:gpass, Sarah:testpass ...
+	file: __dirname + "/../data/users.htpasswd" // gevorg:gpass, Sarah:testpass
 });
 
 // Create your proxy server.
-httpProxy.createServer(basic, { target: 'http://localhost:1338' }).listen(1337);
+httpProxy.createServer(basic, {target: 'http://localhost:1338'}).listen(1337);
 
 // Create your target server.
 http.createServer(function (req, res) {
