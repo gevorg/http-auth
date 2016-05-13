@@ -15,4 +15,5 @@ module.exports = {
   digest: (options, checker) -> require('./auth/digest')(options, checker)
   connect: (authentication) -> require('./server/connect')(authentication)
   passport: (authentication) -> require('./server/passport')(authentication)
+  koa: (authentication) -> require('./server/koa')(authentication)
 }

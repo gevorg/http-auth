@@ -71,22 +71,18 @@ app.get('/', function(req, res){
 ## [koa framework](http://koajs.com/) integration
 ```javascript
 // Authentication module.
-var auth = require('http-auth');
+var auth = require('../gensrc/http-auth');
 var basic = auth.basic({
-	realm: "Simon Area.",
-	file: __dirname + "/../data/users.htpasswd" // gevorg:gpass, Sarah:testpass
+    realm: "Simon Area.",
+    file: __dirname + "/../data/users.htpasswd" // gevorg:gpass, Sarah:testpass
 });
 
-// Application setup.
-var app = koa();
+// Enable auth.
+app.use(auth.koa(basic));
 
-// Convert express middleware to koa
-var c2k = require('koa-connect');
-app.use(c2k(auth.connect(basic)));
-
-// Setup route.
-app.get('/', function *(next){
-  res.send("Hello from koa - " + this.request.user + "!");
+// Final handler.
+app.use(function *(){
+    this.body = "Hello from koa - " + this.req.user + "!";
 });
 ```
 
@@ -206,6 +202,7 @@ You can find list of issues using **[this link](http://github.com/http-auth/http
  - **[http-proxy](https://github.com/nodejitsu/node-http-proxy/)** - A full-featured http proxy for node.js.
  - **[request](https://github.com/request/request/)** - Simplified HTTP request client.
  - **[passport](http://passportjs.org/)** - Simple, unobtrusive authentication for Node.js.
+ - **[koa](http://koajs.com/)** - next generation web framework for node.js.
 
 ## License
 
