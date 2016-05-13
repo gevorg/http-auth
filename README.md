@@ -68,6 +68,28 @@ app.get('/', function(req, res){
 });
 ```
 
+## [koa framework](http://koajs.com/) integration
+```javascript
+// Authentication module.
+var auth = require('http-auth');
+var basic = auth.basic({
+	realm: "Simon Area.",
+	file: __dirname + "/../data/users.htpasswd" // gevorg:gpass, Sarah:testpass
+});
+
+// Application setup.
+var app = koa();
+
+// Convert express middleware to koa
+var c2k = require('koa-connect');
+app.use(c2k(auth.connect(basic)));
+
+// Setup route.
+app.get('/', function *(next){
+  res.send("Hello from koa - " + this.request.user + "!");
+});
+```
+
 ## Protecting specific path
 ```javascript
 // Authentication module.
