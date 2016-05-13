@@ -71,7 +71,7 @@ app.get('/', function(req, res){
 ## [koa framework](http://koajs.com/) integration
 ```javascript
 // Authentication module.
-var auth = require('../gensrc/http-auth');
+var auth = require('http-auth');
 var basic = auth.basic({
     realm: "Simon Area.",
     file: __dirname + "/../data/users.htpasswd" // gevorg:gpass, Sarah:testpass
