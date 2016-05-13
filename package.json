@@ -42,7 +42,7 @@
 		"node": ">=0.4.1"
 	},
 	"scripts": {
-        "test": "node ./node_modules/nodeunit/bin/nodeunit tests",
+        "test": "node tests/runner.js",
 		"prepublish": "rm -rf gensrc && node ./node_modules/coffee-script/bin/coffee --compile -o gensrc src",
 		"pretest": "npm run prepublish"
 	},
