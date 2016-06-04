@@ -16,22 +16,19 @@ class Base
     
   # Is authenticated method.
   isAuthenticated: (req, callback) ->
-    try # Processing client's data, dangerous! 
-      if @proxy
-        header = req.headers["proxy-authorization"]
-      else  
-        header = req.headers["authorization"]
-       
-      if header # If header is sent.
-        clientOptions = @parseAuthorization header
-  
-        if clientOptions # If client options are good.
-          searching = true # Searching...
-          @findUser req, clientOptions, (result) =>
-            callback.apply this, [result]
-    catch error
-      console.error error.message
-                    
+    if @proxy
+      header = req.headers["proxy-authorization"]
+    else
+      header = req.headers["authorization"]
+
+    if header # If header is sent.
+      clientOptions = @parseAuthorization header
+
+      if clientOptions # If client options are good.
+        searching = true # Searching...
+        @findUser req, clientOptions, (result) =>
+          callback.apply this, [result]
+
     # Only if not searching call callback.
     (callback.apply this, [{}]) if not searching
       
