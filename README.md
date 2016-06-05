@@ -181,7 +181,7 @@ You can find list of issues using **[this link](http://github.com/http-auth/http
 
 ## Questions
 
-You can also use [stackoverflow](http://stackoverflow.com/questions/tagged/http-auth) to ask questions using **[http-auth](http://stackoverflow.com/tags/http-auth/)** tag.
+You can also use [stackoverflow](http://stackoverflow.com/questions/tagged/http-auth) to ask questions using **[http-auth](http://stackoverflow.com/tags/http-auth/info)** tag.
 
 ## Requirements
 
