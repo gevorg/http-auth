@@ -179,6 +179,10 @@ $ npm test
 
 You can find list of issues using **[this link](http://github.com/http-auth/http-auth/issues)**.
 
+## Questions
+
+You can also use [stackoverflow](http://stackoverflow.com/questions/tagged/http-auth) to ask questions using **[http-auth](http://stackoverflow.com/tags/http-auth/)** tag.
+
 ## Requirements
 
  - **[Node.js](http://nodejs.org)** - Event-driven I/O server-side JavaScript environment based on V8.
