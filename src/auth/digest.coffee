@@ -58,13 +58,16 @@ class Digest extends Base
     response is co.response
   
   # Searching for user.
-  findUser: (req, co, callback) ->        
+  findUser: (req, co, callback) ->
     if @validateNonce co.nonce
       ha2 = utils.md5 "#{req.method}:#{co.uri}"
-      
+
       if @checker # Custom authentication.
         @checker.apply this, [co.username, (hash) =>
-          callback.apply this, [{user: co.username if (@validate ha2, co, hash)}]
+          if hash instanceof Error
+            callback.apply this, [hash]
+          else
+            callback.apply this, [{user: co.username if (@validate ha2, co, hash)}]
         ]
       else # File based.
         for user in @options.users # Loop users to find the matching one.

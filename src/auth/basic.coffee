@@ -29,8 +29,11 @@ class Basic extends Base
     password = splitHash.join ":"
 
     if @checker # Custom authentication.
-      @checker.apply this, [username, password, (success) =>
-        callback.apply this, [{user: username if success}]
+      @checker.apply this, [username, password, (result) =>
+        if result instanceof Error
+          callback.apply this, [result]
+        else          
+          callback.apply this, [{user: username if result}]
       ]
     else # File based.
       for user in @options.users # Loop users to find the matching one.

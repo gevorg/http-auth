@@ -58,8 +58,10 @@ class Base
 
   # Checking if user is authenticated.
   check: (req, res, callback) ->  
-    @isAuthenticated req, (result) =>            
-      if not result.user # Asking for authentication.
+    @isAuthenticated req, (result) =>
+      if result instanceof Error
+        (callback.apply this, [req, res, result]) if callback
+      else if not result.user # Asking for authentication.
         @ask res, result
       else # Apply default listener.
         req.user = result.user if not @options.skipUser

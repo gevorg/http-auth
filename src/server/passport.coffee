@@ -13,7 +13,10 @@ HttpStrategy.prototype.authenticate = (req) ->
   self = this
 
   this.authentication.isAuthenticated req, (result) ->
-    if not result.user
+    if result instanceof Error
+      console.error result
+      self.fail 400
+    else if not result.user
       header = self.authentication.generateHeader result
       self.fail header
     else

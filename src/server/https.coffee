@@ -15,7 +15,13 @@ https.createServer = () ->
     if arguments[2] # With listener.
       listener = arguments[2]
       newListener = (req, res) ->
-        authentication.check req, res, listener        
+        authentication.check req, res, (req, res, err) ->
+          if err
+            console.error err
+            res.statusCode = 400
+            res.end err.message
+          else
+            listener req, res        
         
       # HTTPS options and listener.
       server = oldCreateServer.apply https, [arguments[1], newListener]      

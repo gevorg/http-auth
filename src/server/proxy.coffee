@@ -25,7 +25,13 @@ httpProxy.createServer = httpProxy.createProxyServer = httpProxy.createProxy = (
       # Fetch external arguments.
       externalArguments = arguments
 
-      authentication.check req, res, () -> # Check for authentication.
-        oldProxyRequest.apply server, externalArguments
+      # Check for authentication.
+      authentication.check req, res, (req, res, err) ->
+        if err
+          console.error err
+          res.statusCode = 400
+          res.end err.message
+        else
+          oldProxyRequest.apply server, externalArguments
         
   return server # Return.

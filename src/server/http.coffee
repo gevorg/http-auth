@@ -15,7 +15,13 @@ http.createServer = () ->
     if arguments[1] # With listener.
       listener = arguments[1]
       newListener = (req, res) ->
-        authentication.check req, res, listener
+        authentication.check req, res, (req, res, err) ->
+          if err
+            console.error err
+            res.statusCode = 400
+            res.end err.message
+          else
+            listener req, res
       
       server = oldCreateServer.apply http, [newListener]
     else # Without.

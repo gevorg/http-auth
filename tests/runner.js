@@ -11,7 +11,7 @@ var isOldNode = process.version.indexOf("v0.") == 0;
 fs.readdir(__dirname, function (err, names) {
     // Tests to run.
     var tests = [];
-    const newTests = ['test-koa.coffee'];
+    const newTests = ['test-koa.coffee', 'test-koa-exception.coffee'];
 
     // Filter.
     names.forEach(function (name) {

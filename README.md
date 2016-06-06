@@ -38,7 +38,9 @@ http.createServer(basic, function(req, res) {
 var auth = require('http-auth');
 var basic = auth.basic({
 		realm: "Simon Area."
-	}, function (username, password, callback) { // Custom authentication
+	}, function (username, password, callback) { 
+	    // Custom authentication
+	    // Use callback(error) if you want to throw async error.
 		callback(username === "Tina" && password === "Bullock");
 	}
 );

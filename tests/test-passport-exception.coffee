@@ -10,14 +10,22 @@ auth = require '../gensrc/http-auth'
 # passport library.
 passport = require 'passport'
 
+# Utility library.
+utils = require '../gensrc/auth/utils'
+
 module.exports =
 
   # Before each test.
   setUp: (callback) ->
-    digest = auth.digest { # Configure authentication.
+    # Configure authentication.
+    digest = auth.digest {
       realm: "Simon Area.",
-      file: __dirname + "/../data/users.htdigest"
-    }
+    },
+      (username, callback) =>
+        if username is "simon"
+          callback (utils.md5 "simon:Simon Area.:smart")
+        else
+          callback new Error("Error comes here")
 
     # Creating new HTTP server.
     app = express()
@@ -38,29 +46,21 @@ module.exports =
     @server.close() # Stop server.
     callback()
 
+  # Error should be thrown.
+  testError: (test) ->
+    callback = (error, response, body) -> # Callback.
+      test.equals body, "Bad Request"
+      test.done()
+
+    # Test request.
+    (request.get 'http://127.0.0.1:1337', callback).auth 'gevorg', 'gpass', false
+
+
   # Correct details.
   testSuccess: (test) ->
     callback = (error, response, body) -> # Callback.
-      test.equals body, "Hello from passport - vivi!"
+      test.equals body, "Hello from passport - simon!"
       test.done()
 
     # Test request.
-    (request.get 'http://127.0.0.1:1337', callback).auth 'vivi', 'anna', false
-
-  # Wrong password.
-  testWrongPassword: (test) ->
-    callback = (error, response, body) -> # Callback.
-      test.equals body, "Unauthorized"
-      test.done()
-
-    # Test request.
-    (request.get 'http://127.0.0.1:1337', callback).auth 'vivi', 'duck', false
-
-  # Wrong user.
-  testWrongUser: (test) ->
-    callback = (error, response, body) -> # Callback.
-      test.equals body, "Unauthorized"
-      test.done()
-
-    # Test request.
-    (request.get 'http://127.0.0.1:1337', callback).auth 'solomon', 'gpass', false
+    (request.get 'http://127.0.0.1:1337', callback).auth 'simon', 'smart', false

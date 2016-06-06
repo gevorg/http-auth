@@ -15,9 +15,8 @@ module.exports =
   # Before each test.
   setUp: (callback) ->
     digest = auth.digest { # Configure authentication.
-        realm: "Simon Area.",
-        file: __dirname + "/../data/users.htdigest"
-      }, 
+        realm: "Simon Area."
+      },
       (username, callback) -> # Expecting md5(username:realm:password) in callback.   
         if username is "simon"
           callback (utils.md5 "simon:Simon Area.:smart")
