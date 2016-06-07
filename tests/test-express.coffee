@@ -23,6 +23,7 @@ module.exports =
     # Setup route.
     app.get '/', (req, res) ->
       res.send "Hello from express - #{req.user}!"
+
     # Start server.
     @server = app.listen 1337
     callback()

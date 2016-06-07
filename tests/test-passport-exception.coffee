@@ -37,6 +37,10 @@ module.exports =
     app.get '/', passport.authenticate('http', { session: false }), (req, res) ->
       res.send "Hello from passport - #{req.user}!"
 
+    # Error handler.
+    app.use (err, req, res, next) ->
+      res.status(400).end(err.message);
+
     # Start server.
     @server = app.listen 1337
     callback()
@@ -49,7 +53,7 @@ module.exports =
   # Error should be thrown.
   testError: (test) ->
     callback = (error, response, body) -> # Callback.
-      test.equals body, "Bad Request"
+      test.equals body, "Error comes here"
       test.done()
 
     # Test request.
