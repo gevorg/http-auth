@@ -6,11 +6,11 @@ import {expect} from 'chai'
 // Request module.
 import request from 'request'
 
-// Source.
-import auth from '../gensrc/http-auth'
-
 // HTTP.
 import http from 'http'
+
+// Source.
+import auth from '../gensrc/http-auth'
 
 // Basic auth.
 describe('basic', function () {

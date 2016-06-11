@@ -12,6 +12,9 @@ import http from 'http'
 // Source.
 import auth from '../gensrc/http-auth'
 
+// Utils.
+import utils from '../gensrc/auth/utils'
+
 // Digest auth.
 describe('digest', function () {
     let server = undefined;
@@ -19,8 +22,15 @@ describe('digest', function () {
     before(function() {
         // Configure authentication.
         let digest = auth.digest({
-            realm: "Simon Area.",
-            file: __dirname + "/../data/users.htdigest"
+            realm: "Simon Area."
+        }, function(username, callback) {
+            if (username === "simon") {
+                return utils.md5("simon:Simon Area.:smart");
+            } else if (username === "gevorg") {
+                done(new Error("Error comes here"));
+            } else {
+                done();
+            }
         });
 
         // Creating new HTTP server.
@@ -36,22 +46,31 @@ describe('digest', function () {
         server.close();
     });
 
-    it('success', function () {
-        let callback = function(error, response, body) {
-            expect(body).to.equal("Welcome to private area - vivi!");
+    it('error', function () {
+        let callback = function (error, response, body) {
+            expect(body).to.equal("Error comes here");
         };
 
         // Test request.
-        request.get('http://127.0.0.1:1337', callback).auth('vivi', 'anna', false);
+        request.get('http://127.0.0.1:1337', callback).auth('gevorg', 'gpass', false);
     });
 
-    it('special uri', function () {
+    it('success', function () {
         let callback = function(error, response, body) {
-            expect(body).to.equal("Welcome to private area - vivi!");
+            expect(body).to.equal("Welcome to private area - simon!");
         };
 
         // Test request.
-        request.get('http://127.0.0.1:1337/?coffee=rocks', callback).auth('vivi', 'anna', false);
+        request.get('http://127.0.0.1:1337', callback).auth('simon', 'smart', false);
+    });
+
+    it('comma URI', function () {
+        let callback = function(error, response, body) {
+            expect(body).to.equal("Welcome to private area - simon!");
+        };
+
+        // Test request.
+        request.get('http://127.0.0.1:1337/comma,/', callback).auth('simon', 'smart', false);
     });
 
     it('wrong password', function () {
@@ -60,7 +79,7 @@ describe('digest', function () {
         };
 
         // Test request.
-        request.get('http://127.0.0.1:1337', callback).auth('vivi', 'goose', false);
+        request.get('http://127.0.0.1:1337', callback).auth('simon', 'woolf', false);
     });
 
     it('wrong user', function () {
@@ -69,6 +88,6 @@ describe('digest', function () {
         };
 
         // Test request.
-        request.get('http://127.0.0.1:1337', callback).auth('brad', 'anna', false);
+        request.get('http://127.0.0.1:1337', callback).auth('virgina', 'smart', false);
     });
 });
