@@ -1,0 +1,48 @@
+"use strict";
+
+// Expect module.
+import {expect} from 'chai'
+
+// Request module.
+import request from 'request'
+
+// Source.
+import auth from '../gensrc/http-auth'
+
+// HTTP.
+import http from 'http'
+
+// Basic auth.
+describe('basic', function () {
+    let server = undefined;
+
+    before(function () {
+        // Configure authentication.
+        let basic = auth.basic({
+            realm: "Private Area.",
+            file: __dirname + "/../data/users.htpasswd",
+            skipUser: true
+        });
+
+        // Creating new HTTP server.
+        server = http.createServer(basic, function (req, res) {
+            res.end(`Welcome to private area - ${req.user}!`);
+        });
+
+        // Start server.
+        server.listen(1337);
+    });
+
+    after(function () {
+        server.close();
+    });
+
+    it('skip user', function () {
+        let callback = function (error, response, body) {
+            expect(body).to.equal("Welcome to private area - undefined!");
+        };
+
+        // Test request.
+        request.get('http://127.0.0.1:1337', callback).auth('gevorg', 'gpass');
+    });
+});
