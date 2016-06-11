@@ -1,7 +1,7 @@
 "use strict";
 
 // Expect module.
-import {expect} from 'chai';
+import {expect} from 'chai'
 
 // Source.
 import * as utils from '../gensrc/auth/utils'
