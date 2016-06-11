@@ -65,7 +65,7 @@ var app = express();
 app.use(auth.connect(basic));
 
 // Setup route.
-app.get('/', function(req, res){
+app.get('/', function(req, res) {
     res.send("Hello from express - " + req.user + "!");
 });
 ```
@@ -83,7 +83,7 @@ var basic = auth.basic({
 app.use(auth.koa(basic));
 
 // Final handler.
-app.use(function *(){
+app.use(function *() {
     this.body = "Hello from koa - " + this.req.user + "!";
 });
 ```
@@ -101,12 +101,12 @@ var basic = auth.basic({
 var app = express();
 
 // Setup route.
-app.get('/admin', auth.connect(basic), function(req, res){
+app.get('/admin', auth.connect(basic), function(req, res) {
     res.send("Hello from admin area - " + req.user + "!");
 });
 
 // Setup route.
-app.get('/', function(req, res){
+app.get('/', function(req, res) {
     res.send("Not protected area!");
 });
 ```
