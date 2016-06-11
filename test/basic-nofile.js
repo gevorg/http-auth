@@ -14,79 +14,81 @@ import auth from '../gensrc/http-auth'
 
 // Basic auth.
 describe('basic', function () {
-    let server = undefined;
+    describe('nofile', function() {
+        let server = undefined;
 
-    before(function () {
-        // Configure authentication.
-        let basic = auth.basic({
-            realm: "Private Area."
-        }, function (username, password, done) {
-            if (username === 'gevorg') {
-                done(new Error("Error comes here"));
-            } else if (username === "mia" && password === "supergirl") {
-                done(true);
-            } else if (username === "ColonUser" && password === "apasswordwith:acolon") {
-                done(true);
-            } else {
-                done(false);
-            }
+        before(function () {
+            // Configure authentication.
+            let basic = auth.basic({
+                realm: "Private Area."
+            }, function (username, password, done) {
+                if (username === 'gevorg') {
+                    done(new Error("Error comes here"));
+                } else if (username === "mia" && password === "supergirl") {
+                    done(true);
+                } else if (username === "ColonUser" && password === "apasswordwith:acolon") {
+                    done(true);
+                } else {
+                    done(false);
+                }
+            });
+
+            // Creating new HTTP server.
+            server = http.createServer(basic, function (req, res) {
+                res.end(`Welcome to private area - ${req.user}!`);
+            });
+
+            // Start server.
+            server.listen(1337);
         });
 
-        // Creating new HTTP server.
-        server = http.createServer(basic, function (req, res) {
-            res.end(`Welcome to private area - ${req.user}!`);
+        after(function () {
+            server.close();
         });
 
-        // Start server.
-        server.listen(1337);
-    });
+        it('error', function () {
+            let callback = function (error, response, body) {
+                expect(body).to.equal("Error comes here");
+            };
 
-    after(function () {
-        server.close();
-    });
+            // Test request.
+            request.get('http://127.0.0.1:1337', callback).auth('gevorg', 'gpass');
+        });
 
-    it('error', function () {
-        let callback = function (error, response, body) {
-            expect(body).to.equal("Error comes here");
-        };
+        it('success', function () {
+            let callback = function (error, response, body) {
+                expect(body).to.equal("Welcome to private area - mia!");
+            };
 
-        // Test request.
-        request.get('http://127.0.0.1:1337', callback).auth('gevorg', 'gpass');
-    });
+            // Test request.
+            request.get('http://127.0.0.1:1337', callback).auth('mia', 'supergirl');
+        });
 
-    it('success', function () {
-        let callback = function (error, response, body) {
-            expect(body).to.equal("Welcome to private area - mia!");
-        };
+        it('wrong password', function () {
+            let callback = function (error, response, body) {
+                expect(body).to.equal("401 Unauthorized");
+            };
 
-        // Test request.
-        request.get('http://127.0.0.1:1337', callback).auth('mia', 'supergirl');
-    });
+            // Test request.
+            request.get('http://127.0.0.1:1337', callback).auth('mia', 'cute');
+        });
 
-    it('wrong password', function () {
-        let callback = function (error, response, body) {
-            expect(body).to.equal("401 Unauthorized");
-        };
+        it('wrong user', function () {
+            let callback = function (error, response, body) {
+                expect(body).to.equal("401 Unauthorized");
+            };
 
-        // Test request.
-        request.get('http://127.0.0.1:1337', callback).auth('mia', 'cute');
-    });
+            // Test request.
+            request.get('http://127.0.0.1:1337', callback).auth('Tina', 'supergirl');
+        });
 
-    it('wrong user', function () {
-        let callback = function (error, response, body) {
-            expect(body).to.equal("401 Unauthorized");
-        };
+        it('password with colon', function () {
+            let callback = function (error, response, body) {
+                expect(body).to.equal("Welcome to private area - ColonUser!");
+            };
 
-        // Test request.
-        request.get('http://127.0.0.1:1337', callback).auth('Tina', 'supergirl');
-    });
-
-    it('password with colon', function () {
-        let callback = function (error, response, body) {
-            expect(body).to.equal("Welcome to private area - ColonUser!");
-        };
-
-        // Test request.
-        request.get('http://127.0.0.1:1337', callback).auth('ColonUser', 'apasswordwith:acolon');
+            // Test request.
+            request.get('http://127.0.0.1:1337', callback).auth('ColonUser', 'apasswordwith:acolon');
+        });
     });
 });
