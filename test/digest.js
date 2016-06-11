@@ -42,7 +42,7 @@ describe('digest', function () {
         };
 
         // Test request.
-        request.get('http://127.0.0.1:1337', callback).auth('vivi', 'anna', false);
+        request.get('http://127.0.0.1:1337', callback).auth('vivi', 'anna');
     });
 
     it('special uri', function () {
@@ -51,24 +51,24 @@ describe('digest', function () {
         };
 
         // Test request.
-        request.get('http://127.0.0.1:1337/?coffee=rocks', callback).auth('vivi', 'anna', false);
+        request.get('http://127.0.0.1:1337/?coffee=rocks', callback).auth('vivi', 'anna');
     });
 
-    // it('wrong password', function () {
-    //     let callback = function(error, response, body) {
-    //         expect(body).to.equal("401 Unauthorized");
-    //     };
-    //
-    //     // Test request.
-    //     request.get('http://127.0.0.1:1337', callback).auth('vivi', 'goose', false);
-    // });
-    //
-    // it('wrong user', function () {
-    //     let callback = function(error, response, body) {
-    //         expect(body).to.equal("401 Unauthorized");
-    //     };
-    //
-    //     // Test request.
-    //     request.get('http://127.0.0.1:1337', callback).auth('brad', 'anna', false);
-    // });
+    it('wrong password', function () {
+        let callback = function(error, response, body) {
+            expect(body).to.equal("401 Unauthorized");
+        };
+
+        // Test request.
+        request.get('http://127.0.0.1:1337', callback).auth('vivi', 'goose');
+    });
+
+    it('wrong user', function () {
+        let callback = function(error, response, body) {
+            expect(body).to.equal("401 Unauthorized");
+        };
+
+        // Test request.
+        request.get('http://127.0.0.1:1337', callback).auth('brad', 'anna');
+    });
 });
