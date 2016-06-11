@@ -11,7 +11,8 @@ var http = require('http');
 var auth = require('../gensrc/http-auth');
 var digest = auth.digest({
 		realm: "Simon Area."
-	}, function (username, callback) { // Expecting md5(username:realm:password) in callback.		
+	}, function (username, callback) {
+		// Expecting md5(username:realm:password) in callback.
 		if (username === "simon") {
 			callback(utils.md5("simon:Simon Area.:smart"));
 		} else if(username === "tigran") {

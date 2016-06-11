@@ -8,7 +8,7 @@ var httpProxy = require('http-proxy');
 var auth = require('../gensrc/http-auth');
 var basic = auth.basic({
 	realm: "Simon Area.",
-	file: __dirname + "/../data/users.htpasswd" // gevorg:gpass, Sarah:testpass ...
+	file: __dirname + "/../data/users.htpasswd" // gevorg:gpass, Sarah:testpass
 });
 
 // Create your proxy server.

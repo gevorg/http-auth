@@ -5,7 +5,8 @@ var http = require('http');
 var auth = require('../gensrc/http-auth');
 var basic = auth.basic({
 		realm: "Simon Area."
-	}, function (username, password, callback) { // Custom authentication method.
+	}, function (username, password, callback) {
+		// Custom authentication method.
 		callback(username === "Tina" && password === "Bullock");
 	}
 );

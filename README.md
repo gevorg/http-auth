@@ -23,7 +23,7 @@ $ npm install http-auth
 var auth = require('http-auth');
 var basic = auth.basic({
 	realm: "Simon Area.",
-	file: __dirname + "/../data/users.htpasswd" // gevorg:gpass, Sarah:testpass
+	file: __dirname + "/../data/users.htpasswd"
 });
 
 // Creating new HTTP server.
@@ -57,7 +57,7 @@ http.createServer(basic, function(req, res) {
 var auth = require('http-auth');
 var basic = auth.basic({
 	realm: "Simon Area.",
-	file: __dirname + "/../data/users.htpasswd" // gevorg:gpass, Sarah:testpass
+	file: __dirname + "/../data/users.htpasswd"
 });
 
 // Application setup.
@@ -66,7 +66,7 @@ app.use(auth.connect(basic));
 
 // Setup route.
 app.get('/', function(req, res){
-  res.send("Hello from express - " + req.user + "!");
+    res.send("Hello from express - " + req.user + "!");
 });
 ```
 
@@ -76,7 +76,7 @@ app.get('/', function(req, res){
 var auth = require('http-auth');
 var basic = auth.basic({
     realm: "Simon Area.",
-    file: __dirname + "/../data/users.htpasswd" // gevorg:gpass, Sarah:testpass
+    file: __dirname + "/../data/users.htpasswd"
 });
 
 // Enable auth.
@@ -94,7 +94,7 @@ app.use(function *(){
 var auth = require('http-auth');
 var basic = auth.basic({
 	realm: "Simon Area.",
-	file: __dirname + "/../data/users.htpasswd" // gevorg:gpass, Sarah:testpass
+	file: __dirname + "/../data/users.htpasswd"
 });
 
 // Application setup.
@@ -102,12 +102,12 @@ var app = express();
 
 // Setup route.
 app.get('/admin', auth.connect(basic), function(req, res){
-  res.send("Hello from admin area - " + req.user + "!");
+    res.send("Hello from admin area - " + req.user + "!");
 });
 
 // Setup route.
 app.get('/', function(req, res){
-  res.send("Not protected area!");
+    res.send("Not protected area!");
 });
 ```
 
@@ -117,7 +117,7 @@ app.get('/', function(req, res){
 var auth = require('http-auth');
 var basic = auth.basic({
 	realm: "Simon Area.",
-	file: __dirname + "/../data/users.htpasswd" // gevorg:gpass, Sarah:testpass
+	file: __dirname + "/../data/users.htpasswd"
 });
 
 // Application setup.
@@ -141,11 +141,13 @@ app.get('/', passport.authenticate('http', {session: false}),
 var auth = require('http-auth');
 var basic = auth.basic({
 	realm: "Simon Area.",
-	file: __dirname + "/../data/users.htpasswd" // gevorg:gpass, Sarah:testpass
+	file: __dirname + "/../data/users.htpasswd"
 });
 
 // Create your proxy server.
-httpProxy.createServer(basic, {target: 'http://localhost:1338'}).listen(1337);
+httpProxy.createServer(basic, {
+    target: 'http://localhost:1338'
+}).listen(1337);
 
 // Create your target server.
 http.createServer(function (req, res) {
