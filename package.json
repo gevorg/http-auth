@@ -47,7 +47,7 @@
   },
   "scripts": {
     "test": "mocha --compilers js:babel-core/register",
-    "compile": "babel src -d gensrc",
+    "compile": "node ./node_modules/coffee-script/bin/coffee --compile -o gensrc src",
     "prepublish": "npm run compile",
     "pretest": "npm run compile"
   },
