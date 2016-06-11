@@ -1,7 +1,7 @@
 # Importing crypto module.
 crypto = require 'crypto'
 
-#  Module for utility functionalities.
+# Utilities.
 module.exports =
 
   # Generates md5 hash of input.

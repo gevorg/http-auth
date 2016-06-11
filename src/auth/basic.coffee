@@ -4,14 +4,27 @@ Base = require './base'
 # Utility module.
 utils = require './utils'
 
-# htpasswd verification is reused.
-htpasswd = require 'htpasswd'
+# Importing apache-md5 module.
+md5 = require 'apache-md5'
+
+# Importing apache-crypt module.
+crypt = require 'apache-crypt'
 
 # Basic authentication class.
 class Basic extends Base    
   # Constructor.
   constructor: (@options, @checker) ->
     super @options, @checker
+
+  # Verifies if password is correct.
+  validate: (hash, password) ->
+    if (hash.substr 0, 5) is '{SHA}'
+      hash = hash.substr 5
+      hash is utils.sha1 password
+    else if (hash.substr 0, 6) is '$apr1$'
+      hash is md5(password, hash)
+    else
+      (hash is password) or ((crypt password, hash) is hash)
   
   # Processes line from authentication file.
   processLine: (line) ->
@@ -31,13 +44,16 @@ class Basic extends Base
     if @checker # Custom authentication.
       @checker.apply this, [username, password, (result) =>
         if result instanceof Error
-          callback.apply this, [result]
-        else          
-          callback.apply this, [{user: username if result}]
+          params = [result]
+        else
+          params = [{user: username if result}]
+
+        # Call callback.
+        callback.apply this, params
       ]
     else # File based.
       for user in @options.users # Loop users to find the matching one.
-        if user.username is username and htpasswd.verify user.hash, password
+        if user.username is username and @validate user.hash, password
           found = true
           break # Stop searching, we found him.
           

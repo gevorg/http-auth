@@ -42,9 +42,7 @@ class Base
 
   # Ask for authentication.
   ask: (res, result) ->
-	
     header = @generateHeader result
-
     res.setHeader "Content-Type", @options.contentType
 
     if @proxy # Proxy authentication.

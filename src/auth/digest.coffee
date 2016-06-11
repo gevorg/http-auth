@@ -65,9 +65,12 @@ class Digest extends Base
       if @checker # Custom authentication.
         @checker.apply this, [co.username, (hash) =>
           if hash instanceof Error
-            callback.apply this, [hash]
+            params = [hash]
           else
-            callback.apply this, [{user: co.username if (@validate ha2, co, hash)}]
+            params = [{user: co.username if (@validate ha2, co, hash)}]
+
+          # Call callback.
+          callback.apply this, params
         ]
       else # File based.
         for user in @options.users # Loop users to find the matching one.

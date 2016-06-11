@@ -7,9 +7,6 @@ http = require 'http'
 # Authentication library.
 auth = require '../gensrc/http-auth'
 
-# htpasswd verification is reused.
-htpasswd = require 'htpasswd'
-
 module.exports =
   
   # Before each test.

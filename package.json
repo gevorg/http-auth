@@ -26,25 +26,26 @@
 		"url": "http://github.com/http-auth/http-auth/issues"
 	},
 	"dependencies": {
-		"node-uuid": "1.4.7",
-		"htpasswd": "2.2.4"
+		"apache-md5": "^1.0.6",
+		"apache-crypt": "^1.1.2",
+		"node-uuid": "^1.4.7"
 	},
 	"devDependencies": {
-		"coffee-script": "1.10.0",
-		"nodeunit": "0.9.0",
-		"express": "4.13.4",
-		"http-proxy": "1.11.1",
-		"request": "2.69.0",
-		"passport": "0.3.2",
-		"koa": "1.2.0"
+		"coffee-script": "^1.10.0",
+		"nodeunit": "^0.9.1",
+		"express": "^4.13.4",
+		"http-proxy": "^1.13.3",
+		"request": "^2.72.1",
+		"passport": "^0.3.2",
+		"koa": "^1.2.0"
 	},
 	"engines": {
-		"node": ">=0.4.1"
+		"node": ">=5"
 	},
 	"scripts": {
-        "test": "node tests/runner.js",
+		"test": "node ./node_modules/nodeunit/bin/nodeunit test",
 		"prepublish": "rm -rf gensrc && node ./node_modules/coffee-script/bin/coffee --compile -o gensrc src",
 		"pretest": "npm run prepublish"
 	},
-	"keywords": ["node", "http", "server", "basic", "digest", "access", "authentication"]
+	"keywords": ["http", "basic", "digest", "access", "authentication"]
 }

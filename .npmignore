@@ -3,5 +3,7 @@ node_modules
 .project
 http-auth.iml
 .idea
-*.swp
 .settings
+_site
+src
+test
