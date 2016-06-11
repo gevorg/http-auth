@@ -173,7 +173,7 @@ http.createServer(function (req, res) {
 
 ## Running tests
 
-It uses [nodeunit](https://github.com/caolan/nodeunit/), so just run following command in package directory:
+It uses [mocha](https://mochajs.org/), so just run following command in package directory:
 
 ```bash
 $ npm test
@@ -205,7 +205,9 @@ You can also use [stackoverflow](http://stackoverflow.com/questions/tagged/http-
 ## Development dependencies
 
  - **[coffee-script](http://coffeescript.org/)** - CoffeeScript is a little language that compiles into JavaScript.
- - **[nodeunit](https://github.com/caolan/nodeunit/)** - Easy unit testing in node.js and the browser, based on the assert module.
+ - **[babel](https://babeljs.io/)** - compiler for writing next generation JavaScript.
+ - **[mocha](https://mochajs.org/)** - simple, flexible, fun javascript test framework for node.js & the browser.
+ - **[chai](http://chaijs.com/)** - BDD / TDD assertion framework for node.js and the browser that can be paired with any testing framework.
  - **[express](http://expressjs.com/)** - Sinatra inspired web development framework for node.js -- insanely fast, flexible, and simple.
  - **[http-proxy](https://github.com/nodejitsu/node-http-proxy/)** - A full-featured http proxy for node.js.
  - **[request](https://github.com/request/request/)** - Simplified HTTP request client.

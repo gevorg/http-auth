@@ -1,51 +1,55 @@
 {
-	"name": "http-auth",
-	"description": "Node.js package for HTTP basic and digest access authentication.",
-	"version": "2.3.9",
-	"author": "Gevorg Harutyunyan (http://github.com/gevorg)",
-	"maintainers": [
-		{
-			"name": "gevorg",
-			"email": "gevorg.ha@gmail.com"
-		}
-	],
-	"homepage": "http://http-auth.info",
-	"repository": {
-		"type": "git",
-		"url": "http://github.com/http-auth/http-auth.git"
-	},
-	"main": "./gensrc/http-auth.js",
-	"licenses": [
-		{
-			"type": "MIT",
-			"url": "http://github.com/http-auth/http-auth/blob/master/LICENSE"
-		}
-	],
-	"license": "MIT",
-	"bugs": {
-		"url": "http://github.com/http-auth/http-auth/issues"
-	},
-	"dependencies": {
-		"apache-md5": "^1.0.6",
-		"apache-crypt": "^1.1.2",
-		"node-uuid": "^1.4.7"
-	},
-	"devDependencies": {
-		"coffee-script": "^1.10.0",
-		"nodeunit": "^0.9.1",
-		"express": "^4.13.4",
-		"http-proxy": "^1.13.3",
-		"request": "^2.72.1",
-		"passport": "^0.3.2",
-		"koa": "^1.2.0"
-	},
-	"engines": {
-		"node": ">=5"
-	},
-	"scripts": {
-		"test": "node ./node_modules/nodeunit/bin/nodeunit test",
-		"prepublish": "rm -rf gensrc && node ./node_modules/coffee-script/bin/coffee --compile -o gensrc src",
-		"pretest": "npm run prepublish"
-	},
-	"keywords": ["http", "basic", "digest", "access", "authentication"]
+  "name": "http-auth",
+  "description": "Node.js package for HTTP basic and digest access authentication.",
+  "version": "2.3.9",
+  "author": "Gevorg Harutyunyan (http://github.com/gevorg)",
+  "maintainers": [
+    {
+      "name": "gevorg",
+      "email": "gevorg.ha@gmail.com"
+    }
+  ],
+  "homepage": "http://http-auth.info",
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/http-auth/http-auth.git"
+  },
+  "main": "./gensrc/http-auth.js",
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://github.com/http-auth/http-auth/blob/master/LICENSE"
+    }
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "http://github.com/http-auth/http-auth/issues"
+  },
+  "dependencies": {
+    "apache-md5": "^1.0.6",
+    "apache-crypt": "^1.1.2",
+    "node-uuid": "^1.4.7"
+  },
+  "devDependencies": {
+    "coffee-script": "^1.10.0",
+    "babel-cli": "^6.9.0",
+    "babel-preset-es2015": "^6.9.0",
+    "mocha": "^2.5.3",
+    "chai": "^3.5.0",
+    "express": "^4.13.4",
+    "http-proxy": "^1.13.3",
+    "request": "^2.72.0",
+    "passport": "^0.3.2",
+    "koa": "^1.2.0"
+  },
+  "engines": {
+    "node": ">=5"
+  },
+  "scripts": {
+    "test": "mocha --compilers js:babel-core/register",
+    "compile": "babel src -d gensrc",
+    "prepublish": "npm run compile",
+    "pretest": "npm run compile"
+  },
+  "keywords": ["http", "basic", "digest", "access", "authentication"]
 }
