@@ -13,7 +13,7 @@ import http from 'http'
 import httpProxy from 'http-proxy'
 
 // Source.
-import auth from '../gensrc/http-auth'
+import * as auth from '../gensrc/http-auth'
 
 // Proxy.
 describe('proxy', function () {

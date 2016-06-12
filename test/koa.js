@@ -10,7 +10,7 @@ import request from 'request'
 import koa from 'koa'
 
 // Source.
-import auth from '../gensrc/http-auth'
+import * as auth from '../gensrc/http-auth'
 
 // Express.
 describe('koa', function () {

@@ -13,7 +13,7 @@ import https from 'https'
 import fs from 'fs'
 
 // Source.
-import auth from '../gensrc/http-auth'
+import * as auth from '../gensrc/http-auth'
 
 // HTTPS.
 describe('https', function () {
