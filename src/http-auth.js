@@ -28,16 +28,16 @@ module.exports = {
 
     // Connect.
     connect: function (auth) {
-        return require('./server/connect')(auth);
+        return require('./server/connect').middleware(auth);
     },
 
     // Koa.
     koa: function (auth) {
-        return require('./server/koa')(auth);
+        return require('./server/koa').middleware(auth);
     },
 
     // Passport.
     passport: function (auth) {
-        return require('./server/passport').Strategy(auth);
+        return require('./server/passport').strategy(auth);
     }
 };

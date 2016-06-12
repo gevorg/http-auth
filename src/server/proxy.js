@@ -1,3 +1,5 @@
+"use strict";
+
 // Proxy module.
 import httpProxy from 'http-proxy'
 

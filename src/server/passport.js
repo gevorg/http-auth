@@ -1,3 +1,5 @@
+"use strict";
+
 // Imports.
 import passport from 'passport'
 import util from 'util'
@@ -31,6 +33,6 @@ HttpStrategy.prototype.authenticate = function (req) {
 };
 
 // Export.
-export function Strategy(auth) {
+export function strategy(auth) {
     return new HttpStrategy(auth);
 }
