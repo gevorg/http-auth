@@ -46,6 +46,6 @@ describe('proxy', function () {
         };
 
         // Test request.
-        request.get({proxy: 'http://mia:supergirl@127.0.0.1:1337', uri: 'http://127.0.0.1:1337'}, callback);
+        request.get({proxy: 'http://127.0.0.1:1337', uri: 'http://127.0.0.1:1337'}, callback);
     });
 });
