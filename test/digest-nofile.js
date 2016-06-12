@@ -10,10 +10,10 @@ import request from 'request'
 import http from 'http'
 
 // Source.
-import * as auth from '../gensrc/http-auth'
+import * as auth from '../src/http-auth'
 
 // Utils.
-import utils from '../gensrc/auth/utils'
+import * as utils from '../src/auth/utils'
 
 // Digest auth.
 describe('digest', function () {

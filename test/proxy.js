@@ -13,7 +13,7 @@ import http from 'http'
 import httpProxy from 'http-proxy'
 
 // Source.
-import * as auth from '../gensrc/http-auth'
+import * as auth from '../src/http-auth'
 
 // Proxy.
 describe('proxy', function () {
@@ -42,7 +42,7 @@ describe('proxy', function () {
         }).listen(1337);
 
         // Creating new HTTP server.
-        server = http.createServer(basic, function (req, res) {
+        server = http.createServer(function (req, res) {
             res.end(`Welcome to private area - ${req.user}!`);
         });
 

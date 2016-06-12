@@ -13,7 +13,7 @@ import express from 'express'
 import passport from 'passport'
 
 // Source.
-import * as auth from '../gensrc/http-auth'
+import * as auth from '../src/http-auth'
 
 // Passport.
 describe('passport', function () {

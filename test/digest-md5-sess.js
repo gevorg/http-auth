@@ -10,7 +10,7 @@ import request from 'request'
 import http from 'http'
 
 // Source.
-import * as auth from '../gensrc/http-auth'
+import * as auth from '../src/http-auth'
 
 // Digest auth.
 describe('digest', function () {

@@ -204,7 +204,6 @@ You can also use [stackoverflow](http://stackoverflow.com/questions/tagged/http-
 
 ## Development dependencies
 
- - **[coffee-script](http://coffeescript.org/)** - CoffeeScript is a little language that compiles into JavaScript.
  - **[babel](https://babeljs.io/)** - compiler for writing next generation JavaScript.
  - **[mocha](https://mochajs.org/)** - simple, flexible, fun javascript test framework for node.js & the browser.
  - **[chai](http://chaijs.com/)** - BDD / TDD assertion framework for node.js and the browser that can be paired with any testing framework.

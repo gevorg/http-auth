@@ -10,7 +10,7 @@ import request from 'request'
 import express from 'express'
 
 // Source.
-import * as auth from '../gensrc/http-auth'
+import * as auth from '../src/http-auth'
 
 // Express.
 describe('express', function () {

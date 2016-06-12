@@ -18,12 +18,12 @@ if (utils.isAvailable('http-proxy')) {
 module.exports = {
     // Basic authentication.
     basic: function(options, checker) {
-        return require('./auth/basic')(options, checker);
+        return require('./auth/basic').default(options, checker);
     },
 
     // Digest authentication.
     digest: function (options, checker) {
-        return require('./auth/digest')(options, checker);
+        return require('./auth/digest').default(options, checker);
     },
 
     // Connect.
