@@ -7,3 +7,6 @@ http-auth.iml
 _site
 src
 test
+examples
+.travis.yml
+data
