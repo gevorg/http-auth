@@ -89,6 +89,30 @@ app.use(function *(next) {
 app.use(auth.koa(basic));
 ```
 
+For [koa@next](https://github.com/koajs/koa/tree/v2.x) you can use [http-auth-koa](https://github.com/http-auth/http-auth-koa):
+```javascript
+// Authentication module.
+import auth from 'http-auth'
+import koaAuth from 'http-auth-koa'
+const basic = auth.basic({
+    realm: "Simon Area.",
+    file: __dirname + "/../data/users.htpasswd"
+});
+
+// Koa setup.
+import Koa from 'koa'
+const app = new Koa();
+
+// Setup basic handler.
+app.use(async ctx => {
+    await next();
+    ctx.body = `Welcome to koa ${ctx.req.user}!`;
+});
+
+// Setup auth.
+app.use(koaAuth(basic));
+```
+
 ## Protecting specific path
 ```javascript
 // Authentication module.
