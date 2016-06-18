@@ -96,7 +96,7 @@ class Digest extends Base {
     findUser(req, co, callback) {
         let self = this;
 
-        if (this.validateNonce(co.nonce)) {
+        if (this.validateNonce(co.nonce, co.qop, co.nc)) {
             let ha2 = utils.md5(`${req.method}:${co.uri}`);
             if (this.checker) {
                 // Custom authentication.
@@ -140,7 +140,7 @@ class Digest extends Base {
     }
 
     // Validate nonce.
-    validateNonce(nonce) {
+    validateNonce(nonce, qop, nc) {
         let found = false;
 
         // Current time.
@@ -153,7 +153,14 @@ class Digest extends Base {
         this.nonces.forEach(serverNonce => {
             if ((serverNonce[1] + 3600000) > now) {
                 if (serverNonce[0] === nonce) {
-                    found = true;
+                    if (qop) {
+                        if (nc > serverNonce[2]) {
+                            found = true;
+                            ++ serverNonce[2];
+                        }
+                    } else {
+                        found = true;
+                    }
                 }
             } else {
                 noncesToRemove.push(serverNonce);
@@ -169,7 +176,7 @@ class Digest extends Base {
     // Generates and returns new random nonce.
     askNonce() {
         let nonce = utils.md5(uuid.v4());
-        this.nonces.push([nonce, Date.now()]);
+        this.nonces.push([nonce, Date.now(), 0]);
 
         return nonce;
     }
