@@ -104,7 +104,7 @@ import Koa from 'koa'
 const app = new Koa();
 
 // Setup basic handler.
-app.use(async ctx => {
+app.use(async (ctx, next) => {
     await next();
     ctx.body = `Welcome to koa ${ctx.req.user}!`;
 });
