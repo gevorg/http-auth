@@ -3,10 +3,10 @@
 // Export middleware.
 export function middleware(auth) {
     // Middleware for koa.
-    let koa = function (req, res, next) {
+    const koa = function (req, res, next) {
         auth.check(req, res, function (req, res, err) {
             if (err) {
-                next(err);
+                throw err;
             } else {
                 next();
             }

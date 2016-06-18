@@ -79,13 +79,14 @@ var basic = auth.basic({
     file: __dirname + "/../data/users.htpasswd"
 });
 
-// Enable auth.
-app.use(auth.koa(basic));
-
 // Final handler.
-app.use(function *() {
+app.use(function *(next) {
+    yield next;
     this.body = "Hello from koa - " + this.req.user + "!";
 });
+
+// Enable auth.
+app.use(auth.koa(basic));
 ```
 
 ## Protecting specific path

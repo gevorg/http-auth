@@ -18,7 +18,7 @@ describe('basic', function () {
 
     before(function () {
         // Configure authentication.
-        let basic = auth.basic({
+        const basic = auth.basic({
             realm: "Private Area.",
             file: __dirname + "/../data/users.htpasswd",
             skipUser: true
@@ -37,9 +37,10 @@ describe('basic', function () {
         server.close();
     });
 
-    it('skip user', function () {
-        let callback = function (error, response, body) {
+    it('skip user', function (done) {
+        const callback = function (error, response, body) {
             expect(body).to.equal("Welcome to private area - undefined!");
+            done();
         };
 
         // Test request.

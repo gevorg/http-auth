@@ -12,7 +12,7 @@ describe('utils', function () {
     describe('#md5', function () {
         it('hash should be correct', function () {
             // Source.
-            let hash = utils.md5("apple of my eye");
+            const hash = utils.md5("apple of my eye");
 
             // Expectation.
             expect(hash).to.equal("bda53a1c77224ede7cb14e756c1d0142");
@@ -23,7 +23,7 @@ describe('utils', function () {
     describe('#sha1', function () {
         it('hash should be correct', function () {
             // Source.
-            let hash = utils.sha1("forbidden fruit");
+            const hash = utils.sha1("forbidden fruit");
 
             // Expectation.
             expect(hash).to.equal("E1Kr19KXvaYQPcLo2MvSpGjoAYU=");
@@ -34,7 +34,7 @@ describe('utils', function () {
     describe('#base64', function () {
         it('ASCII input', function () {
             // Source.
-            let hash = utils.base64("crocodile");
+            const hash = utils.base64("crocodile");
 
             // Expectation.
             expect(hash).to.equal("Y3JvY29kaWxl");
@@ -42,7 +42,7 @@ describe('utils', function () {
 
         it('unicode input', function () {
             // Source.
-            let hash = utils.base64("Գևորգ");
+            const hash = utils.base64("Գևորգ");
 
             // Expectation.
             expect(hash).to.equal("1LPWh9W41oDVow==");
@@ -53,7 +53,7 @@ describe('utils', function () {
     describe('#decodeBase64', function () {
         it('ASCII input', function () {
             // Source.
-            let hash = utils.decodeBase64("c21pbGU=");
+            const hash = utils.decodeBase64("c21pbGU=");
 
             // Expectation.
             expect(hash).to.equal("smile");
@@ -61,7 +61,7 @@ describe('utils', function () {
 
         it('unicode input', function () {
             // Source.
-            let hash = utils.decodeBase64("0J3RgyDRgtGLIQ==");
+            const hash = utils.decodeBase64("0J3RgyDRgtGLIQ==");
 
             // Expectation.
             expect(hash).to.equal("Ну ты!");
@@ -72,7 +72,7 @@ describe('utils', function () {
     describe('#isAvailable', function () {
         it('existing module', function () {
             // Source.
-            let isAvailable = utils.isAvailable('http-proxy');
+            const isAvailable = utils.isAvailable('http-proxy');
 
             // Expectation.
             expect(isAvailable).to.be.true;
@@ -80,7 +80,7 @@ describe('utils', function () {
 
         it('not existing module', function () {
             // Source.
-            let isAvailable = utils.isAvailable('stupid name');
+            const isAvailable = utils.isAvailable('stupid name');
 
             // Expectation.
             expect(isAvailable).to.be.false;

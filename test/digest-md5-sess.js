@@ -19,7 +19,7 @@ describe('digest', function () {
 
         before(function () {
             // Configure authentication.
-            let digest = auth.digest({
+            const digest = auth.digest({
                 algorithm: 'MD5-sess',
                 realm: "Simon Area.",
                 file: __dirname + "/../data/users.htdigest"
@@ -38,31 +38,34 @@ describe('digest', function () {
             server.close();
         });
 
-        it('success', function () {
-            let callback = function (error, response, body) {
+        it('success', function (done) {
+            const callback = function (error, response, body) {
                 expect(body).to.equal("Welcome to private area - vivi!");
+                done();
             };
 
             // Test request.
-            request.get('http://127.0.0.1:1337', callback).auth('vivi', 'anna');
+            request.get('http://127.0.0.1:1337', callback).auth('vivi', 'anna', false);
         });
 
-        it('wrong password', function () {
-            let callback = function(error, response, body) {
+        it('wrong password', function (done) {
+            const callback = function(error, response, body) {
                 expect(body).to.equal("401 Unauthorized");
+                done();
             };
 
             // Test request.
-            request.get('http://127.0.0.1:1337', callback).auth('vivi', 'goose');
+            request.get('http://127.0.0.1:1337', callback).auth('vivi', 'goose', false);
         });
 
-        it('wrong user', function () {
-            let callback = function(error, response, body) {
+        it('wrong user', function (done) {
+            const callback = function(error, response, body) {
                 expect(body).to.equal("401 Unauthorized");
+                done();
             };
 
             // Test request.
-            request.get('http://127.0.0.1:1337', callback).auth('brad', 'anna');
+            request.get('http://127.0.0.1:1337', callback).auth('brad', 'anna', false);
         });
     });
 });
