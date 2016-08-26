@@ -6,3 +6,4 @@ http-auth.iml
 .settings
 gensrc
 _site
+.DS_Store
