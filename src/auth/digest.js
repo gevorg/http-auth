@@ -111,7 +111,7 @@ class Digest extends Base {
 
                     // Call callback.
                     callback.apply(this, params);
-                }]);
+                }], co.host);
             } else {
                 let found = false;
 

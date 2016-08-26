@@ -111,6 +111,7 @@ class Base {
             let clientOptions = this.parseAuthorization(header);
             if (clientOptions) {
                 searching = true;
+                clientOptions.host = req.headers["host"];
                 this.findUser(req, clientOptions, function (result) {
                     callback.apply(self, [result]);
                 });
