@@ -3,10 +3,15 @@
 // File system module.
 import fs from 'fs'
 
+// Event module.
+import events from 'events'
+
 // Base authentication.
-class Base {
+class Base extends events.EventEmitter {
     // Constructor.
     constructor(options, checker) {
+        super();
+
         if (!options.msg401) {
             options.msg401 = "401 Unauthorized";
         }
@@ -80,8 +85,11 @@ class Base {
                     callback.apply(self, [req, res, result]);
                 }
             } else if (!result.user) {
+                self.emit('fail');
                 self.ask(res, result);
             } else {
+                self.emit('success', result);
+
                 if (!this.options.skipUser) {
                     req.user = result.user;
                 }
