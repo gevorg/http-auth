@@ -75,7 +75,7 @@ class Basic extends Base {
                 }
 
                 callback.apply(self, params);
-            }]);
+            }, req]);
         } else {
             // File based auth.
             let found = false;
