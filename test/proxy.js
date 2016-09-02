@@ -36,6 +36,11 @@ describe('proxy', function () {
             }
         });
 
+        // Add error listener.
+        basic.on('error', function() {
+            console.log("Error thrown!");
+        });
+
         // Setup proxy.
         proxy = httpProxy.createServer(basic, {
             target: 'http://localhost:1338'

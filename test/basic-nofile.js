@@ -33,6 +33,11 @@ describe('basic', function () {
                 }
             });
 
+            // Add error listener.
+            basic.on('error', function() {
+                console.log("Error thrown!");
+            });
+
             // Creating new HTTP server.
             server = http.createServer(basic, function (req, res) {
                 res.end(`Welcome to private area - ${req.user}!`);

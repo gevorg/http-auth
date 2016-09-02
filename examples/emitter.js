@@ -9,8 +9,12 @@ var basic = auth.basic({
 });
 
 // Adding event listeners.
+basic.on('error', function() {
+    console.log("System error!!!");
+});
+
 basic.on('fail', function() {
-    console.log("Failed to access url");
+    console.log("Failed to access url!");
 });
 
 basic.on('success', function(result) {

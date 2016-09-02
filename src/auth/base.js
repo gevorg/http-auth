@@ -81,6 +81,8 @@ class Base extends events.EventEmitter {
         let self = this;
         this.isAuthenticated(req, function (result) {
             if (result instanceof Error) {
+                self.emit('error', result);
+
                 if (callback) {
                     callback.apply(self, [req, res, result]);
                 }

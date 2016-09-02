@@ -34,6 +34,11 @@ describe('digest', function () {
                 }
             });
 
+            // Add error listener.
+            digest.on('error', function() {
+                console.log("Error thrown!");
+            });
+
             // Creating new HTTP server.
             server = http.createServer(digest, function (req, res) {
                 res.end(`Welcome to private area - ${req.user}!`);

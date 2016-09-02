@@ -35,12 +35,16 @@ describe('https', function () {
             }
         });
 
+        // Add error listener.
+        basic.on('error', function() {
+            console.log("Error thrown!");
+        });
+
         // HTTPS server options.
         const options = {
             key: fs.readFileSync(__dirname + "/../data/server.key"),
             cert: fs.readFileSync(__dirname + "/../data/server.crt")
         };
-
 
         // Creating new HTTPS server.
         server = https.createServer(basic, options, function (req, res) {
