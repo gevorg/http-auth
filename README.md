@@ -2,7 +2,6 @@
 [Node.js](http://nodejs.org/) package for HTTP basic and digest access authentication.
 
 [![Build Status](https://api.travis-ci.org/http-auth/http-auth.png)](https://travis-ci.org/http-auth/http-auth)
-[![Dependency Status](https://david-dm.org/http-auth/http-auth.png)](https://david-dm.org/http-auth/http-auth)
 
 ## Installation
 
