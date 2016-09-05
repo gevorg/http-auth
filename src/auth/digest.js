@@ -106,23 +106,23 @@ class Digest extends Base {
                     if (hash instanceof Error) {
                         params = [hash];
                     } else {
-                        params = [{user: self.validate(ha2, co, hash) ? co.username : undefined}];
+                        params = [{user: co.username, pass: !!self.validate(ha2, co, hash)}];
                     }
 
                     // Call callback.
                     callback.apply(this, params);
                 }, req]);
             } else {
-                let found = false;
+                let pass = false;
 
                 // File based, loop users to find the matching one.
                 this.options.users.forEach(user => {
                     if (user.username === co.username && this.validate(ha2, co, user.hash)) {
-                        found = true
+                        pass = true;
                     }
                 });
 
-                callback.apply(this, [{user: found ? co.username : undefined}]);
+                callback.apply(this, [{user: co.username, pass: pass}]);
             }
         } else {
             callback.apply(this, [{stale: true}]);

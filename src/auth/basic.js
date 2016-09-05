@@ -71,24 +71,24 @@ class Basic extends Base {
                 if (result instanceof Error) {
                     params = [result]
                 } else {
-                    params = [{ user: result ? username: undefined }];
+                    params = [{ user: username, pass: !!result }];
                 }
 
                 callback.apply(self, params);
             }, req]);
         } else {
             // File based auth.
-            let found = false;
+            let pass = false;
 
             // Loop users to find the matching one.
             this.options.users.forEach(user => {
                 if (user.username === username && this.validate(user.hash, password)) {
-                    found = true;
+                    pass = true;
                 }
             });
 
             // Call final callback.
-            callback.apply(this, [{user: found ? username : undefined}]);
+            callback.apply(this, [{user: username, pass: pass}]);
         }
     }
 }

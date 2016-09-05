@@ -86,7 +86,7 @@ class Base extends events.EventEmitter {
                 if (callback) {
                     callback.apply(self, [req, res, result]);
                 }
-            } else if (!result.user) {
+            } else if (!result.pass) {
                 self.emit('fail');
                 self.ask(res, result);
             } else {
