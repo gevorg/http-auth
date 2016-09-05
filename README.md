@@ -178,6 +178,32 @@ http.createServer(function (req, res) {
 	res.end("Request successfully proxied!");
 }).listen(1338);
 ```
+
+## Events
+
+The auth middleware emits three types of events: **error**, **fail** and **success**. Each event passes the result object (the error in case of `fail`) and the http request `req` to the listener function.
+
+```javascript
+// Authentication module.
+var auth = require('http-auth');
+var basic = auth.basic({
+    realm: "Simon Area.",
+    file: __dirname + "/../data/users.htpasswd"
+});
+
+basic.on('success', function(result, req) {
+	console.log("User authenticated: " + result.user);
+});
+
+basic.on('fail', function(result, req) {
+	console.log("User authentication failed: " + result.user);
+});
+
+basic.on('error', function(error, req) {
+	console.log("Authentication error: " + error.code + " - " + error.message);
+});
+```
+
 ## Configurations
 
  - `realm` - Authentication realm, by default it is **Users**.
