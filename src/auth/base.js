@@ -81,16 +81,16 @@ class Base extends events.EventEmitter {
         let self = this;
         this.isAuthenticated(req, function (result) {
             if (result instanceof Error) {
-                self.emit('error', result);
+                self.emit('error', result, req);
 
                 if (callback) {
                     callback.apply(self, [req, res, result]);
                 }
             } else if (!result.pass) {
-                self.emit('fail');
+                self.emit('fail', result, req);
                 self.ask(res, result);
             } else {
-                self.emit('success', result);
+                self.emit('success', result, req);
 
                 if (!this.options.skipUser) {
                     req.user = result.user;
