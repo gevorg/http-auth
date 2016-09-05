@@ -9,16 +9,16 @@ var basic = auth.basic({
 });
 
 // Adding event listeners.
-basic.on('error', function() {
-    console.log("System error!!!");
+basic.on('success', function(result, req) {
+    console.log("User authenticated: " + result.user);
 });
 
-basic.on('fail', function() {
-    console.log("Failed to access url!");
+basic.on('fail', function(result, req) {
+    console.log("User authentication failed: " + result.user);
 });
 
-basic.on('success', function(result) {
-    console.log("Accessing with user " + result.user);
+basic.on('error', function(error, req) {
+    console.log("Authentication error: " + error.code + " - " + error.message);
 });
 
 // Creating new HTTP server.
