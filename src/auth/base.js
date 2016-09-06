@@ -139,7 +139,9 @@ class Base extends events.EventEmitter {
 
         // Process all users.
         users.forEach(u => {
-            this.processLine(u);
+            if(u && !u.match(/^\s*#.*/)) {
+                this.processLine(u);
+            }
         });
     }
 }
