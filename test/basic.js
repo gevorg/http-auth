@@ -95,4 +95,24 @@ describe('basic', function () {
         // Test request.
         request.get('http://127.0.0.1:1337', callback).auth('solomon', 'gpass');
     });
+
+    it('Empty user and password', function (done) {
+        const callback = function(error, response, body) {
+            expect(body).to.equal("401 Unauthorized");
+            done();
+        };
+
+        // Test request.
+        request.get('http://127.0.0.1:1337', callback).auth('', '');
+    });
+
+    it('Commented user', function (done) {
+        const callback = function(error, response, body) {
+            expect(body).to.equal("401 Unauthorized");
+            done();
+        };
+
+        // Test request.
+        request.get('http://127.0.0.1:1337', callback).auth('#comment', 'commentpass');
+    });
 });
