@@ -23,7 +23,7 @@ HttpStrategy.prototype.authenticate = function (req) {
     this.authentication.isAuthenticated(req, function (result) {
         if (result instanceof Error) {
             self.error(result);
-        } else if (!result.user) {
+        } else if (!result.pass) {
             let header = self.authentication.generateHeader(result);
             self.fail(header);
         } else {
