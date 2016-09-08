@@ -88,7 +88,7 @@ app.use(function *(next) {
 app.use(auth.koa(basic));
 ```
 
-For [koa@next](https://github.com/koajs/koa/tree/v2.x) you can use [http-auth-koa](https://github.com/http-auth/http-auth-koa)
+## For [koa@next](https://github.com/koajs/koa/tree/v2.x) you can use [http-auth-koa](https://github.com/http-auth/http-auth-koa)
 ```javascript
 // Authentication module.
 import auth from 'http-auth'
