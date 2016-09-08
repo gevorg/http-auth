@@ -142,7 +142,7 @@ server.route({
     path: '/',
     config: {
         auth: 'http-auth',
-        handler: function (request, reply) {
+        handler: (request, reply) => {
             reply(`Welcome from Hapi - ${request.auth.credentials.name}!`);
         }
     }
