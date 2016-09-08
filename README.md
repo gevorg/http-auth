@@ -112,6 +112,43 @@ app.use(async (ctx, next) => {
 app.use(koaAuth(basic));
 ```
 
+## For [Hapi](http://hapijs.com/) integration you can use [http-auth-hapi](https://github.com/http-auth/http-auth-hapi)
+```javascript
+// Import hapi integration.
+import authHapi from 'http-auth-hapi'
+
+// Authentication module.
+import auth from 'http-auth'
+
+// Setup auth.
+const basic = auth.basic({
+    realm: "Simon Area.",
+    file: __dirname + "/../data/users.htpasswd"
+});
+
+// Create server.
+const server = new Hapi.Server();
+server.connection({ port: 1337 });
+
+// Register auth plugin.
+server.register(authHapi);
+
+// Setup strategy.
+server.auth.strategy('http-auth', 'http', basic);
+
+// Setup route.
+server.route({
+    method: 'GET',
+    path: '/',
+    config: {
+        auth: 'http-auth',
+        handler: function (request, reply) {
+            reply(`Welcome from Hapi - ${request.auth.credentials.name}!`);
+        }
+    }
+});
+```
+
 ## Protecting specific path
 ```javascript
 // Authentication module.
