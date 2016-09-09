@@ -16,15 +16,15 @@ import * as auth from '../src/http-auth'
 import * as utils from '../src/auth/utils'
 
 // Digest auth.
-describe('digest', function () {
-    describe('nofile', function () {
+describe('digest', () => {
+    describe('nofile', () => {
         let server = undefined;
 
-        before(function() {
+        before(() => {
             // Configure authentication.
             const digest = auth.digest({
                 realm: "Simon Area."
-            }, function(username, callback) {
+            }, (username, callback) => {
                 if (username === "simon") {
                     callback(utils.md5("simon:Simon Area.:smart"));
                 } else if (username === "gevorg") {
@@ -35,12 +35,12 @@ describe('digest', function () {
             });
 
             // Add error listener.
-            digest.on('error', function() {
+            digest.on('error', () => {
                 console.log("Error thrown!");
             });
 
             // Creating new HTTP server.
-            server = http.createServer(digest, function (req, res) {
+            server = http.createServer(digest, (req, res) => {
                 res.end(`Welcome to private area - ${req.user}!`);
             });
 
@@ -48,12 +48,12 @@ describe('digest', function () {
             server.listen(1337);
         });
 
-        after(function() {
+        after(() => {
             server.close();
         });
 
-        it('error', function (done) {
-            const callback = function (error, response, body) {
+        it('error', (done) => {
+            const callback = (error, response, body) => {
                 expect(body).to.equal("Error comes here");
                 done();
             };
@@ -62,8 +62,8 @@ describe('digest', function () {
             request.get('http://127.0.0.1:1337', callback).auth('gevorg', 'gpass', false);
         });
 
-        it('success', function (done) {
-            const callback = function(error, response, body) {
+        it('success', (done) => {
+            const callback = (error, response, body) => {
                 expect(body).to.equal("Welcome to private area - simon!");
                 done();
             };
@@ -72,8 +72,8 @@ describe('digest', function () {
             request.get('http://127.0.0.1:1337', callback).auth('simon', 'smart', false);
         });
 
-        it('comma URI', function (done) {
-            const callback = function(error, response, body) {
+        it('comma URI', (done) => {
+            const callback = (error, response, body) => {
                 expect(body).to.equal("Welcome to private area - simon!");
                 done();
             };
@@ -82,8 +82,8 @@ describe('digest', function () {
             request.get('http://127.0.0.1:1337/comma,/', callback).auth('simon', 'smart', false);
         });
 
-        it('wrong password', function (done) {
-            const callback = function(error, response, body) {
+        it('wrong password', (done) => {
+            const callback = (error, response, body) => {
                 expect(body).to.equal("401 Unauthorized");
                 done();
             };
@@ -92,8 +92,8 @@ describe('digest', function () {
             request.get('http://127.0.0.1:1337', callback).auth('simon', 'woolf', false);
         });
 
-        it('wrong user', function (done) {
-            const callback = function(error, response, body) {
+        it('wrong user', (done) => {
+            const callback = (error, response, body) => {
                 expect(body).to.equal("401 Unauthorized");
                 done();
             };

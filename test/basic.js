@@ -13,10 +13,10 @@ import http from 'http'
 import * as auth from '../src/http-auth'
 
 // Basic auth.
-describe('basic', function () {
+describe('basic', () => {
     let server = undefined;
 
-    before(function() {
+    before(() => {
         // Configure authentication.
         const basic = auth.basic({
             realm: "Private Area.",
@@ -24,7 +24,7 @@ describe('basic', function () {
         });
 
         // Creating new HTTP server.
-        server = http.createServer(basic, function (req, res) {
+        server = http.createServer(basic, (req, res) => {
             res.end(`Welcome to private area - ${req.user}!`);
         });
 
@@ -32,12 +32,12 @@ describe('basic', function () {
         server.listen(1337);
     });
 
-    after(function() {
+    after(() => {
         server.close();
     });
 
-    it('SHA1', function (done) {
-        const callback = function(error, response, body) {
+    it('SHA1', (done) => {
+        const callback = (error, response, body) => {
             expect(body).to.equal("Welcome to private area - gevorg!");
             done();
         };
@@ -46,8 +46,8 @@ describe('basic', function () {
         request.get('http://127.0.0.1:1337', callback).auth('gevorg', 'gpass');
     });
 
-    it('Crypt', function (done) {
-        const callback = function(error, response, body) {
+    it('Crypt', (done) => {
+        const callback = (error, response, body) => {
             expect(body).to.equal("Welcome to private area - vera!");
             done();
         };
@@ -56,8 +56,8 @@ describe('basic', function () {
         request.get('http://127.0.0.1:1337', callback).auth('vera', 'kruta');
     });
 
-    it('MD5', function (done) {
-        const callback = function(error, response, body) {
+    it('MD5', (done) => {
+        const callback = (error, response, body) => {
             expect(body).to.equal("Welcome to private area - hera!");
             done();
         };
@@ -66,8 +66,8 @@ describe('basic', function () {
         request.get('http://127.0.0.1:1337', callback).auth('hera', 'gnu');
     });
 
-    it('plain', function (done) {
-        const callback = function(error, response, body) {
+    it('plain', (done) => {
+        const callback = (error, response, body) => {
             expect(body).to.equal("Welcome to private area - Sarah!");
             done();
         };
@@ -76,8 +76,8 @@ describe('basic', function () {
         request.get('http://127.0.0.1:1337', callback).auth('Sarah', 'testpass');
     });
 
-    it('Wrong password', function (done) {
-        const callback = function(error, response, body) {
+    it('Wrong password', (done) => {
+        const callback = (error, response, body) => {
             expect(body).to.equal("401 Unauthorized");
             done();
         };
@@ -86,8 +86,8 @@ describe('basic', function () {
         request.get('http://127.0.0.1:1337', callback).auth('gevorg', 'duck');
     });
 
-    it('Wrong user', function (done) {
-        const callback = function(error, response, body) {
+    it('Wrong user', (done) => {
+        const callback = (error, response, body) => {
             expect(body).to.equal("401 Unauthorized");
             done();
         };
@@ -96,8 +96,8 @@ describe('basic', function () {
         request.get('http://127.0.0.1:1337', callback).auth('solomon', 'gpass');
     });
 
-    it('Empty user and password', function (done) {
-        const callback = function(error, response, body) {
+    it('Empty user and password', (done) => {
+        const callback = (error, response, body) => {
             expect(body).to.equal("401 Unauthorized");
             done();
         };
@@ -106,8 +106,8 @@ describe('basic', function () {
         request.get('http://127.0.0.1:1337', callback).auth('', '');
     });
 
-    it('Commented user', function (done) {
-        const callback = function(error, response, body) {
+    it('Commented user', (done) => {
+        const callback = (error, response, body) => {
             expect(body).to.equal("401 Unauthorized");
             done();
         };

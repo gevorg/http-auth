@@ -20,7 +20,7 @@ HttpStrategy.prototype.authenticate = function (req) {
     let self = this;
 
     // Is auth.
-    this.authentication.isAuthenticated(req, function (result) {
+    this.authentication.isAuthenticated(req, (result) => {
         if (result instanceof Error) {
             self.error(result);
         } else if (!result.pass) {

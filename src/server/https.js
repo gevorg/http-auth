@@ -18,8 +18,8 @@ https.createServer = function () {
 
         if (arguments[2]) {
             let listener = arguments[2];
-            let newListener = function (req, res) {
-                auth.check(req, res, function (req, res, err) {
+            let newListener = (req, res) => {
+                auth.check(req, res, (req, res, err) => {
                     if (err) {
                         console.error(err);
                         res.statusCode = 400;
@@ -35,7 +35,7 @@ https.createServer = function () {
         } else {
             // Only HTTPS options.
             server = oldCreateServer.apply(https, [arguments[1]]);
-            server.on('request', function (req, res) {
+            server.on('request', (req, res) => {
                 auth.check(req, res);
             });
         }

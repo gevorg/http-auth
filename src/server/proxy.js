@@ -35,7 +35,7 @@ let newCreateServer = function(auth, options) {
             let externalArguments = arguments;
 
             // Check for authentication.
-            auth.check(req, res, function (req, res, err) {
+            auth.check(req, res, (req, res, err) => {
                 if (err) {
                     console.error(err);
                     res.statusCode = 400;

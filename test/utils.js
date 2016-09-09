@@ -7,10 +7,10 @@ import {expect} from 'chai'
 import * as utils from '../src/auth/utils'
 
 // Utils
-describe('utils', function () {
+describe('utils', () => {
     // Tests for md5.
-    describe('#md5', function () {
-        it('hash should be correct', function () {
+    describe('#md5', () => {
+        it('hash should be correct', () => {
             // Source.
             const hash = utils.md5("apple of my eye");
 
@@ -20,8 +20,8 @@ describe('utils', function () {
     });
 
     // Tests for sha1.
-    describe('#sha1', function () {
-        it('hash should be correct', function () {
+    describe('#sha1', () => {
+        it('hash should be correct', () => {
             // Source.
             const hash = utils.sha1("forbidden fruit");
 
@@ -31,8 +31,8 @@ describe('utils', function () {
     });
 
     // Tests for base64.
-    describe('#base64', function () {
-        it('ASCII input', function () {
+    describe('#base64', () => {
+        it('ASCII input', () => {
             // Source.
             const hash = utils.base64("crocodile");
 
@@ -40,7 +40,7 @@ describe('utils', function () {
             expect(hash).to.equal("Y3JvY29kaWxl");
         });
 
-        it('unicode input', function () {
+        it('unicode input', () => {
             // Source.
             const hash = utils.base64("Գևորգ");
 
@@ -50,8 +50,8 @@ describe('utils', function () {
     });
 
     // Tests for decodeBase64.
-    describe('#decodeBase64', function () {
-        it('ASCII input', function () {
+    describe('#decodeBase64', () => {
+        it('ASCII input', () => {
             // Source.
             const hash = utils.decodeBase64("c21pbGU=");
 
@@ -59,7 +59,7 @@ describe('utils', function () {
             expect(hash).to.equal("smile");
         });
 
-        it('unicode input', function () {
+        it('unicode input', () => {
             // Source.
             const hash = utils.decodeBase64("0J3RgyDRgtGLIQ==");
 
@@ -69,8 +69,8 @@ describe('utils', function () {
     });
 
     // Tests for isAvailable.
-    describe('#isAvailable', function () {
-        it('existing module', function () {
+    describe('#isAvailable', () => {
+        it('existing module', () => {
             // Source.
             const isAvailable = utils.isAvailable('http-proxy');
 
@@ -78,7 +78,7 @@ describe('utils', function () {
             expect(isAvailable).to.be.true;
         });
 
-        it('not existing module', function () {
+        it('not existing module', () => {
             // Source.
             const isAvailable = utils.isAvailable('stupid name');
 

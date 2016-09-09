@@ -13,10 +13,10 @@ import http from 'http'
 import * as auth from '../src/http-auth'
 
 // Basic auth.
-describe('basic', function () {
+describe('basic', () => {
     let server = undefined;
 
-    before(function () {
+    before(() => {
         // Configure authentication.
         const basic = auth.basic({
             realm: "Private Area.",
@@ -25,7 +25,7 @@ describe('basic', function () {
         });
 
         // Creating new HTTP server.
-        server = http.createServer(basic, function (req, res) {
+        server = http.createServer(basic, (req, res) => {
             res.end(`Welcome to private area - ${req.user}!`);
         });
 
@@ -33,12 +33,12 @@ describe('basic', function () {
         server.listen(1337);
     });
 
-    after(function () {
+    after(() => {
         server.close();
     });
 
-    it('skip user', function (done) {
-        const callback = function (error, response, body) {
+    it('skip user', (done) => {
+        const callback = (error, response, body) => {
             expect(body).to.equal("Welcome to private area - undefined!");
             done();
         };

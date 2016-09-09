@@ -20,8 +20,8 @@ http.createServer = function () {
         // With listener.
         if (arguments[1]) {
             let listener = arguments[1];
-            let newListener = function (req, res) {
-                auth.check(req, res, function (req, res, err) {
+            let newListener = (req, res) => {
+                auth.check(req, res, (req, res, err) => {
                     if (err) {
                         console.error (err);
                         res.statusCode = 400;
@@ -37,7 +37,7 @@ http.createServer = function () {
         } else {
             // Without listener.
             server = oldCreateServer.apply(http, []);
-            server.on('request', function (req, res) {
+            server.on('request', (req, res) => {
                 auth.check(req, res);
             });
         }

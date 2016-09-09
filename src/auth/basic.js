@@ -65,7 +65,7 @@ class Basic extends Base {
 
         if (this.checker) {
             // Custom auth.
-            this.checker.apply(this, [username, password, function (result) {
+            this.checker.apply(this, [username, password, (result) => {
                 let params = undefined;
 
                 if (result instanceof Error) {
@@ -94,6 +94,6 @@ class Basic extends Base {
 }
 
 // Export basic auth.
-export default function (options, checker) {
+export default (options, checker) => {
     return new Basic(options, checker);
 }

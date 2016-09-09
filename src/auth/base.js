@@ -79,7 +79,7 @@ class Base extends events.EventEmitter {
     // Checking if user is authenticated.
     check(req, res, callback) {
         let self = this;
-        this.isAuthenticated(req, function (result) {
+        this.isAuthenticated(req, (result) => {
             if (result instanceof Error) {
                 self.emit('error', result, req);
 
@@ -121,7 +121,7 @@ class Base extends events.EventEmitter {
             let clientOptions = this.parseAuthorization(header);
             if (clientOptions) {
                 searching = true;
-                this.findUser(req, clientOptions, function (result) {
+                this.findUser(req, clientOptions, (result) => {
                     callback.apply(self, [result]);
                 });
             }

@@ -13,10 +13,10 @@ import http from 'http'
 import * as auth from '../src/http-auth'
 
 // Digest auth.
-describe('digest', function () {
+describe('digest', () => {
     let server = undefined;
 
-    before(function() {
+    before(() => {
         // Configure authentication.
         const digest = auth.digest({
             realm: "Simon Area.",
@@ -24,7 +24,7 @@ describe('digest', function () {
         });
 
         // Creating new HTTP server.
-        server = http.createServer(digest, function (req, res) {
+        server = http.createServer(digest, (req, res) => {
             res.end(`Welcome to private area - ${req.user}!`);
         });
 
@@ -32,12 +32,12 @@ describe('digest', function () {
         server.listen(1337);
     });
 
-    after(function() {
+    after(() => {
         server.close();
     });
 
-    it('success', function (done) {
-        const callback = function(error, response, body) {
+    it('success', (done) => {
+        const callback = (error, response, body) => {
             expect(body).to.equal("Welcome to private area - vivi!");
             done();
         };
@@ -46,8 +46,8 @@ describe('digest', function () {
         request.get('http://127.0.0.1:1337', callback).auth('vivi', 'anna', false);
     });
 
-    it('special uri', function (done) {
-        const callback = function(error, response, body) {
+    it('special uri', (done) => {
+        const callback = (error, response, body) => {
             expect(body).to.equal("Welcome to private area - vivi!");
             done();
         };
@@ -56,8 +56,8 @@ describe('digest', function () {
         request.get('http://127.0.0.1:1337/?coffee=rocks', callback).auth('vivi', 'anna', false);
     });
 
-    it('wrong password', function (done) {
-        const callback = function(error, response, body) {
+    it('wrong password', (done) => {
+        const callback = (error, response, body) => {
             expect(body).to.equal("401 Unauthorized");
             done();
         };
@@ -66,8 +66,8 @@ describe('digest', function () {
         request.get('http://127.0.0.1:1337', callback).auth('vivi', 'goose', false);
     });
 
-    it('wrong user', function (done) {
-        const callback = function(error, response, body) {
+    it('wrong user', (done) => {
+        const callback = (error, response, body) => {
             expect(body).to.equal("401 Unauthorized");
             done();
         };

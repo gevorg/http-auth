@@ -16,14 +16,14 @@ import passport from 'passport'
 import * as auth from '../src/http-auth'
 
 // Passport.
-describe('passport', function () {
+describe('passport', () => {
     let server = undefined;
 
-    before(function () {
+    before(() => {
         // Configure authentication.
         const basic = auth.basic({
             realm: "Private Area."
-        }, function (username, password, done) {
+        }, (username, password, done) => {
             if (username === 'gevorg') {
                 done(new Error("Error comes here"));
             } else if (username === "mia" && password === "supergirl") {
@@ -37,18 +37,17 @@ describe('passport', function () {
 
         // Creating new HTTP server.
         const app = express();
-        app.use(auth.connect(basic));
 
         // Setup passport.
         passport.use(auth.passport(basic));
 
         // Setup route.
-        app.get( '/', passport.authenticate('http', { session: false }), function (req, res) {
+        app.get( '/', passport.authenticate('http', { session: false }), (req, res) => {
             res.send(`Welcome to private area - ${req.user}!`);
         });
 
         // Error handler.
-        app.use(function (err, req, res, next) {
+        app.use((err, req, res, next) => {
             res.status(400).end(err.message);
         });
 
@@ -56,12 +55,12 @@ describe('passport', function () {
         server = app.listen(1337);
     });
 
-    after(function () {
+    after(() => {
         server.close();
     });
 
-    it('error', function (done) {
-        const callback = function (error, response, body) {
+    it('error', (done) => {
+        const callback = (error, response, body) => {
             expect(body).to.equal("Error comes here");
             done();
         };
@@ -70,8 +69,8 @@ describe('passport', function () {
         request.get('http://127.0.0.1:1337', callback).auth('gevorg', 'gpass');
     });
 
-    it('success', function (done) {
-        const callback = function (error, response, body) {
+    it('success', (done) => {
+        const callback = (error, response, body) => {
             expect(body).to.equal("Welcome to private area - mia!");
             done();
         };
@@ -80,9 +79,9 @@ describe('passport', function () {
         request.get('http://127.0.0.1:1337', callback).auth('mia', 'supergirl');
     });
 
-    it('wrong password', function (done) {
-        const callback = function (error, response, body) {
-            expect(body).to.equal("401 Unauthorized");
+    it('wrong password', (done) => {
+        const callback = (error, response, body) => {
+            expect(body).to.equal("Unauthorized");
             done();
         };
 
@@ -90,9 +89,9 @@ describe('passport', function () {
         request.get('http://127.0.0.1:1337', callback).auth('mia', 'cute');
     });
 
-    it('wrong user', function (done) {
-        const callback = function (error, response, body) {
-            expect(body).to.equal("401 Unauthorized");
+    it('wrong user', (done) => {
+        const callback = (error, response, body) => {
+            expect(body).to.equal("Unauthorized");
             done();
         };
 
@@ -100,8 +99,8 @@ describe('passport', function () {
         request.get('http://127.0.0.1:1337', callback).auth('Tina', 'supergirl');
     });
 
-    it('password with colon', function (done) {
-        const callback = function (error, response, body) {
+    it('password with colon', (done) => {
+        const callback = (error, response, body) => {
             expect(body).to.equal("Welcome to private area - ColonUser!");
             done();
         };

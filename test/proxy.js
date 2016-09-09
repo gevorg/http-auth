@@ -16,15 +16,15 @@ import httpProxy from 'http-proxy'
 import * as auth from '../src/http-auth'
 
 // Proxy.
-describe('proxy', function () {
+describe('proxy', () => {
     let server = undefined;
     let proxy = undefined;
 
-    before(function () {
+    before(() => {
         // Configure authentication.
         const basic = auth.basic({
             realm: "Private Area."
-        }, function (username, password, done) {
+        }, (username, password, done) => {
             if (username === 'gevorg') {
                 done(new Error("Error comes here"));
             } else if (username === "mia" && password === "supergirl") {
@@ -37,7 +37,7 @@ describe('proxy', function () {
         });
 
         // Add error listener.
-        basic.on('error', function() {
+        basic.on('error', () => {
             console.log("Error thrown!");
         });
 
@@ -47,7 +47,7 @@ describe('proxy', function () {
         }).listen(1337);
 
         // Creating new HTTP server.
-        server = http.createServer(function (req, res) {
+        server = http.createServer((req, res) => {
             res.end(`Request successfully proxied!`);
         });
 
@@ -55,13 +55,13 @@ describe('proxy', function () {
         server.listen(1338);
     });
 
-    after(function () {
+    after(() => {
         proxy.close();
         server.close();
     });
 
-    it('error', function (done) {
-        const callback = function (error, response, body) {
+    it('error', (done) => {
+        const callback = (error, response, body) => {
             expect(body).to.equal("Error comes here");
             done();
         };
@@ -70,8 +70,8 @@ describe('proxy', function () {
         request.get({proxy: 'http://gevorg:gpass@127.0.0.1:1337', uri: 'http://127.0.0.1:1337'}, callback);
     });
 
-    it('success', function (done) {
-        const callback = function (error, response, body) {
+    it('success', (done) => {
+        const callback = (error, response, body) => {
             expect(body).to.equal("Request successfully proxied!");
             done();
         };
@@ -80,8 +80,8 @@ describe('proxy', function () {
         request.get({proxy: 'http://mia:supergirl@127.0.0.1:1337', uri: 'http://127.0.0.1:1337'}, callback);
     });
 
-    it('wrong password', function (done) {
-        const callback = function (error, response, body) {
+    it('wrong password', (done) => {
+        const callback = (error, response, body) => {
             expect(body).to.equal("407 Proxy authentication required");
             done();
         };
@@ -90,8 +90,8 @@ describe('proxy', function () {
         request.get({proxy: 'http://mia:cute@127.0.0.1:1337', uri: 'http://127.0.0.1:1337'}, callback);
     });
 
-    it('wrong user', function (done) {
-        const callback = function (error, response, body) {
+    it('wrong user', (done) => {
+        const callback = (error, response, body) => {
             expect(body).to.equal("407 Proxy authentication required");
             done();
         };

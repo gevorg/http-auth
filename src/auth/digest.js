@@ -100,7 +100,7 @@ class Digest extends Base {
             let ha2 = utils.md5(`${req.method}:${co.uri}`);
             if (this.checker) {
                 // Custom authentication.
-                this.checker.apply(this, [co.username, function (hash) {
+                this.checker.apply(this, [co.username, (hash) => {
                     let params = undefined;
 
                     if (hash instanceof Error) {
@@ -192,6 +192,6 @@ class Digest extends Base {
 }
 
 // Export digest auth.
-export default function (options, checker) {
+export default (options, checker) => {
     return new Digest(options, checker);
 }

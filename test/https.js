@@ -16,14 +16,14 @@ import fs from 'fs'
 import * as auth from '../src/http-auth'
 
 // HTTPS.
-describe('https', function () {
+describe('https', () => {
     let server = undefined;
 
-    before(function() {
+    before(() => {
         // Configure authentication.
         const basic = auth.basic({
             realm: "Private Area."
-        }, function (username, password, done) {
+        }, (username, password, done) => {
             if (username === 'gevorg') {
                 done(new Error("Error comes here"));
             } else if (username === "mia" && password === "supergirl") {
@@ -36,7 +36,7 @@ describe('https', function () {
         });
 
         // Add error listener.
-        basic.on('error', function() {
+        basic.on('error', () => {
             console.log("Error thrown!");
         });
 
@@ -47,7 +47,7 @@ describe('https', function () {
         };
 
         // Creating new HTTPS server.
-        server = https.createServer(basic, options, function (req, res) {
+        server = https.createServer(basic, options, (req, res) => {
             res.end(`Welcome to private area - ${req.user}!`);
         });
 
@@ -55,12 +55,12 @@ describe('https', function () {
         server.listen(1337);
     });
 
-    after(function() {
+    after(() => {
         server.close();
     });
 
-    it('error', function (done) {
-        const callback = function (error, response, body) {
+    it('error', (done) => {
+        const callback = (error, response, body) => {
             expect(body).to.equal("Error comes here");
             done();
         };
@@ -69,8 +69,8 @@ describe('https', function () {
         request.get({uri: 'https://127.0.0.1:1337', strictSSL: false}, callback).auth('gevorg', 'gpass');
     });
 
-    it('success', function (done) {
-        const callback = function (error, response, body) {
+    it('success', (done) => {
+        const callback = (error, response, body) => {
             expect(body).to.equal("Welcome to private area - mia!");
             done();
         };
@@ -79,8 +79,8 @@ describe('https', function () {
         request.get({uri: 'https://127.0.0.1:1337', strictSSL: false}, callback).auth('mia', 'supergirl');
     });
 
-    it('wrong password', function (done) {
-        const callback = function (error, response, body) {
+    it('wrong password', (done) => {
+        const callback = (error, response, body) => {
             expect(body).to.equal("401 Unauthorized");
             done();
         };
@@ -89,8 +89,8 @@ describe('https', function () {
         request.get({uri: 'https://127.0.0.1:1337', strictSSL: false}, callback).auth('mia', 'cute');
     });
 
-    it('wrong user', function (done) {
-        const callback = function (error, response, body) {
+    it('wrong user', (done) => {
+        const callback = (error, response, body) => {
             expect(body).to.equal("401 Unauthorized");
             done();
         };
@@ -99,8 +99,8 @@ describe('https', function () {
         request.get({uri: 'https://127.0.0.1:1337', strictSSL: false}, callback).auth('Tina', 'supergirl');
     });
 
-    it('password with colon', function (done) {
-        const callback = function (error, response, body) {
+    it('password with colon', (done) => {
+        const callback = (error, response, body) => {
             expect(body).to.equal("Welcome to private area - ColonUser!");
             done();
         };
