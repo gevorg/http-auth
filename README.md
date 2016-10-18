@@ -115,10 +115,10 @@ app.use(koaAuth(basic));
 ## For [Hapi](http://hapijs.com/) integration you can use [http-auth-hapi](https://github.com/http-auth/http-auth-hapi)
 ```javascript
 // Import hapi integration.
-import authHapi from 'http-auth-hapi'
+const authHapi = require('http-auth-hapi');
 
 // Authentication module.
-import auth from 'http-auth'
+const auth = require('http-auth');
 
 // Setup auth.
 const basic = auth.basic({
