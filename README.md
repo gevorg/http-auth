@@ -296,7 +296,7 @@ You can also use [stackoverflow](http://stackoverflow.com/questions/tagged/http-
  - **[request](https://github.com/request/request/)** - Simplified HTTP request client.
  - **[passport](http://passportjs.org/)** - Simple, unobtrusive authentication for Node.js.
  - **[koa](http://koajs.com/)** - next generation web framework for node.js.
-  - **[hapi](http://hapijs.com/)** - A rich framework for building applications and services.
+ - **[hapi](http://hapijs.com/)** - A rich framework for building applications and services.
 
 ## License
 
