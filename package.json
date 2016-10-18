@@ -1,7 +1,7 @@
 {
   "name": "http-auth",
   "description": "Node.js package for HTTP basic and digest access authentication.",
-  "version": "2.4.10",
+  "version": "2.4.11",
   "author": "Gevorg Harutyunyan (http://github.com/gevorg)",
   "maintainers": [
     {
@@ -26,8 +26,8 @@
     "url": "http://github.com/http-auth/http-auth/issues"
   },
   "dependencies": {
-    "apache-md5": "^1.0.6",
-    "apache-crypt": "^1.1.2",
+    "apache-md5": "1.0.6",
+    "apache-crypt": "1.1.2",
     "node-uuid": "^1.4.7"
   },
   "devDependencies": {
