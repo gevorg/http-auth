@@ -5,7 +5,6 @@ http-auth.iml
 .idea
 .settings
 _site
-src
 test
 examples
 .travis.yml

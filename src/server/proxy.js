@@ -1,16 +1,16 @@
 "use strict";
 
 // Proxy module.
-import httpProxy from 'http-proxy'
+const httpProxy = require('http-proxy');
 
 // Base module.
-import Base from '../auth/base'
+const Base = require('../auth/base');
 
 // Backup old server creation.
-let oldCreateServer = httpProxy.createServer;
+const oldCreateServer = httpProxy.createServer;
 
 // New create server.
-let newCreateServer = function(auth, options) {
+const newCreateServer = function(auth, options) {
     // Mutated mode.
     if (auth instanceof Base) {
         // Set proxy flag.

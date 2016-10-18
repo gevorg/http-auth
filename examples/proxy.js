@@ -5,7 +5,7 @@ var http = require('http');
 var httpProxy = require('http-proxy');
 
 // Authentication module.
-var auth = require('../gensrc/http-auth');
+var auth = require('../src/http-auth');
 var basic = auth.basic({
 	realm: "Simon Area.",
 	file: __dirname + "/../data/users.htpasswd" // gevorg:gpass, Sarah:testpass
@@ -15,9 +15,9 @@ var basic = auth.basic({
 httpProxy.createServer(basic, { target: 'http://localhost:1338' }).listen(1337);
 
 // Create your target server.
-http.createServer(function (req, res) {
+http.createServer((req, res) => {
 	res.end("Request successfully proxied!");
-}).listen(1338, function () {
+}).listen(1338, () => {
 	// Log URL.
 	console.log("Server running at http://127.0.0.1:1337/");
 });

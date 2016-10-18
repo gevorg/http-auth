@@ -1,7 +1,7 @@
 "use strict";
 
 // Exporting connect integration.
-export function middleware(auth) {
+module.exports = (auth) => {
     return (req, res, next) => {
         auth.check(req, res, (req, res, err) => {
             if (err) {
@@ -11,4 +11,4 @@ export function middleware(auth) {
             }
         });
     }
-}
+};

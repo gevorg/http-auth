@@ -1,10 +1,10 @@
 "use strict";
 
 // Expect module.
-import {expect} from 'chai'
+const expect = require('chai').expect;
 
 // Source.
-import * as utils from '../src/auth/utils'
+const utils = require('../src/auth/utils');
 
 // Utils
 describe('utils', () => {

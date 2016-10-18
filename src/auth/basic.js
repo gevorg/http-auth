@@ -1,16 +1,16 @@
 "use strict";
 
 // Base class.
-import Base from './base'
+const Base = require('./base');
 
 // Utility module.
-import * as utils from './utils'
+const utils = require('./utils');
 
 // Importing apache-md5 module.
-import md5 from 'apache-md5'
+const md5 = require('apache-md5');
 
 // Importing apache-crypt module.
-import crypt from 'apache-crypt'
+const crypt = require('apache-crypt');
 
 // Define basic auth.
 class Basic extends Base {
@@ -94,6 +94,6 @@ class Basic extends Base {
 }
 
 // Export basic auth.
-export default (options, checker) => {
+module.exports = (options, checker) => {
     return new Basic(options, checker);
-}
+};

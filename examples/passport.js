@@ -2,7 +2,7 @@
 var express = require('express');
 
 // Authentication module.
-var auth = require('../gensrc/http-auth');
+var auth = require('../src/http-auth');
 var basic = auth.basic({
     realm: "Simon Area.",
     file: __dirname + "/../data/users.htpasswd" // gevorg:gpass, Sarah:testpass
@@ -16,12 +16,12 @@ var passport = require('passport');
 passport.use(auth.passport(basic));
 
 // Setup route.
-app.get('/', passport.authenticate('http', { session: false }), function(req, res) {
-    res.end("Welcome to private area - " + req.user + "!");
+app.get('/', passport.authenticate('http', { session: false }), (req, res) => {
+    res.end(`Welcome to private area - ${req.user}!`);
 });
 
 // Start server.
-app.listen(1337, function () {
+app.listen(1337, () => {
     // Log URL.
     console.log("Server running at http://127.0.0.1:1337/");
 });

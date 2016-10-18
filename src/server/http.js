@@ -1,16 +1,16 @@
 "use strict";
 
 // HTTP module.
-import http from 'http'
+const http = require('http');
 
 // Base module.
-import Base from '../auth/base'
+const Base = require('../auth/base');
 
 // Backup old server creation.
-let oldCreateServer = http.createServer;
+const oldCreateServer = http.createServer;
 
 // Add authentication method.
-http.createServer = function () {
+http.createServer = function() {
     let server = undefined;
 
     // Mutated mode.

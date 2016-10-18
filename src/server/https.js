@@ -1,16 +1,16 @@
 "use strict";
 
 // HTTPS module.
-import https from 'https'
+const https = require('https');
 
 // Base module.
-import Base from '../auth/base'
+const Base = require('../auth/base');
 
 // Backup old server creation.
 let oldCreateServer = https.createServer;
 
 // Mutate server.
-https.createServer = function () {
+https.createServer = function() {
     let server = undefined;
 
     if (arguments[0] instanceof Base) {

@@ -1,19 +1,19 @@
 "use strict";
 
 // Expect module.
-import {expect} from 'chai'
+const expect = require('chai').expect;
 
 // Request module.
-import request from 'request'
+const request = require('request');
 
 // HTTP.
-import http from 'http'
+const http = require('http');
 
 // Source.
-import * as auth from '../src/http-auth'
+const auth = require('../src/http-auth');
 
 // Utils.
-import * as utils from '../src/auth/utils'
+const utils = require('../src/auth/utils');
 
 // Digest auth.
 describe('digest', () => {

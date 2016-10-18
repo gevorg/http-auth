@@ -1,16 +1,16 @@
 "use strict";
 
 // Imports.
-import passport from 'passport'
-import util from 'util'
+const passport  = require('passport');
+const util = require('util');
 
 // Define strategy.
-let HttpStrategy = function (auth) {
+function HttpStrategy(auth) {
     this.name = 'http';
     this.authentication = auth;
 
     passport.Strategy.call(this);
-};
+}
 
 // Inherit basic strategy.
 util.inherits(HttpStrategy, passport.Strategy);
@@ -33,6 +33,6 @@ HttpStrategy.prototype.authenticate = function (req) {
 };
 
 // Export.
-export function strategy(auth) {
+module.exports = (auth) => {
     return new HttpStrategy(auth);
-}
+};

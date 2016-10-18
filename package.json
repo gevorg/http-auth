@@ -1,7 +1,7 @@
 {
   "name": "http-auth",
   "description": "Node.js package for HTTP basic and digest access authentication.",
-  "version": "2.4.10",
+  "version": "2.5.10",
   "author": "Gevorg Harutyunyan (http://github.com/gevorg)",
   "maintainers": [
     {
@@ -14,7 +14,7 @@
     "type": "git",
     "url": "http://github.com/http-auth/http-auth.git"
   },
-  "main": "./gensrc/http-auth.js",
+  "main": "./src/http-auth.js",
   "licenses": [
     {
       "type": "MIT",
@@ -31,9 +31,6 @@
     "node-uuid": "^1.4.7"
   },
   "devDependencies": {
-    "babel-cli": "^6.9.0",
-    "babel-polyfill": "^6.9.1",
-    "babel-preset-es2015": "^6.9.0",
     "chai": "^3.5.0",
     "express": "^4.13.4",
     "http-proxy": "^1.13.3",
@@ -43,12 +40,10 @@
     "request": "^2.72.0"
   },
   "engines": {
-    "node": ">=5"
+    "node": ">=6.7.0"
   },
   "scripts": {
-    "test": "mocha --compilers js:babel-core/register --require babel-polyfill",
-    "compile": "babel src -d gensrc",
-    "prepublish": "npm run compile"
+    "test": "mocha"
   },
   "keywords": [
     "http",

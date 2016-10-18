@@ -1,19 +1,19 @@
 "use strict";
 
 // Expect module.
-import {expect} from 'chai'
+const expect = require('chai').expect;
 
 // Request module.
-import request from 'request'
-
-// Express.
-import express from 'express'
-
-// Passport.
-import passport from 'passport'
+const request = require('request');
 
 // Source.
-import * as auth from '../src/http-auth'
+const auth = require('../src/http-auth');
+
+// Express.
+const express =  require('express');
+
+// Passport.
+const passport = require('passport');
 
 // Passport.
 describe('passport', () => {

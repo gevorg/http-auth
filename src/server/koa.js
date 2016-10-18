@@ -1,7 +1,7 @@
 "use strict";
 
 // Export middleware.
-export function middleware(auth) {
+module.exports = (auth) => {
     // Middleware for koa.
     const koa = (req, res, next) => {
         auth.check(req, res, (req, res, err) => {
@@ -18,4 +18,4 @@ export function middleware(auth) {
         yield koa.bind(null, this.req, this.res);
         yield next;
     };
-}
+};

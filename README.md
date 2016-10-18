@@ -26,8 +26,8 @@ var basic = auth.basic({
 });
 
 // Creating new HTTP server.
-http.createServer(basic, function(req, res) {
-	res.end("Welcome to private area - " + req.user + "!");
+http.createServer(basic, (req, res) => {
+	res.end(`Welcome to private area - ${req.user}!`);
 }).listen(1337);
 
 ```
@@ -37,7 +37,7 @@ http.createServer(basic, function(req, res) {
 var auth = require('http-auth');
 var basic = auth.basic({
 		realm: "Simon Area."
-	}, function (username, password, callback) { 
+	}, (username, password, callback) => { 
 	    // Custom authentication
 	    // Use callback(error) if you want to throw async error.
 		callback(username === "Tina" && password === "Bullock");
@@ -45,8 +45,8 @@ var basic = auth.basic({
 );
 
 // Creating new HTTP server.
-http.createServer(basic, function(req, res) {
-	res.end("Welcome to private area - " + req.user + "!");
+http.createServer(basic, (req, res) => {
+	res.end(`Welcome to private area - ${req.user}!`);
 }).listen(1337);
 ```
 
@@ -64,8 +64,8 @@ var app = express();
 app.use(auth.connect(basic));
 
 // Setup route.
-app.get('/', function(req, res) {
-    res.send("Hello from express - " + req.user + "!");
+app.get('/', (req, res) => {
+    res.send(`Hello from express - ${req.user}!`);
 });
 ```
 
@@ -81,7 +81,7 @@ var basic = auth.basic({
 // Final handler.
 app.use(function *(next) {
     yield next;
-    this.body = "Hello from koa - " + this.req.user + "!";
+    this.body = `Hello from koa - ${this.req.user}!`;
 });
 
 // Enable auth.
@@ -162,12 +162,12 @@ var basic = auth.basic({
 var app = express();
 
 // Setup route.
-app.get('/admin', auth.connect(basic), function(req, res) {
-    res.send("Hello from admin area - " + req.user + "!");
+app.get('/admin', auth.connect(basic), (req, res) => {
+    res.send(`Hello from admin area - ${req.user}!`);
 });
 
 // Setup route.
-app.get('/', function(req, res) {
+app.get('/', (req, res) => {
     res.send("Not protected area!");
 });
 ```
@@ -190,8 +190,8 @@ passport.use(auth.passport(basic));
 
 // Setup route.
 app.get('/', passport.authenticate('http', {session: false}),
-    function(req, res) {
-        res.end("Welcome to private area - " + req.user + "!");
+    (req, res) => {
+        res.end(`Welcome to private area - ${req.user}!`);
     }
 );
 ```
@@ -211,7 +211,7 @@ httpProxy.createServer(basic, {
 }).listen(1337);
 
 // Create your target server.
-http.createServer(function (req, res) {
+http.createServer((req, res) => {
 	res.end("Request successfully proxied!");
 }).listen(1338);
 ```
@@ -228,16 +228,16 @@ var basic = auth.basic({
     file: __dirname + "/../data/users.htpasswd"
 });
 
-basic.on('success', function(result, req) {
-	console.log("User authenticated: " + result.user);
+basic.on('success', (result, req) => {
+	console.log(`User authenticated: ${result.user}`);
 });
 
-basic.on('fail', function(result, req) {
-	console.log("User authentication failed: " + result.user);
+basic.on('fail', (result, req) => {
+	console.log(`User authentication failed: ${result.user}`);
 });
 
-basic.on('error', function(error, req) {
-	console.log("Authentication error: " + error.code + " - " + error.message);
+basic.on('error', (error, req) => {
+	console.log(`Authentication error: ${error.code + " - " + error.message}`);
 });
 ```
 
@@ -292,7 +292,6 @@ You can also use [stackoverflow](http://stackoverflow.com/questions/tagged/http-
 
 ## Development dependencies
 
- - **[babel](https://babeljs.io/)** - compiler for writing next generation JavaScript.
  - **[mocha](https://mochajs.org/)** - simple, flexible, fun javascript test framework for node.js & the browser.
  - **[chai](http://chaijs.com/)** - BDD / TDD assertion framework for node.js and the browser that can be paired with any testing framework.
  - **[express](http://expressjs.com/)** - Sinatra inspired web development framework for node.js -- insanely fast, flexible, and simple.

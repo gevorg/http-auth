@@ -1,10 +1,10 @@
 "use strict";
 
 // File system module.
-import fs from 'fs'
+const fs = require('fs');
 
 // Event module.
-import events from 'events'
+const events = require('events');
 
 // Base authentication.
 class Base extends events.EventEmitter {
@@ -147,4 +147,4 @@ class Base extends events.EventEmitter {
 }
 
 // Export base.
-export default Base
+module.exports = Base;

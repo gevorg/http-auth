@@ -1,19 +1,19 @@
 "use strict";
 
 // Expect module.
-import {expect} from 'chai'
+const expect = require('chai').expect;
 
 // Request module.
-import request from 'request'
+const request = require('request');
 
-// HTTPS library.
-import https from 'https'
-
-// FS.
-import fs from 'fs'
+// HTTPS.
+const https = require('https');
 
 // Source.
-import * as auth from '../src/http-auth'
+const auth = require('../src/http-auth');
+
+// FS.
+const fs = require('fs');
 
 // HTTPS.
 describe('https', () => {

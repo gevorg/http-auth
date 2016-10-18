@@ -1,13 +1,13 @@
 "use strict";
 
 // Base class.
-import Base from './base'
+const Base = require('./base');
 
 // Utility module.
-import * as utils from './utils'
+const utils = require('./utils');
 
 // Unique id.
-import uuid from 'node-uuid'
+const uuid = require('node-uuid');
 
 // Define digest auth.
 class Digest extends Base {
@@ -192,6 +192,6 @@ class Digest extends Base {
 }
 
 // Export digest auth.
-export default (options, checker) => {
+module.exports = (options, checker) => {
     return new Digest(options, checker);
-}
+};
