@@ -1,7 +1,7 @@
 {
   "name": "http-auth",
   "description": "Node.js package for HTTP basic and digest access authentication.",
-  "version": "2.5.10",
+  "version": "3.0.0",
   "author": "Gevorg Harutyunyan (http://github.com/gevorg)",
   "maintainers": [
     {
@@ -35,6 +35,7 @@
     "express": "^4.13.4",
     "http-proxy": "^1.13.3",
     "koa": "^1.2.0",
+    "hapi": "^15.0.3",
     "mocha": "^2.5.3",
     "passport": "^0.3.2",
     "request": "^2.72.0"

@@ -112,11 +112,8 @@ app.use(async (ctx, next) => {
 app.use(koaAuth(basic));
 ```
 
-## For [Hapi](http://hapijs.com/) integration you can use [http-auth-hapi](https://github.com/http-auth/http-auth-hapi)
+## [Hapi framework](http://hapijs.com/) integration
 ```javascript
-// Import hapi integration.
-const authHapi = require('http-auth-hapi');
-
 // Authentication module.
 const auth = require('http-auth');
 
@@ -131,7 +128,7 @@ const server = new Hapi.Server();
 server.connection({ port: 1337 });
 
 // Register auth plugin.
-server.register(authHapi);
+server.register(auth.hapi());
 
 // Setup strategy.
 server.auth.strategy('http-auth', 'http', basic);
@@ -299,6 +296,7 @@ You can also use [stackoverflow](http://stackoverflow.com/questions/tagged/http-
  - **[request](https://github.com/request/request/)** - Simplified HTTP request client.
  - **[passport](http://passportjs.org/)** - Simple, unobtrusive authentication for Node.js.
  - **[koa](http://koajs.com/)** - next generation web framework for node.js.
+  - **[hapi](http://hapijs.com/)** - A rich framework for building applications and services.
 
 ## License
 

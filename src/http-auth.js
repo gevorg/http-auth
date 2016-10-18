@@ -39,5 +39,10 @@ module.exports = {
     // Passport.
     passport: (auth) => {
         return require('./server/passport')(auth);
+    },
+
+    // Hapi.
+    hapi: () => {
+        return require('./server/hapi');
     }
 };
