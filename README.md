@@ -112,7 +112,7 @@ app.use(async (ctx, next) => {
 app.use(koaAuth(basic));
 ```
 
-## [Hapi framework](http://hapijs.com/) integration
+## [hapi framework](http://hapijs.com/) integration
 ```javascript
 // Authentication module.
 const auth = require('http-auth');
