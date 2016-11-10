@@ -66,6 +66,16 @@ describe('basic', () => {
         request.get('http://127.0.0.1:1337', callback).auth('hera', 'gnu');
     });
 
+    it('Bcrypt', (done) => {
+        const callback = (error, response, body) => {
+            expect(body).to.equal("Welcome to private area - titan!");
+            done();
+        };
+
+        // Test request.
+        request.get('http://127.0.0.1:1337', callback).auth('titan', 'demo');
+    });
+
     it('plain', (done) => {
         const callback = (error, response, body) => {
             expect(body).to.equal("Welcome to private area - Sarah!");

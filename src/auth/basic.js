@@ -12,6 +12,9 @@ const md5 = require('apache-md5');
 // Importing apache-crypt module.
 const crypt = require('apache-crypt');
 
+// Bcrypt.
+const bcrypt = require('bcryptjs');
+
 // Define basic auth.
 class Basic extends Base {
     // Constructor.
@@ -26,6 +29,8 @@ class Basic extends Base {
             return hash === utils.sha1(password);
         } else if (hash.substr(0, 6) === '$apr1$' || hash.substr(0, 3) === '$1$') {
             return hash === md5(password, hash);
+        } else if (hash.substr(0, 4) === '$2y$' || hash.substr(0, 4) === '$2a$') {
+            return bcrypt.compareSync(password, hash);
         } else {
             return hash === password || hash === crypt(password, hash);
         }
