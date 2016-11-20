@@ -7,7 +7,7 @@ const Base = require('./base');
 const utils = require('./utils');
 
 // Unique id.
-const uuid = require('node-uuid');
+const uuid = require('uuid');
 
 // Define digest auth.
 class Digest extends Base {
@@ -175,7 +175,7 @@ class Digest extends Base {
 
     // Generates and returns new random nonce.
     askNonce() {
-        let nonce = utils.md5(uuid.v4());
+        let nonce = utils.md5(uuid());
         this.nonces.push([nonce, Date.now(), 0]);
 
         return nonce;
