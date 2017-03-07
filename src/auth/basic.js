@@ -15,6 +15,9 @@ const crypt = require('apache-crypt');
 // Bcrypt.
 const bcrypt = require('bcryptjs');
 
+// Crypto.
+const crypto = require('crypto');
+
 // Define basic auth.
 class Basic extends Base {
     // Constructor.
@@ -31,8 +34,10 @@ class Basic extends Base {
             return hash === md5(password, hash);
         } else if (hash.substr(0, 4) === '$2y$' || hash.substr(0, 4) === '$2a$') {
             return bcrypt.compareSync(password, hash);
-        } else {
-            return hash === password || hash === crypt(password, hash);
+        } else if (hash === crypt(password, hash)) {
+            return true;
+        } else if (hash.length === password.length) {
+            return crypto.timingSafeEqual(new Buffer(hash), new Buffer(password));
         }
     }
 
