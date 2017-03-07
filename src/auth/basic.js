@@ -37,7 +37,8 @@ class Basic extends Base {
         } else if (hash === crypt(password, hash)) {
             return true;
         } else if (hash.length === password.length) {
-            return crypto.timingSafeEqual(new Buffer(hash), new Buffer(password));
+            return crypto.timingSafeEqual ?
+                crypto.timingSafeEqual(new Buffer(hash), new Buffer(password)) : hash === password;
         }
     }
 
