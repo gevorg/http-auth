@@ -46,10 +46,16 @@ class Basic extends Base {
     processLine (userLine) {
         let lineSplit = userLine.split(":");
         let username = lineSplit.shift();
-        let hash = lineSplit.join(":");
+        let hash = lineSplit.shift();
+        const group = lineSplit.shift();
+
+        const user = {username: username, hash: hash};
+        if(group) {
+            user.group = group;
+        }
 
         // Push user.
-        this.options.users.push({username: username, hash: hash});
+        this.options.users.push(user);
     }
 
     // Generates request header.
