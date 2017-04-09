@@ -303,7 +303,7 @@ You can also use [stackoverflow](http://stackoverflow.com/questions/tagged/http-
 
 The MIT License (MIT)
 
-Copyright (c) 2016 Gevorg Harutyunyan
+Copyright (c) 2017 Gevorg Harutyunyan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
