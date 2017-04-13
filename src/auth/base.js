@@ -94,6 +94,9 @@ class Base extends events.EventEmitter {
 
                 if (!this.options.skipUser) {
                     req.user = result.user;
+                    if(result.group) {
+                      req.group = result.group;
+                    }
                 }
 
                 if (callback) {
