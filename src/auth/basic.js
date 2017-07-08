@@ -76,13 +76,13 @@ class Basic extends Base {
 
         if (this.checker) {
             // Custom auth.
-            this.checker.apply(this, [username, password, (result) => {
+            this.checker.apply(this, [username, password, (result, customUser) => {
                 let params = undefined;
 
                 if (result instanceof Error) {
                     params = [result]
                 } else {
-                    params = [{ user: username, pass: !!result }];
+                    params = [{ user: customUser || username, pass: !!result }];
                 }
 
                 callback.apply(self, params);
