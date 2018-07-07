@@ -254,6 +254,7 @@ basic.on('error', (error, req) => {
  - `msg407` - Message for failed authentication 407 page.
  - `contentType` - Content type for failed authentication page.
  - `skipUser` - Set this to **true**, if you don't want req.user to be filled with authentication info.
+ - `skipAuthHeader` - Set this to **true**, if you don't want to send the WWW-Authenticate header with your response when using Express framework.
 
 ## Running tests
 

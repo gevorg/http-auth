@@ -28,6 +28,10 @@ class Base extends events.EventEmitter {
             options.realm = "users";
         }
 
+        if (!options.skipAuthHeader) {
+            options.skipAuthHeader = false;
+        }
+
         // Assign values.
         this.options = options;
         this.checker = checker;
@@ -70,7 +74,9 @@ class Base extends events.EventEmitter {
             res.writeHead(407);
             res.end(this.options.msg407);
         } else {
-            res.setHeader("WWW-Authenticate", header);
+            if (!this.options.skipAuthHeader) {
+                res.setHeader("WWW-Authenticate", header);
+            }
             res.writeHead(401);
             res.end(this.options.msg401);
         }
