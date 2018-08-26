@@ -69,6 +69,7 @@ app.get('/', (req, res) => {
 });
 ```
 
+
 ## [koa framework](http://koajs.com/) integration
 ```javascript
 // Authentication module.
@@ -153,6 +154,45 @@ var auth = require('http-auth');
 var basic = auth.basic({
 	realm: "Simon Area.",
 	file: __dirname + "/../data/users.htpasswd"
+});
+
+// Application setup.
+var app = express();
+
+// Setup route.
+app.get('/admin', auth.connect(basic), (req, res) => {
+    res.send(`Hello from admin area - ${req.user}!`);
+});
+
+// Setup route.
+app.get('/', (req, res) => {
+    res.send("Not protected area!");
+});
+```
+
+## Custom page for 401 status
+```javascript
+// Authentication module.
+var auth = require('http-auth');
+var basic = auth.basic({
+	realm: "Simon Area.",
+	file: __dirname + "/../data/users.htpasswd"
+});
+
+basic.on('ask', (req, res, result) => {
+	let header = basic.generateHeader(result);
+	res.setHeader("WWW-Authenticate", header);
+	res.status(401);
+
+	res.send("<b>Wrong username or password</b>");
+
+	// Also you can use some custom page
+	/*
+	res.render("layout", {
+		title: "Ошибка доступа",
+		req: req,
+		content: "auth_err"
+	});*/
 });
 
 // Application setup.
