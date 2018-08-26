@@ -61,7 +61,9 @@ class Base extends events.EventEmitter {
     }
 
     // Ask for authentication.
-    ask(res, result) {
+    ask(req, res, result) {
+        if (this.emit('ask', req, res, result)) return;
+
         let header = this.generateHeader(result);
         res.setHeader("Content-Type", this.options.contentType);
 
@@ -88,7 +90,7 @@ class Base extends events.EventEmitter {
                 }
             } else if (!result.pass) {
                 self.emit('fail', result, req);
-                self.ask(res, result);
+                self.ask(req, res, result);
             } else {
                 self.emit('success', result, req);
 
