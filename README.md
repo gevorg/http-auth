@@ -189,7 +189,7 @@ basic.on('ask', (req, res, result) => {
 	// Also you can use some custom page
 	/*
 	res.render("layout", {
-		title: "Ошибка доступа",
+		title: "Authentication error",
 		req: req,
 		content: "auth_err"
 	});*/
