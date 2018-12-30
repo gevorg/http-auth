@@ -14,7 +14,7 @@ Via [npm](http://npmjs.org/):
 
 ```bash
 $ npm install http-auth
-```	
+```
 
 ## Basic example
 ```javascript
@@ -32,12 +32,12 @@ http.createServer(basic, (req, res) => {
 
 ```
 ## Custom authentication
-```javascript	
+```javascript
 // Authentication module.
 var auth = require('http-auth');
 var basic = auth.basic({
 		realm: "Simon Area."
-	}, (username, password, callback) => { 
+	}, (username, password, callback) => {
 	    // Custom authentication
 	    // Use callback(error) if you want to throw async error.
 		callback(username === "Tina" && password === "Bullock");
@@ -48,6 +48,31 @@ var basic = auth.basic({
 http.createServer(basic, (req, res) => {
 	res.end(`Welcome to private area - ${req.user}!`);
 }).listen(1337);
+```
+
+
+## Digest example
+
+Take notice to the usage of `auth.digest` function instead of `auth.basic`.
+
+Inside the `users.htpasswd` store the credentials of each user in
+`username:realm:HA1` where `HA1 = MD5(username:realm:password)`:
+
+```javascript
+// Authentication module.
+var auth = require('http-auth');
+var auth_method = auth.digest({
+    realm: "Simon Area.",
+    algorithm: 'MD5-sess',
+    qop: 'auth',
+    file: __dirname + "/../data/users.htpasswd"
+});
+
+// Creating new HTTP server.
+http.createServer(auth_method, (req, res) => {
+    res.end(`Welcome to private area - ${req.user}!`);
+}).listen(1337);
+
 ```
 
 ## [express framework](http://expressjs.com/) integration
@@ -241,12 +266,12 @@ basic.on('error', (error, req) => {
 ## Configurations
 
  - `realm` - Authentication realm, by default it is **Users**.
- - `file` - File where user details are stored.
- 	- Line format is **{user:pass}** or **{user:passHash}** for basic access. 
- 	- Line format is **{user:realm:passHash}** for digest access.
+ - `file` - Path to file where user details are stored.
+ 	- Line format is **{user:pass}** or **{user:passHash}** for basic access.
+ 	- Line format is **{user:realm:HA1}** for digest access.
  - `algorithm` - Algorithm that will be used only for **digest** access authentication.
- 	- **MD5** by default.
- 	- **MD5-sess** can be set.
+ 	- **MD5** as text by default.
+ 	- **MD5-sess** as text can be set.
  - `qop` - Quality of protection that is used only for **digest** access authentication.
  	- **auth** is set by default.
  	- **none** this option is disabling protection.
