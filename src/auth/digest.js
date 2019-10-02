@@ -149,7 +149,7 @@ class Digest extends Base {
         // Nonces for removal.
         let noncesToRemove = [];
         
-        //Request counter is hexadecimal
+        // Request counter is hexadecimal.
         let ncNum = Number.parseInt(nc, 16);
 
         // Searching for not expired ones.
