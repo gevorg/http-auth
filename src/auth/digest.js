@@ -148,15 +148,18 @@ class Digest extends Base {
 
         // Nonces for removal.
         let noncesToRemove = [];
+        
+        //Request counter is hexadecimal
+        let ncNum = Number.parseInt(nc, 16);
 
         // Searching for not expired ones.
         this.nonces.forEach(serverNonce => {
             if ((serverNonce[1] + 3600000) > now) {
                 if (serverNonce[0] === nonce) {
                     if (qop) {
-                        if (nc > serverNonce[2]) {
+                        if (ncNum > serverNonce[2]) {
                             found = true;
-                            ++ serverNonce[2];
+                            serverNonce[2] = ncNum;
                         }
                     } else {
                         found = true;
