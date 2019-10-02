@@ -28,18 +28,18 @@
   "dependencies": {
     "apache-crypt": "^1.1.2",
     "apache-md5": "^1.0.6",
-    "bcryptjs": "^2.3.0",
-    "uuid": "^3.0.0"
+    "bcryptjs": "^2.4.3",
+    "uuid": "^3.3.3"
   },
   "devDependencies": {
-    "chai": "^3.5.0",
-    "express": "^4.13.4",
-    "http-proxy": "^1.13.3",
-    "koa": "^1.2.0",
+    "chai": "^4.2.0",
+    "express": "^4.17.1",
+    "http-proxy": "^1.18.0",
+    "koa": "^1.6.2",
     "hapi": "^16.1.1",
-    "mocha": "^3.1.2",
-    "passport": "^0.3.2",
-    "request": "^2.72.0"
+    "mocha": "^6.2.1",
+    "request": "^2.88.0",
+    "passport": "^0.4.0"
   },
   "engines": {
     "node": ">=4.6.1"
