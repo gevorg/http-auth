@@ -18,6 +18,9 @@ const bcrypt = require('bcryptjs');
 // Crypto.
 const crypto = require('crypto');
 
+// Reuse.
+const basicSchemeRegExp = /^basic$/i;
+
 // Define basic auth.
 class Basic extends Base {
     // Constructor.
@@ -60,7 +63,7 @@ class Basic extends Base {
     // Parsing authorization header.
     parseAuthorization (header) {
         let tokens = header.split(" ");
-        if (tokens[0] === "Basic") {
+        if (basicSchemeRegExp.test(tokens[0])) {
             return tokens[1];
         }
     }

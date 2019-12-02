@@ -9,6 +9,9 @@ const utils = require('./utils');
 // Unique id.
 const uuid = require('uuid');
 
+// Reuse.
+const digestSchemeRegExp = /^digest$/i;
+
 // Define digest auth.
 class Digest extends Base {
     // Constructor.
@@ -49,7 +52,7 @@ class Digest extends Base {
 
         // Split the parameters by comma.
         let tokens = params.split(/,(?=(?:[^"]|"[^"]*")*$)/);
-        if (parts[0].substr(0, 6) === "Digest") {
+        if (digestSchemeRegExp.test(parts[0].substr(0, 6))) {
             // Parse parameters.
             let i = 0;
             let len = tokens.length;
