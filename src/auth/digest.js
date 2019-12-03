@@ -9,6 +9,9 @@ const utils = require('./utils');
 // Unique id.
 const uuid = require('uuid');
 
+// Reuse.
+const digestSchemeRegExp = /^digest\s(.*)/i;
+
 // Define digest auth.
 class Digest extends Base {
     // Constructor.
@@ -43,13 +46,13 @@ class Digest extends Base {
 
     // Parse authorization heder.
     parseAuthorization(header) {
-        let opts = {};
-        let parts = header.split(' ');
-        let params = parts.slice(1).join(' ');
+        let match = header.match(digestSchemeRegExp);
+        if (match) {
+            let opts = {};
+            let params = match[1];
 
-        // Split the parameters by comma.
-        let tokens = params.split(/,(?=(?:[^"]|"[^"]*")*$)/);
-        if (parts[0].substr(0, 6) === "Digest") {
+            // Split the parameters by comma.
+            let tokens = params.split(/,(?=(?:[^"]|"[^"]*")*$)/);
             // Parse parameters.
             let i = 0;
             let len = tokens.length;
@@ -64,10 +67,9 @@ class Digest extends Base {
                 ++i;
             }
 
+            // Return options.
+            return opts;
         }
-
-        // Return options.
-        return opts;
     }
 
     // Validating hash.
