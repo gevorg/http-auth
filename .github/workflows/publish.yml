@@ -1,4 +1,4 @@
-name: Node.js Package
+name: Publish http-auth to registry
 
 on:
   push:
