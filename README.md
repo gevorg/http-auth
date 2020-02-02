@@ -1,7 +1,7 @@
 # http-auth
 [Node.js](http://nodejs.org/) package for HTTP basic and digest access authentication.
 
-![Build http-auth](https://github.com/http-auth/http-auth/workflows/building%20http-auth/badge.svg)
+![build](https://github.com/http-auth/http-auth/workflows/build/badge.svg)
 
 ## Installation
 
