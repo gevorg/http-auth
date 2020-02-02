@@ -3,7 +3,8 @@
 
 [![build](https://github.com/http-auth/http-auth/workflows/build/badge.svg)](https://github.com/http-auth/http-auth/actions?query=workflow%3Abuild)
 
-:warning: This package mutates [http.createServer](https://nodejs.org/api/http.html) native.
+:warning: This package mutates [http.createServer](https://nodejs.org/api/http.html) native function.
+
 :warning: And that is horibly wrong because `you don't change what you don't own`.
 
 ## Installation
