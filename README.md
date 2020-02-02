@@ -121,6 +121,7 @@ You can also use [stackoverflow](http://stackoverflow.com/questions/tagged/http-
 ## Integrations
 
  - **[http-auth-koa](https://github.com/http-auth/http-auth-koa)** - [Koa framework](http://koajs.com/) integration with [http-auth](https://github.com/http-auth/http-auth) module.
+ - **[http-auth-hapi](https://github.com/http-auth/http-auth-hapi)** - [Hapi framework](https://hapi.dev/) integration with [http-auth](https://github.com/http-auth/http-auth) module.
 
 
 ## Dependencies
