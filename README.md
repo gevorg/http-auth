@@ -59,7 +59,7 @@ const http = require('http'),
 // Authentication module.
 const auth = require('http-auth');
 const basic = auth.basic({
-	realm: "Simon Area.",
+    realm: "Simon Area.",
     file: __dirname + "/../data/users.htpasswd", // gevorg:gpass, Sarah:testpass
     proxy: true
 });
