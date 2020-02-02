@@ -5,7 +5,7 @@ const http = require('http'),
 // Authentication module.
 const auth = require('../src/http-auth');
 const basic = auth.basic({
-	realm: "Simon Area.",
+    realm: "Simon Area.",
     file: __dirname + "/../data/users.htpasswd", // gevorg:gpass, Sarah:testpass
     proxy: true
 });
@@ -18,10 +18,10 @@ http.createServer(basic.check((req, res) => {
 
 // Create your target server.
 http.createServer((req, res) => {
-	res.end("Request successfully proxied!");
+    res.end("Request successfully proxied!");
 }).listen(1338, () => {
-	// Log URL.
-	console.log("Server running at http://127.0.0.1:1338/");
+    // Log URL.
+    console.log("Server running at http://127.0.0.1:1338/");
 });
 
 // You can test proxy authentication using curl.

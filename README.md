@@ -14,39 +14,39 @@ Via [npm](http://npmjs.org/):
 
 ```bash
 $ npm install http-auth
-```	
+```    
 
 ## Basic example
 ```javascript
 // Authentication module.
 const auth = require('http-auth');
 const basic = auth.basic({
-	realm: "Simon Area.",
-	file: __dirname + "/../data/users.htpasswd"
+    realm: "Simon Area.",
+    file: __dirname + "/../data/users.htpasswd"
 });
 
 // Creating new HTTP server.
 http.createServer(basic.check((req, res) => {
-	res.end(`Welcome to private area - ${req.user}!`);
+    res.end(`Welcome to private area - ${req.user}!`);
 })).listen(1337);
 
 ```
 ## Custom authentication
-```javascript	
+```javascript    
 // Authentication module.
 const auth = require('http-auth');
 const basic = auth.basic({
-		realm: "Simon Area."
-	}, (username, password, callback) => { 
-	    // Custom authentication
-	    // Use callback(error) if you want to throw async error.
-		callback(username === "Tina" && password === "Bullock");
-	}
+        realm: "Simon Area."
+    }, (username, password, callback) => { 
+        // Custom authentication
+        // Use callback(error) if you want to throw async error.
+        callback(username === "Tina" && password === "Bullock");
+    }
 );
 
 // Creating new HTTP server.
 http.createServer(basic.check((req, res) => {
-	res.end(`Welcome to private area - ${req.user}!`);
+    res.end(`Welcome to private area - ${req.user}!`);
 })).listen(1337);
 ```
 
@@ -72,10 +72,10 @@ http.createServer(basic.check((req, res) => {
 
 // Create your target server.
 http.createServer((req, res) => {
-	res.end("Request successfully proxied!");
+    res.end("Request successfully proxied!");
 }).listen(1338, () => {
-	// Log URL.
-	console.log("Server running at http://127.0.0.1:1338/");
+    // Log URL.
+    console.log("Server running at http://127.0.0.1:1338/");
 });
 
 // You can test proxy authentication using curl.
@@ -95,15 +95,15 @@ const basic = auth.basic({
 });
 
 basic.on('success', (result, req) => {
-	console.log(`User authenticated: ${result.user}`);
+    console.log(`User authenticated: ${result.user}`);
 });
 
 basic.on('fail', (result, req) => {
-	console.log(`User authentication failed: ${result.user}`);
+    console.log(`User authentication failed: ${result.user}`);
 });
 
 basic.on('error', (error, req) => {
-	console.log(`Authentication error: ${error.code + " - " + error.message}`);
+    console.log(`Authentication error: ${error.code + " - " + error.message}`);
 });
 ```
 
@@ -111,14 +111,14 @@ basic.on('error', (error, req) => {
 
  - `realm` - Authentication realm, by default it is **Users**.
  - `file` - File where user details are stored.
- 	- Line format is **{user:pass}** or **{user:passHash}** for basic access. 
- 	- Line format is **{user:realm:passHash}** for digest access.
+     - Line format is **{user:pass}** or **{user:passHash}** for basic access. 
+     - Line format is **{user:realm:passHash}** for digest access.
  - `algorithm` - Algorithm that will be used only for **digest** access authentication.
- 	- **MD5** by default.
- 	- **MD5-sess** can be set.
+     - **MD5** by default.
+     - **MD5-sess** can be set.
  - `qop` - Quality of protection that is used only for **digest** access authentication.
- 	- **auth** is set by default.
- 	- **none** this option is disabling protection.
+     - **auth** is set by default.
+     - **none** this option is disabling protection.
  - `msg401` - Message for failed authentication 401 page.
  - `msg407` - Message for failed authentication 407 page.
  - `contentType` - Content type for failed authentication page.
