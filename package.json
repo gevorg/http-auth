@@ -1,7 +1,7 @@
 {
   "name": "http-auth",
   "description": "Node.js package for HTTP basic and digest access authentication.",
-  "version": "4.0.2",
+  "version": "4.1.0",
   "author": "Gevorg Harutyunyan (http://github.com/gevorg)",
   "maintainers": [
     {
@@ -36,6 +36,7 @@
     "eslint": "^6.8.0",
     "eslint-plugin-node": "^11.0.0",
     "mocha": "^7.0.1",
+    "http-proxy": "^1.18.0",
     "request": "^2.88.0"
   },
   "engines": {

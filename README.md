@@ -50,6 +50,38 @@ http.createServer(basic.check((req, res) => {
 })).listen(1337);
 ```
 
+## [http-proxy](https://github.com/nodejitsu/node-http-proxy/) integration
+```javascript
+// HTTP proxy module.
+const http = require('http'),
+    httpProxy = require('http-proxy');
+
+// Authentication module.
+const auth = require('http-auth');
+const basic = auth.basic({
+	realm: "Simon Area.",
+    file: __dirname + "/../data/users.htpasswd", // gevorg:gpass, Sarah:testpass
+    proxy: true
+});
+
+// Create your proxy server.
+const proxy = httpProxy.createProxyServer({});
+http.createServer(basic.check((req, res) => {
+    proxy.web(req, res, { target: 'http://127.0.0.1:1338' });
+})).listen(1337);
+
+// Create your target server.
+http.createServer((req, res) => {
+	res.end("Request successfully proxied!");
+}).listen(1338, () => {
+	// Log URL.
+	console.log("Server running at http://127.0.0.1:1338/");
+});
+
+// You can test proxy authentication using curl.
+// $ curl -x 127.0.0.1:1337  127.0.0.1:1337 -U gevorg
+```
+
 ## Events
 
 The auth middleware emits three types of events: **error**, **fail** and **success**. Each event passes the result object (the error in case of `fail`) and the http request `req` to the listener function.
@@ -91,6 +123,7 @@ basic.on('error', (error, req) => {
  - `msg407` - Message for failed authentication 407 page.
  - `contentType` - Content type for failed authentication page.
  - `skipUser` - Set this to **true**, if you don't want req.user to be filled with authentication info.
+ - `proxy` - Set this to **true**, if you want to use it with [http-proxy](https://github.com/http-party/node-http-proxy).
 
 ## Running tests
 

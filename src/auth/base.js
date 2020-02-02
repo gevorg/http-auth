@@ -28,6 +28,10 @@ class Base extends events.EventEmitter {
             options.realm = "users";
         }
 
+        if (!options.proxy) {
+            options.proxy = false;
+        }
+
         // Assign values.
         this.options = options;
         this.checker = checker;
@@ -69,7 +73,7 @@ class Base extends events.EventEmitter {
         let header = this.generateHeader(result);
         res.setHeader("Content-Type", this.options.contentType);
 
-        if (this.proxy) {
+        if (this.options.proxy) {
             res.setHeader("Proxy-Authenticate", header);
             res.writeHead(407);
             res.end(this.options.msg407);
@@ -113,7 +117,7 @@ class Base extends events.EventEmitter {
     isAuthenticated(req, callback) {
         let self = this;
         let header = undefined;
-        if (this.proxy) {
+        if (this.options.proxy) {
             header = req.headers["proxy-authorization"];
         } else {
             header = req.headers["authorization"];
