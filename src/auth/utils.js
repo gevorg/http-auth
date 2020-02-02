@@ -22,12 +22,12 @@ utils.sha1 = (input) => {
 
 // Encode to base64 string.
 utils.base64 = (input) => {
-    return new Buffer(input, 'utf8').toString('base64');
+    return Buffer.from(input, 'utf8').toString('base64');
 };
 
 // Decodes base64 string.
 utils.decodeBase64 = (input) => {
-    return new Buffer(input, 'base64').toString('utf8');
+    return Buffer.from(input, 'base64').toString('utf8');
 };
 
 // Check if module is available.

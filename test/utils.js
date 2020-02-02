@@ -72,7 +72,7 @@ describe('utils', () => {
     describe('#isAvailable', () => {
         it('existing module', () => {
             // Source.
-            const isAvailable = utils.isAvailable('http-proxy');
+            const isAvailable = utils.isAvailable('https');
 
             // Expectation.
             expect(isAvailable).to.be.true;
