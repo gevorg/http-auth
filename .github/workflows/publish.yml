@@ -1,4 +1,4 @@
-name: publishing http-auth
+name: publish
 
 on:
   push:

@@ -1,4 +1,4 @@
-name: building http-auth
+name: build
 
 on: [push]
 
