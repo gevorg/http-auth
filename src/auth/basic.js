@@ -41,7 +41,7 @@ class Basic extends Base {
             return true;
         } else if (hash.length === password.length) {
             return crypto.timingSafeEqual ?
-                crypto.timingSafeEqual(new Buffer(hash), new Buffer(password)) : hash === password;
+                crypto.timingSafeEqual(Buffer.from(hash), Buffer.from(password)) : hash === password;
         }
     }
 
@@ -57,7 +57,7 @@ class Basic extends Base {
 
     // Generates request header.
     generateHeader () {
-        return `Basic realm=\"${this.options.realm}\"`;
+        return `Basic realm="${this.options.realm}"`;
     }
 
     // Parsing authorization header.

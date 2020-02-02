@@ -1,8 +1,5 @@
 "use strict";
 
-// Utils.
-const utils = require('./auth/utils');
-
 // http integration.
 require('./server/http');
 

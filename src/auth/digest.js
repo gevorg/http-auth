@@ -192,7 +192,7 @@ class Digest extends Base {
         let stale = result.stale ? true : false;
 
         // Returning it.
-        return `Digest realm=\"${this.options.realm}\", qop=\"${this.options.qop}\", nonce=\"${nonce}\", algorithm=\"${this.options.algorithm}\", stale=\"${stale}\"`;
+        return `Digest realm="${this.options.realm}", qop="${this.options.qop}", nonce="${nonce}", algorithm="${this.options.algorithm}", stale="${stale}"`;
     }
 }
 

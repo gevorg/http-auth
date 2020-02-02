@@ -41,21 +41,25 @@ class Base extends events.EventEmitter {
     }
 
     // Processing user line.
+    // eslint-disable-next-line no-unused-vars
     processLine(userLine) {
         throw new Error('Not defined!');
     }
 
     // Parse auth header.
+    // eslint-disable-next-line no-unused-vars
     parseAuthorization(header) {
         throw new Error('Not defined!');
     }
 
     // Find user.
+    // eslint-disable-next-line no-unused-vars
     findUser(req, clientOptions, callback) {
         throw new Error('Not defined!');
     }
 
     // Generates header.
+    // eslint-disable-next-line no-unused-vars
     generateHeader(result) {
         throw new Error('Not defined!');
     }

@@ -125,12 +125,6 @@ You can also use [stackoverflow](http://stackoverflow.com/questions/tagged/http-
  - **[apache-crypt](https://github.com/http-auth/apache-crypt)** - Node.js module for Apache style password encryption using crypt(3).
  - **[bcrypt.js](https://github.com/dcodeIO/bcrypt.js)** - Optimized bcrypt in plain JavaScript with zero dependencies.
 
-## Development dependencies
-
- - **[mocha](https://mochajs.org/)** - simple, flexible, fun javascript test framework for node.js & the browser.
- - **[chai](http://chaijs.com/)** - BDD / TDD assertion framework for node.js and the browser that can be paired with any testing framework.
- - **[request](https://github.com/request/request/)** - Simplified HTTP request client.
-
 ## License
 
 The MIT License (MIT)
