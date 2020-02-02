@@ -118,6 +118,11 @@ You can also use [stackoverflow](http://stackoverflow.com/questions/tagged/http-
  - **[htpasswd](https://github.com/http-auth/htpasswd/)** - Node.js package for HTTP Basic Authentication password file utility.
  - **[htdigest](https://github.com/http-auth/htdigest/)** - Node.js package for HTTP Digest Authentication password file utility.
 
+## Integrations
+
+ - **[http-auth-koa](https://github.com/http-auth/http-auth-koa)** - [Koa framework](http://koajs.com/) integration with [http-auth](https://github.com/http-auth/http-auth) module.
+
+
 ## Dependencies
 
  - **[uuid](https://github.com/broofa/node-uuid/)** - Generate RFC4122(v4) UUIDs, and also non-RFC compact ids.
