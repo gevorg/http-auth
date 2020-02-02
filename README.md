@@ -121,6 +121,7 @@ You can also use [stackoverflow](http://stackoverflow.com/questions/tagged/http-
 ## Integrations
 
  - **[http-auth-connect](https://github.com/http-auth/http-auth-connect)** - [Connect](https://github.com/senchalabs/connect) integration.
+ - **[http-auth-passport](https://github.com/http-auth/http-auth-passport)** - [Passport.js](http://www.passportjs.org/) integration.
  - **[http-auth-koa](https://github.com/http-auth/http-auth-koa)** - [Koa framework](http://koajs.com/) integration.
  - **[http-auth-hapi](https://github.com/http-auth/http-auth-hapi)** - [Hapi framework](https://hapi.dev/) integration.
 
