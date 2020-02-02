@@ -9,3 +9,5 @@ test
 examples
 .travis.yml
 data
+.github
+.eslintrc.json
