@@ -1,4 +1,4 @@
-name: Run http-auth tests
+name: building http-auth
 
 on: [push]
 

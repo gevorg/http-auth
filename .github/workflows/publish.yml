@@ -1,4 +1,4 @@
-name: Publish http-auth to registry
+name: publishing http-auth
 
 on:
   push:
