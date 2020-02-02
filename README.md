@@ -19,8 +19,8 @@ $ npm install http-auth
 ## Basic example
 ```javascript
 // Authentication module.
-var auth = require('http-auth');
-var basic = auth.basic({
+const auth = require('http-auth');
+const basic = auth.basic({
 	realm: "Simon Area.",
 	file: __dirname + "/../data/users.htpasswd"
 });
@@ -34,8 +34,8 @@ http.createServer(basic.check((req, res) => {
 ## Custom authentication
 ```javascript	
 // Authentication module.
-var auth = require('http-auth');
-var basic = auth.basic({
+const auth = require('http-auth');
+const basic = auth.basic({
 		realm: "Simon Area."
 	}, (username, password, callback) => { 
 	    // Custom authentication
@@ -56,8 +56,8 @@ The auth middleware emits three types of events: **error**, **fail** and **succe
 
 ```javascript
 // Authentication module.
-var auth = require('http-auth');
-var basic = auth.basic({
+const auth = require('http-auth');
+const basic = auth.basic({
     realm: "Simon Area.",
     file: __dirname + "/../data/users.htpasswd"
 });
