@@ -129,7 +129,6 @@ You can also use [stackoverflow](http://stackoverflow.com/questions/tagged/http-
 
  - **[mocha](https://mochajs.org/)** - simple, flexible, fun javascript test framework for node.js & the browser.
  - **[chai](http://chaijs.com/)** - BDD / TDD assertion framework for node.js and the browser that can be paired with any testing framework.
- - **[express](http://expressjs.com/)** - Sinatra inspired web development framework for node.js -- insanely fast, flexible, and simple.
  - **[request](https://github.com/request/request/)** - Simplified HTTP request client.
 
 ## License
