@@ -47,9 +47,9 @@ describe('https', () => {
         };
 
         // Creating new HTTPS server.
-        server = https.createServer(basic, options, (req, res) => {
+        server = https.createServer(options, basic.check((req, res) => {
             res.end(`Welcome to private area - ${req.user}!`);
-        });
+        }));
 
         // Start server.
         server.listen(1337);

@@ -81,30 +81,32 @@ class Base extends events.EventEmitter {
     }
 
     // Checking if user is authenticated.
-    check(req, res, callback) {
+    check(callback) {
         let self = this;
-        this.isAuthenticated(req, (result) => {
-            if (result instanceof Error) {
-                self.emit('error', result, req);
 
-                if (callback) {
-                    callback.apply(self, [req, res, result]);
+        return (req, res) => {
+            this.isAuthenticated(req, (result) => {
+                if (result instanceof Error) {
+                    self.emit('error', result, req);
+    
+                    res.statusCode = 400;
+                    res.end(result.message);
+                } else if (!result.pass) {
+                    self.emit('fail', result, req);
+                    self.ask(res, result);
+                } else {
+                    self.emit('success', result, req);
+    
+                    if (!self.options.skipUser) {
+                        req.user = result.user;
+                    }
+    
+                    if (callback) {
+                        callback.apply(self, [req, res]);
+                    }
                 }
-            } else if (!result.pass) {
-                self.emit('fail', result, req);
-                self.ask(res, result);
-            } else {
-                self.emit('success', result, req);
-
-                if (!this.options.skipUser) {
-                    req.user = result.user;
-                }
-
-                if (callback) {
-                    callback.apply(self, [req, res]);
-                }
-            }
-        });
+            });    
+        }
     }
 
     // Is authenticated method.

@@ -67,23 +67,4 @@ describe('utils', () => {
             expect(hash).to.equal("Ну ты!");
         });
     });
-
-    // Tests for isAvailable.
-    describe('#isAvailable', () => {
-        it('existing module', () => {
-            // Source.
-            const isAvailable = utils.isAvailable('https');
-
-            // Expectation.
-            expect(isAvailable).to.be.true;
-        });
-
-        it('not existing module', () => {
-            // Source.
-            const isAvailable = utils.isAvailable('stupid name');
-
-            // Expectation.
-            expect(isAvailable).to.be.false;
-        });
-    });
 });

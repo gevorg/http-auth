@@ -18,9 +18,9 @@ var options = {
 };
 
 // Starting server.
-https.createServer(basic, options, (req, res) => {
+https.createServer(options, basic.check((req, res) => {
 	res.end(`Welcome to private area - ${req.user}!`);
-}).listen(1337, () => {
+})).listen(1337, () => {
 	// Log URL.
 	console.log("Server running at https://127.0.0.1:1337/");
 });

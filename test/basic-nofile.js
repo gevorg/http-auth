@@ -39,9 +39,9 @@ describe('basic', () => {
             });
 
             // Creating new HTTP server.
-            server = http.createServer(basic, (req, res) => {
+            server = http.createServer(basic.check((req, res) => {
                 res.end(`Welcome to private area - ${req.user}!`);
-            });
+            }));
 
             // Start server.
             server.listen(1337);

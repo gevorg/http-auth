@@ -21,9 +21,9 @@ var digest = auth.digest({
 );
 
 // Creating new HTTP server.
-http.createServer(digest, (req, res) => {
+http.createServer(digest.check((req, res) => {
 	res.end(`Welcome to private area - ${req.user}!`);
-}).listen(1337, () => {
+})).listen(1337, () => {
 	// Log URL.
 	console.log("Server running at http://127.0.0.1:1337/");
 });

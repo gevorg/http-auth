@@ -30,14 +30,5 @@ utils.decodeBase64 = (input) => {
     return Buffer.from(input, 'base64').toString('utf8');
 };
 
-// Check if module is available.
-utils.isAvailable = (path) => {
-    try {
-        return !!require.resolve(path);
-    } catch (err) {
-        return false;
-    }
-};
-
 // Export utils.
 module.exports = utils;

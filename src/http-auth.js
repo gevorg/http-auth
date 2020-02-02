@@ -1,11 +1,4 @@
 "use strict";
-
-// http integration.
-require('./server/http');
-
-// https integration.
-require('./server/https');
-
 // Exports.
 module.exports = {
     // Basic authentication.

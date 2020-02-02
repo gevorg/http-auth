@@ -3,10 +3,6 @@
 
 [![build](https://github.com/http-auth/http-auth/workflows/build/badge.svg)](https://github.com/http-auth/http-auth/actions?query=workflow%3Abuild)
 
-:warning: This package mutates [http.createServer](https://nodejs.org/api/http.html).
-
-:warning: And that is horibly wrong because `you don't change what you don't own`.
-
 ## Installation
 
 Via git (or downloaded tarball):
@@ -30,9 +26,9 @@ var basic = auth.basic({
 });
 
 // Creating new HTTP server.
-http.createServer(basic, (req, res) => {
+http.createServer(basic.check((req, res) => {
 	res.end(`Welcome to private area - ${req.user}!`);
-}).listen(1337);
+})).listen(1337);
 
 ```
 ## Custom authentication
@@ -49,9 +45,9 @@ var basic = auth.basic({
 );
 
 // Creating new HTTP server.
-http.createServer(basic, (req, res) => {
+http.createServer(basic.check((req, res) => {
 	res.end(`Welcome to private area - ${req.user}!`);
-}).listen(1337);
+})).listen(1337);
 ```
 
 ## Events
