@@ -18,65 +18,93 @@ $ npm install http-auth
 
 ## Basic example
 ```javascript
+// HTTP module
+const http = require("http");
+
 // Authentication module.
-const auth = require('http-auth');
+const auth = require("http-auth");
 const basic = auth.basic({
-    realm: "Simon Area.",
-    file: __dirname + "/../data/users.htpasswd"
+  realm: "Simon Area.",
+  file: __dirname + "/../data/users.htpasswd" // gevorg:gpass, Sarah:testpass
 });
 
 // Creating new HTTP server.
-http.createServer(basic.check((req, res) => {
-    res.end(`Welcome to private area - ${req.user}!`);
-})).listen(1337);
+http
+  .createServer(
+    basic.check((req, res) => {
+      res.end(`Welcome to private area - ${req.user}!`);
+    })
+  )
+  .listen(1337, () => {
+    // Log URL.
+    console.log("Server running at http://127.0.0.1:1337/");
+  });
 
 ```
 ## Custom authentication
 ```javascript    
+// HTTP module
+const http = require("http");
+
 // Authentication module.
-const auth = require('http-auth');
-const basic = auth.basic({
-        realm: "Simon Area."
-    }, (username, password, callback) => { 
-        // Custom authentication
-        // Use callback(error) if you want to throw async error.
-        callback(username === "Tina" && password === "Bullock");
-    }
+const auth = require("http-auth");
+const basic = auth.basic(
+  {
+    realm: "Simon Area."
+  },
+  (username, password, callback) => {
+    // Custom authentication method.
+    callback(username === "Tina" && password === "Bullock");
+  }
 );
 
 // Creating new HTTP server.
-http.createServer(basic.check((req, res) => {
-    res.end(`Welcome to private area - ${req.user}!`);
-})).listen(1337);
+http
+  .createServer(
+    basic.check((req, res) => {
+      res.end(`Welcome to private area - ${req.user}!`);
+    })
+  )
+  .listen(1337, () => {
+    // Log URL.
+    console.log("Server running at http://127.0.0.1:1337/");
+  });
 ```
 
 ## [http-proxy](https://github.com/nodejitsu/node-http-proxy/) integration
 ```javascript
 // HTTP proxy module.
-const http = require('http'),
-    httpProxy = require('http-proxy');
+const http = require("http");
+// eslint-disable-next-line node/no-unpublished-require
+const httpProxy = require("http-proxy");
 
 // Authentication module.
-const auth = require('http-auth');
+const auth = require("http-auth");
 const basic = auth.basic({
-    realm: "Simon Area.",
-    file: __dirname + "/../data/users.htpasswd", // gevorg:gpass, Sarah:testpass
-    proxy: true
+  realm: "Simon Area.",
+  file: __dirname + "/../data/users.htpasswd", // gevorg:gpass, Sarah:testpass
+  proxy: true
 });
 
 // Create your proxy server.
 const proxy = httpProxy.createProxyServer({});
-http.createServer(basic.check((req, res) => {
-    proxy.web(req, res, { target: 'http://127.0.0.1:1338' });
-})).listen(1337);
+http
+  .createServer(
+    basic.check((req, res) => {
+      proxy.web(req, res, { target: "http://127.0.0.1:1338" });
+    })
+  )
+  .listen(1337);
 
 // Create your target server.
-http.createServer((req, res) => {
+http
+  .createServer((req, res) => {
     res.end("Request successfully proxied!");
-}).listen(1338, () => {
+  })
+  .listen(1338, () => {
     // Log URL.
     console.log("Server running at http://127.0.0.1:1338/");
-});
+  });
 
 // You can test proxy authentication using curl.
 // $ curl -x 127.0.0.1:1337  127.0.0.1:1337 -U gevorg
@@ -87,24 +115,40 @@ http.createServer((req, res) => {
 The auth middleware emits three types of events: **error**, **fail** and **success**. Each event passes the result object (the error in case of `fail`) and the http request `req` to the listener function.
 
 ```javascript
+// HTTP module
+const http = require("http");
+
 // Authentication module.
-const auth = require('http-auth');
+const auth = require("http-auth");
 const basic = auth.basic({
-    realm: "Simon Area.",
-    file: __dirname + "/../data/users.htpasswd"
+  realm: "Simon Area.",
+  file: __dirname + "/../data/users.htpasswd" // gevorg:gpass, Sarah:testpass
 });
 
-basic.on('success', (result, req) => {
-    console.log(`User authenticated: ${result.user}`);
+// Adding event listeners.
+basic.on("success", result => {
+  console.log(`User authenticated: ${result.user}`);
 });
 
-basic.on('fail', (result, req) => {
-    console.log(`User authentication failed: ${result.user}`);
+basic.on("fail", result => {
+  console.log(`User authentication failed: ${result.user}`);
 });
 
-basic.on('error', (error, req) => {
-    console.log(`Authentication error: ${error.code + " - " + error.message}`);
+basic.on("error", error => {
+  console.log(`Authentication error: ${error.code + " - " + error.message}`);
 });
+
+// Creating new HTTP server.
+http
+  .createServer(
+    basic.check((req, res) => {
+      res.end(`Welcome to private area - ${req.user}!`);
+    })
+  )
+  .listen(1337, () => {
+    // Log URL.
+    console.log("Server running at http://127.0.0.1:1337/");
+  });
 ```
 
 ## Configurations

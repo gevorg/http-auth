@@ -1,112 +1,130 @@
 "use strict";
 
 // Expect module.
-const expect = require('chai').expect;
+const expect = require("chai").expect;
 
 // Request module.
-const request = require('request');
+const request = require("request");
 
 // HTTPS.
-const https = require('https');
+const https = require("https");
 
 // Source.
-const auth = require('../src/http-auth');
+const auth = require("../src/http-auth");
 
 // FS.
-const fs = require('fs');
+const fs = require("fs");
 
 // HTTPS.
-describe('https', () => {
-    let server = undefined;
+describe("https", () => {
+  let server = undefined;
 
-    before(() => {
-        // Configure authentication.
-        const basic = auth.basic({
-            realm: "Private Area."
-        }, (username, password, done) => {
-            if (username === 'gevorg') {
-                done(new Error("Error comes here"));
-            } else if (username === "mia" && password === "supergirl") {
-                done(true);
-            } else if (username === "ColonUser" && password === "apasswordwith:acolon") {
-                done(true);
-            } else {
-                done(false);
-            }
-        });
+  before(() => {
+    // Configure authentication.
+    const basic = auth.basic(
+      {
+        realm: "Private Area."
+      },
+      (username, password, done) => {
+        if (username === "gevorg") {
+          done(new Error("Error comes here"));
+        } else if (username === "mia" && password === "supergirl") {
+          done(true);
+        } else if (
+          username === "ColonUser" &&
+          password === "apasswordwith:acolon"
+        ) {
+          done(true);
+        } else {
+          done(false);
+        }
+      }
+    );
 
-        // Add error listener.
-        basic.on('error', () => {
-            console.log("Error thrown!");
-        });
-
-        // HTTPS server options.
-        const options = {
-            key: fs.readFileSync(__dirname + "/../data/server.key"),
-            cert: fs.readFileSync(__dirname + "/../data/server.crt")
-        };
-
-        // Creating new HTTPS server.
-        server = https.createServer(options, basic.check((req, res) => {
-            res.end(`Welcome to private area - ${req.user}!`);
-        }));
-
-        // Start server.
-        server.listen(1337);
+    // Add error listener.
+    basic.on("error", () => {
+      console.log("Error thrown!");
     });
 
-    after(() => {
-        server.close();
-    });
+    // HTTPS server options.
+    const options = {
+      key: fs.readFileSync(__dirname + "/../data/server.key"),
+      cert: fs.readFileSync(__dirname + "/../data/server.crt")
+    };
 
-    it('error', (done) => {
-        const callback = (error, response, body) => {
-            expect(body).to.equal("Error comes here");
-            done();
-        };
+    // Creating new HTTPS server.
+    server = https.createServer(
+      options,
+      basic.check((req, res) => {
+        res.end(`Welcome to private area - ${req.user}!`);
+      })
+    );
 
-        // Test request.
-        request.get({uri: 'https://127.0.0.1:1337', strictSSL: false}, callback).auth('gevorg', 'gpass');
-    });
+    // Start server.
+    server.listen(1337);
+  });
 
-    it('success', (done) => {
-        const callback = (error, response, body) => {
-            expect(body).to.equal("Welcome to private area - mia!");
-            done();
-        };
+  after(() => {
+    server.close();
+  });
 
-        // Test request.
-        request.get({uri: 'https://127.0.0.1:1337', strictSSL: false}, callback).auth('mia', 'supergirl');
-    });
+  it("error", done => {
+    const callback = (error, response, body) => {
+      expect(body).to.equal("Error comes here");
+      done();
+    };
 
-    it('wrong password', (done) => {
-        const callback = (error, response, body) => {
-            expect(body).to.equal("401 Unauthorized");
-            done();
-        };
+    // Test request.
+    request
+      .get({ uri: "https://127.0.0.1:1337", strictSSL: false }, callback)
+      .auth("gevorg", "gpass");
+  });
 
-        // Test request.
-        request.get({uri: 'https://127.0.0.1:1337', strictSSL: false}, callback).auth('mia', 'cute');
-    });
+  it("success", done => {
+    const callback = (error, response, body) => {
+      expect(body).to.equal("Welcome to private area - mia!");
+      done();
+    };
 
-    it('wrong user', (done) => {
-        const callback = (error, response, body) => {
-            expect(body).to.equal("401 Unauthorized");
-            done();
-        };
+    // Test request.
+    request
+      .get({ uri: "https://127.0.0.1:1337", strictSSL: false }, callback)
+      .auth("mia", "supergirl");
+  });
 
-        // Test request.
-        request.get({uri: 'https://127.0.0.1:1337', strictSSL: false}, callback).auth('Tina', 'supergirl');
-    });
+  it("wrong password", done => {
+    const callback = (error, response, body) => {
+      expect(body).to.equal("401 Unauthorized");
+      done();
+    };
 
-    it('password with colon', (done) => {
-        const callback = (error, response, body) => {
-            expect(body).to.equal("Welcome to private area - ColonUser!");
-            done();
-        };
+    // Test request.
+    request
+      .get({ uri: "https://127.0.0.1:1337", strictSSL: false }, callback)
+      .auth("mia", "cute");
+  });
 
-        // Test request.
-        request.get({uri: 'https://127.0.0.1:1337', strictSSL: false}, callback).auth(
-            'ColonUser', 'apasswordwith:acolon');
-    });
+  it("wrong user", done => {
+    const callback = (error, response, body) => {
+      expect(body).to.equal("401 Unauthorized");
+      done();
+    };
+
+    // Test request.
+    request
+      .get({ uri: "https://127.0.0.1:1337", strictSSL: false }, callback)
+      .auth("Tina", "supergirl");
+  });
+
+  it("password with colon", done => {
+    const callback = (error, response, body) => {
+      expect(body).to.equal("Welcome to private area - ColonUser!");
+      done();
+    };
+
+    // Test request.
+    request
+      .get({ uri: "https://127.0.0.1:1337", strictSSL: false }, callback)
+      .auth("ColonUser", "apasswordwith:acolon");
+  });
 });

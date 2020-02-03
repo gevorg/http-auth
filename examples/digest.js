@@ -1,17 +1,21 @@
 // HTTP module
-var http = require('http');
+const http = require("http");
 
 // Authentication module.
-var auth = require('../src/http-auth');
-var digest = auth.digest({
-    realm: "Simon Area.",
-    file: __dirname + "/../data/users.htdigest" // vivi:anna, sona:testpass
+const auth = require("../src/http-auth");
+const digest = auth.digest({
+  realm: "Simon Area.",
+  file: __dirname + "/../data/users.htdigest" // vivi:anna, sona:testpass
 });
 
 // Creating new HTTP server.
-http.createServer(digest.check((req, res) => {
-    res.end(`Welcome to private area - ${req.user}!`);
-})).listen(1337, () => {
+http
+  .createServer(
+    digest.check((req, res) => {
+      res.end(`Welcome to private area - ${req.user}!`);
+    })
+  )
+  .listen(1337, () => {
     // Log URL.
     console.log("Server running at http://127.0.0.1:1337/");
-});
+  });

@@ -1,128 +1,132 @@
 "use strict";
 
 // Expect module.
-const expect = require('chai').expect;
+const expect = require("chai").expect;
 
 // Request module.
-const request = require('request');
+const request = require("request");
 
 // HTTP.
-const http = require('http');
+const http = require("http");
 
 // Source.
-const auth = require('../src/http-auth');
+const auth = require("../src/http-auth");
 
 // Basic auth.
-describe('basic', () => {
-    let server = undefined;
+describe("basic", () => {
+  let server = undefined;
 
-    before(() => {
-        // Configure authentication.
-        const basic = auth.basic({
-            realm: "Private Area.",
-            file: __dirname + "/../data/users.htpasswd"
-        });
-
-        // Creating new HTTP server.
-        server = http.createServer(basic.check((req, res) => {
-            res.end(`Welcome to private area - ${req.user}!`);
-        }));
-
-        // Start server.
-        server.listen(1337);
+  before(() => {
+    // Configure authentication.
+    const basic = auth.basic({
+      realm: "Private Area.",
+      file: __dirname + "/../data/users.htpasswd"
     });
 
-    after(() => {
-        server.close();
-    });
+    // Creating new HTTP server.
+    server = http.createServer(
+      basic.check((req, res) => {
+        res.end(`Welcome to private area - ${req.user}!`);
+      })
+    );
 
-    it('SHA1', (done) => {
-        const callback = (error, response, body) => {
-            expect(body).to.equal("Welcome to private area - gevorg!");
-            done();
-        };
+    // Start server.
+    server.listen(1337);
+  });
 
-        // Test request.
-        request.get('http://127.0.0.1:1337', callback).auth('gevorg', 'gpass');
-    });
+  after(() => {
+    server.close();
+  });
 
-    it('Crypt', (done) => {
-        const callback = (error, response, body) => {
-            expect(body).to.equal("Welcome to private area - vera!");
-            done();
-        };
+  it("SHA1", done => {
+    const callback = (error, response, body) => {
+      expect(body).to.equal("Welcome to private area - gevorg!");
+      done();
+    };
 
-        // Test request.
-        request.get('http://127.0.0.1:1337', callback).auth('vera', 'kruta');
-    });
+    // Test request.
+    request.get("http://127.0.0.1:1337", callback).auth("gevorg", "gpass");
+  });
 
-    it('MD5', (done) => {
-        const callback = (error, response, body) => {
-            expect(body).to.equal("Welcome to private area - hera!");
-            done();
-        };
+  it("Crypt", done => {
+    const callback = (error, response, body) => {
+      expect(body).to.equal("Welcome to private area - vera!");
+      done();
+    };
 
-        // Test request.
-        request.get('http://127.0.0.1:1337', callback).auth('hera', 'gnu');
-    });
+    // Test request.
+    request.get("http://127.0.0.1:1337", callback).auth("vera", "kruta");
+  });
 
-    it('Bcrypt', (done) => {
-        const callback = (error, response, body) => {
-            expect(body).to.equal("Welcome to private area - titan!");
-            done();
-        };
+  it("MD5", done => {
+    const callback = (error, response, body) => {
+      expect(body).to.equal("Welcome to private area - hera!");
+      done();
+    };
 
-        // Test request.
-        request.get('http://127.0.0.1:1337', callback).auth('titan', 'demo');
-    });
+    // Test request.
+    request.get("http://127.0.0.1:1337", callback).auth("hera", "gnu");
+  });
 
-    it('plain', (done) => {
-        const callback = (error, response, body) => {
-            expect(body).to.equal("Welcome to private area - Sarah!");
-            done();
-        };
+  it("Bcrypt", done => {
+    const callback = (error, response, body) => {
+      expect(body).to.equal("Welcome to private area - titan!");
+      done();
+    };
 
-        // Test request.
-        request.get('http://127.0.0.1:1337', callback).auth('Sarah', 'testpass');
-    });
+    // Test request.
+    request.get("http://127.0.0.1:1337", callback).auth("titan", "demo");
+  });
 
-    it('Wrong password', (done) => {
-        const callback = (error, response, body) => {
-            expect(body).to.equal("401 Unauthorized");
-            done();
-        };
+  it("plain", done => {
+    const callback = (error, response, body) => {
+      expect(body).to.equal("Welcome to private area - Sarah!");
+      done();
+    };
 
-        // Test request.
-        request.get('http://127.0.0.1:1337', callback).auth('gevorg', 'duck');
-    });
+    // Test request.
+    request.get("http://127.0.0.1:1337", callback).auth("Sarah", "testpass");
+  });
 
-    it('Wrong user', (done) => {
-        const callback = (error, response, body) => {
-            expect(body).to.equal("401 Unauthorized");
-            done();
-        };
+  it("Wrong password", done => {
+    const callback = (error, response, body) => {
+      expect(body).to.equal("401 Unauthorized");
+      done();
+    };
 
-        // Test request.
-        request.get('http://127.0.0.1:1337', callback).auth('solomon', 'gpass');
-    });
+    // Test request.
+    request.get("http://127.0.0.1:1337", callback).auth("gevorg", "duck");
+  });
 
-    it('Empty user and password', (done) => {
-        const callback = (error, response, body) => {
-            expect(body).to.equal("401 Unauthorized");
-            done();
-        };
+  it("Wrong user", done => {
+    const callback = (error, response, body) => {
+      expect(body).to.equal("401 Unauthorized");
+      done();
+    };
 
-        // Test request.
-        request.get('http://127.0.0.1:1337', callback).auth('', '');
-    });
+    // Test request.
+    request.get("http://127.0.0.1:1337", callback).auth("solomon", "gpass");
+  });
 
-    it('Commented user', (done) => {
-        const callback = (error, response, body) => {
-            expect(body).to.equal("401 Unauthorized");
-            done();
-        };
+  it("Empty user and password", done => {
+    const callback = (error, response, body) => {
+      expect(body).to.equal("401 Unauthorized");
+      done();
+    };
 
-        // Test request.
-        request.get('http://127.0.0.1:1337', callback).auth('#comment', 'commentpass');
-    });
+    // Test request.
+    request.get("http://127.0.0.1:1337", callback).auth("", "");
+  });
+
+  it("Commented user", done => {
+    const callback = (error, response, body) => {
+      expect(body).to.equal("401 Unauthorized");
+      done();
+    };
+
+    // Test request.
+    request
+      .get("http://127.0.0.1:1337", callback)
+      .auth("#comment", "commentpass");
+  });
 });
