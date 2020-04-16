@@ -116,13 +116,13 @@ class Base extends events.EventEmitter {
   // Is authenticated method.
   isAuthenticated(req, callback) {
     let self = this;
-    
+
     let preauth = {};
     self.emit("preauth", preauth, req);
     if (preauth.user && preauth.pass && preauth.pass === true) {
-      return callback.apply(self, [{ user: preauth.user, pass: preauth.pass }]);
+      return callback.apply(self, [preauth]);
     }
-    
+
     let header = undefined;
     if (this.options.proxy) {
       header = req.headers["proxy-authorization"];
