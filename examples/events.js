@@ -21,6 +21,12 @@ basic.on("error", error => {
   console.log(`Authentication error: ${error.code + " - " + error.message}`);
 });
 
+basic.on("preauth", (preauth, req) => {
+  if (req.headers.host === "example.com") {
+    preauth = { user: "preauth", pass: true }
+  }
+});
+
 // Creating new HTTP server.
 http
   .createServer(
