@@ -23,7 +23,7 @@ basic.on("error", error => {
 
 basic.on("preauth", (preauth, req) => {
   if (req.headers.host === "example.com") {
-    preauth = { user: "preauth", pass: true }
+    preauth = { user: "preauth", pass: true };
   }
 });
 
