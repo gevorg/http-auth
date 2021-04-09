@@ -13,7 +13,7 @@ const md5 = require("apache-md5");
 const crypt = require("apache-crypt");
 
 // Bcrypt.
-const bcrypt = require("@node-rs/bcrypt");
+const bcrypt = require("bcryptjs");
 
 // Crypto.
 const crypto = require("crypto");
@@ -36,7 +36,7 @@ class Basic extends Base {
     } else if (hash.substr(0, 6) === "$apr1$" || hash.substr(0, 3) === "$1$") {
       return hash === md5(password, hash);
     } else if (hash.substr(0, 4) === "$2y$" || hash.substr(0, 4) === "$2a$") {
-      return bcrypt.verifySync(password, hash);
+      return bcrypt.compareSync(password, hash);
     } else if (hash === crypt(password, hash)) {
       return true;
     } else if (hash.length === password.length) {

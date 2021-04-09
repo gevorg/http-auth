@@ -26,9 +26,9 @@
     "url": "http://github.com/http-auth/http-auth/issues"
   },
   "dependencies": {
-    "@node-rs/bcrypt": "^1.0.0",
     "apache-crypt": "^1.1.2",
     "apache-md5": "^1.0.6",
+    "bcryptjs": "^2.4.3",
     "uuid": "^3.4.0"
   },
   "devDependencies": {
