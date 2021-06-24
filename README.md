@@ -81,10 +81,7 @@ You can also use [stackoverflow](http://stackoverflow.com/questions/tagged/http-
 
 ## Integrations
 
- - **[http-auth-connect](https://github.com/gevorg/http-auth-connect)** - [Connect](https://github.com/senchalabs/connect) integration.
- - **[http-auth-passport](https://github.com/gevorg/http-auth-passport)** - [Passport.js](http://www.passportjs.org/) integration.
- - **[http-auth-koa](https://github.com/gevorg/http-auth-koa)** - [Koa framework](http://koajs.com/) integration.
- - **[http-auth-hapi](https://github.com/gevorg/http-auth-hapi)** - [Hapi framework](https://hapi.dev/) integration.
+Please check [this link](https://github.com/http-auth) for integration packages.
 
 ## License
 
