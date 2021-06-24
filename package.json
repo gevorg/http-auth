@@ -1,7 +1,7 @@
 {
   "name": "http-auth",
   "description": "Node.js package for HTTP basic and digest access authentication.",
-  "version": "4.1.5",
+  "version": "4.1.6",
   "author": "Gevorg Harutyunyan (http://github.com/gevorg)",
   "maintainers": [
     {
@@ -9,21 +9,21 @@
       "email": "gevorg.ha@gmail.com"
     }
   ],
-  "homepage": "https://github.com/http-auth/http-auth",
+  "homepage": "https://github.com/gevorg/http-auth",
   "repository": {
     "type": "git",
-    "url": "http://github.com/http-auth/http-auth.git"
+    "url": "http://github.com/gevorg/http-auth.git"
   },
   "main": "./src/http-auth.js",
   "licenses": [
     {
       "type": "MIT",
-      "url": "http://github.com/http-auth/http-auth/blob/master/LICENSE"
+      "url": "http://github.com/gevorg/http-auth/blob/master/LICENSE"
     }
   ],
   "license": "MIT",
   "bugs": {
-    "url": "http://github.com/http-auth/http-auth/issues"
+    "url": "http://github.com/gevorg/http-auth/issues"
   },
   "dependencies": {
     "apache-crypt": "^1.1.2",

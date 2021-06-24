@@ -1,14 +1,14 @@
 # http-auth
 [Node.js](http://nodejs.org/) package for HTTP basic and digest access authentication.
 
-[![build](https://github.com/http-auth/http-auth/workflows/build/badge.svg)](https://github.com/gevorg/http-auth/actions/workflows/build.yml)
+[![build](https://github.com/gevorg/http-auth/workflows/build/badge.svg)](https://github.com/gevorg/http-auth/actions/workflows/build.yml)
 
 ## Installation
 
 Via git (or downloaded tarball):
 
 ```bash
-$ git clone git://github.com/http-auth/http-auth.git
+$ git clone git://github.com/gevorg/http-auth.git
 ```
 Via [npm](http://npmjs.org/):
 
@@ -76,15 +76,15 @@ You can also use [stackoverflow](http://stackoverflow.com/questions/tagged/http-
 
 ## Utilities
 
- - **[htpasswd](https://github.com/http-auth/htpasswd/)** - Node.js package for HTTP Basic Authentication password file utility.
- - **[htdigest](https://github.com/http-auth/htdigest/)** - Node.js package for HTTP Digest Authentication password file utility.
+ - **[htpasswd](https://github.com/gevorg/htpasswd/)** - Node.js package for HTTP Basic Authentication password file utility.
+ - **[htdigest](https://github.com/gevorg/htdigest/)** - Node.js package for HTTP Digest Authentication password file utility.
 
 ## Integrations
 
- - **[http-auth-connect](https://github.com/http-auth/http-auth-connect)** - [Connect](https://github.com/senchalabs/connect) integration.
- - **[http-auth-passport](https://github.com/http-auth/http-auth-passport)** - [Passport.js](http://www.passportjs.org/) integration.
- - **[http-auth-koa](https://github.com/http-auth/http-auth-koa)** - [Koa framework](http://koajs.com/) integration.
- - **[http-auth-hapi](https://github.com/http-auth/http-auth-hapi)** - [Hapi framework](https://hapi.dev/) integration.
+ - **[http-auth-connect](https://github.com/gevorg/http-auth-connect)** - [Connect](https://github.com/senchalabs/connect) integration.
+ - **[http-auth-passport](https://github.com/gevorg/http-auth-passport)** - [Passport.js](http://www.passportjs.org/) integration.
+ - **[http-auth-koa](https://github.com/gevorg/http-auth-koa)** - [Koa framework](http://koajs.com/) integration.
+ - **[http-auth-hapi](https://github.com/gevorg/http-auth-hapi)** - [Hapi framework](https://hapi.dev/) integration.
 
 ## License
 
