@@ -16,9 +16,34 @@ Via [npm](http://npmjs.org/):
 $ npm install http-auth
 ```    
 
-## Examples
+## Usage
 
-Please check [examples directory.](./examples)
+```javascript
+// HTTP module
+const http = require("http");
+
+// Authentication module.
+const auth = require("http-auth");
+const basic = auth.basic({
+  realm: "Simon Area.",
+  file: __dirname + "/../data/users.htpasswd" // gevorg:gpass, Sarah:testpass
+});
+
+// Creating new HTTP server.
+http
+  .createServer(
+    basic.check((req, res) => {
+      res.end(`Welcome to private area - ${req.user}!`);
+    })
+  )
+  .listen(1337, () => {
+    // Log URL.
+    console.log("Server running at http://127.0.0.1:1337/");
+  });
+```
+
+Please check [examples directory](./examples) for more.
+
 ## Configurations
 
  - `realm` - Authentication realm, by default it is **Users**.
