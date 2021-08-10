@@ -29,7 +29,7 @@
     "apache-crypt": "^1.1.2",
     "apache-md5": "^1.0.6",
     "bcryptjs": "^2.4.3",
-    "uuid": "^3.4.0"
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "chai": "^4.2.0",

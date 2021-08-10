@@ -7,7 +7,7 @@ const Base = require("./base");
 const utils = require("./utils");
 
 // Unique id.
-const uuid = require("uuid");
+const { v4: uuid } = require("uuid");
 
 // Reuse.
 const digestSchemeRegExp = /^digest\s(.*)/i;
