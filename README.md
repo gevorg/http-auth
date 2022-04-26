@@ -50,6 +50,7 @@ Please check [examples directory](./examples) for more.
  - `file` - File where user details are stored.
      - Line format is **{user:pass}** or **{user:passHash}** for basic access. 
      - Line format is **{user:realm:passHash}** for digest access.
+     - Using a callback, it needs to return the same line format, example: `file: () => 'adam:adam\neve:eve',`
  - `algorithm` - Algorithm that will be used only for **digest** access authentication.
      - **MD5** by default.
      - **MD5-sess** can be set.
