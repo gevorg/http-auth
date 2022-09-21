@@ -145,12 +145,11 @@ class Base extends events.EventEmitter {
 
   // Loading files or using a callback with user details.
   loadUsers() {
-    let content = (typeof this.options.file == "function")
-      ? this.options.file(this)
-      : fs.readFileSync(this.options.file, "UTF-8");
-    let users = content
-      .replace(/\r\n/g, "\n")
-      .split("\n");
+    let content =
+      typeof this.options.file == "function"
+        ? this.options.file(this)
+        : fs.readFileSync(this.options.file, "UTF-8");
+    let users = content.replace(/\r\n/g, "\n").split("\n");
 
     // Process all users.
     users.forEach(u => {
