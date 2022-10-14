@@ -17,11 +17,11 @@ describe("basic", () => {
   describe("nofile", () => {
     let server = undefined;
 
-    before(function() {
+    before(function () {
       // Configure authentication.
       const basic = auth.basic(
         {
-          realm: "Private Area."
+          realm: "Private Area.",
         },
         (username, password, done) => {
           if (username === "gevorg") {
@@ -59,7 +59,7 @@ describe("basic", () => {
       server.close();
     });
 
-    it("error", done => {
+    it("error", (done) => {
       const callback = (error, response, body) => {
         expect(body).to.equal("Error comes here");
         done();
@@ -69,7 +69,7 @@ describe("basic", () => {
       request.get("http://127.0.0.1:1337", callback).auth("gevorg", "gpass");
     });
 
-    it("success", done => {
+    it("success", (done) => {
       const callback = (error, response, body) => {
         expect(body).to.equal("Welcome to private area - mia!");
         done();
@@ -79,7 +79,7 @@ describe("basic", () => {
       request.get("http://127.0.0.1:1337", callback).auth("mia", "supergirl");
     });
 
-    it("wrong password", done => {
+    it("wrong password", (done) => {
       const callback = (error, response, body) => {
         expect(body).to.equal("401 Unauthorized");
         done();
@@ -89,7 +89,7 @@ describe("basic", () => {
       request.get("http://127.0.0.1:1337", callback).auth("mia", "cute");
     });
 
-    it("wrong user", done => {
+    it("wrong user", (done) => {
       const callback = (error, response, body) => {
         expect(body).to.equal("401 Unauthorized");
         done();
@@ -99,7 +99,7 @@ describe("basic", () => {
       request.get("http://127.0.0.1:1337", callback).auth("Tina", "supergirl");
     });
 
-    it("password with colon", function(done) {
+    it("password with colon", function (done) {
       const callback = (error, response, body) => {
         expect(body).to.equal("Welcome to private area - ColonUser!");
         done();

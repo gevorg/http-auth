@@ -26,20 +26,20 @@
     "url": "http://github.com/gevorg/http-auth/issues"
   },
   "dependencies": {
-    "apache-crypt": "^1.1.2",
-    "apache-md5": "^1.0.6",
+    "apache-crypt": "^1.2.6",
+    "apache-md5": "^1.1.8",
     "bcryptjs": "^2.4.3",
-    "uuid": "^8.3.2"
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
-    "chai": "^4.2.0",
-    "eslint": "^6.8.0",
-    "eslint-config-prettier": "^6.10.0",
-    "eslint-plugin-node": "^11.0.0",
-    "eslint-plugin-prettier": "^3.1.2",
-    "http-proxy": "^1.18.0",
-    "mocha": "^7.0.1",
-    "prettier": "^1.19.1",
+    "chai": "^4.3.6",
+    "eslint": "^8.25.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "http-proxy": "^1.18.1",
+    "mocha": "^10.0.0",
+    "prettier": "^2.7.1",
     "request": "^2.88.0"
   },
   "engines": {

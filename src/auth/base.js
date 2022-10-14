@@ -89,7 +89,7 @@ class Base extends events.EventEmitter {
     let self = this;
 
     return (req, res) => {
-      this.isAuthenticated(req, result => {
+      this.isAuthenticated(req, (result) => {
         if (result instanceof Error) {
           self.emit("error", result, req);
 
@@ -131,7 +131,7 @@ class Base extends events.EventEmitter {
       let clientOptions = this.parseAuthorization(header);
       if (clientOptions) {
         searching = true;
-        this.findUser(req, clientOptions, result => {
+        this.findUser(req, clientOptions, (result) => {
           callback.apply(self, [result]);
         });
       }
@@ -152,7 +152,7 @@ class Base extends events.EventEmitter {
     let users = content.replace(/\r\n/g, "\n").split("\n");
 
     // Process all users.
-    users.forEach(u => {
+    users.forEach((u) => {
       if (u && !u.match(/^\s*#.*/)) {
         this.processLine(u);
       }

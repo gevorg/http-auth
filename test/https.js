@@ -23,7 +23,7 @@ describe("https", () => {
     // Configure authentication.
     const basic = auth.basic(
       {
-        realm: "Private Area."
+        realm: "Private Area.",
       },
       (username, password, done) => {
         if (username === "gevorg") {
@@ -49,7 +49,7 @@ describe("https", () => {
     // HTTPS server options.
     const options = {
       key: fs.readFileSync(__dirname + "/../data/server.key"),
-      cert: fs.readFileSync(__dirname + "/../data/server.crt")
+      cert: fs.readFileSync(__dirname + "/../data/server.crt"),
     };
 
     // Creating new HTTPS server.
@@ -68,7 +68,7 @@ describe("https", () => {
     server.close();
   });
 
-  it("error", done => {
+  it("error", (done) => {
     const callback = (error, response, body) => {
       expect(body).to.equal("Error comes here");
       done();
@@ -80,7 +80,7 @@ describe("https", () => {
       .auth("gevorg", "gpass");
   });
 
-  it("success", done => {
+  it("success", (done) => {
     const callback = (error, response, body) => {
       expect(body).to.equal("Welcome to private area - mia!");
       done();
@@ -92,7 +92,7 @@ describe("https", () => {
       .auth("mia", "supergirl");
   });
 
-  it("wrong password", done => {
+  it("wrong password", (done) => {
     const callback = (error, response, body) => {
       expect(body).to.equal("401 Unauthorized");
       done();
@@ -104,7 +104,7 @@ describe("https", () => {
       .auth("mia", "cute");
   });
 
-  it("wrong user", done => {
+  it("wrong user", (done) => {
     const callback = (error, response, body) => {
       expect(body).to.equal("401 Unauthorized");
       done();
@@ -116,7 +116,7 @@ describe("https", () => {
       .auth("Tina", "supergirl");
   });
 
-  it("password with colon", done => {
+  it("password with colon", (done) => {
     const callback = (error, response, body) => {
       expect(body).to.equal("Welcome to private area - ColonUser!");
       done();

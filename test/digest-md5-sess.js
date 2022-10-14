@@ -22,7 +22,7 @@ describe("digest", () => {
       const digest = auth.digest({
         algorithm: "MD5-sess",
         realm: "Simon Area.",
-        file: __dirname + "/../data/users.htdigest"
+        file: __dirname + "/../data/users.htdigest",
       });
 
       // Creating new HTTP server.
@@ -40,7 +40,7 @@ describe("digest", () => {
       server.close();
     });
 
-    it("success", done => {
+    it("success", (done) => {
       const callback = (error, response, body) => {
         expect(body).to.equal("Welcome to private area - vivi!");
         done();
@@ -52,7 +52,7 @@ describe("digest", () => {
         .auth("vivi", "anna", false);
     });
 
-    it("wrong password", done => {
+    it("wrong password", (done) => {
       const callback = (error, response, body) => {
         expect(body).to.equal("401 Unauthorized");
         done();
@@ -64,7 +64,7 @@ describe("digest", () => {
         .auth("vivi", "goose", false);
     });
 
-    it("wrong user", done => {
+    it("wrong user", (done) => {
       const callback = (error, response, body) => {
         expect(body).to.equal("401 Unauthorized");
         done();

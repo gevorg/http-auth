@@ -8,7 +8,7 @@ const http = require("http");
 const auth = require("../src/http-auth");
 const digest = auth.digest(
   {
-    realm: "Simon Area."
+    realm: "Simon Area.",
   },
   (username, callback) => {
     // Expecting md5(username:realm:password) in callback.

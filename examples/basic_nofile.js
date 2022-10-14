@@ -5,7 +5,7 @@ const http = require("http");
 const auth = require("../src/http-auth");
 const basic = auth.basic(
   {
-    realm: "Simon Area."
+    realm: "Simon Area.",
   },
   (username, password, callback) => {
     // Custom authentication method.

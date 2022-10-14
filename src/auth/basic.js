@@ -94,14 +94,14 @@ class Basic extends Base {
 
           callback.apply(self, params);
         },
-        req
+        req,
       ]);
     } else {
       // File based auth.
       let pass = false;
 
       // Loop users to find the matching one.
-      this.options.users.forEach(user => {
+      this.options.users.forEach((user) => {
         if (user.username === username && this.validate(user.hash, password)) {
           pass = true;
         }

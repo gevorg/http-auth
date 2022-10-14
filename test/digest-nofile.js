@@ -24,7 +24,7 @@ describe("digest", () => {
       // Configure authentication.
       const digest = auth.digest(
         {
-          realm: "Simon Area."
+          realm: "Simon Area.",
         },
         (username, callback) => {
           if (username === "simon") {
@@ -57,7 +57,7 @@ describe("digest", () => {
       server.close();
     });
 
-    it("error", done => {
+    it("error", (done) => {
       const callback = (error, response, body) => {
         expect(body).to.equal("Error comes here");
         done();
@@ -69,7 +69,7 @@ describe("digest", () => {
         .auth("gevorg", "gpass", false);
     });
 
-    it("success", done => {
+    it("success", (done) => {
       const callback = (error, response, body) => {
         expect(body).to.equal("Welcome to private area - simon!");
         done();
@@ -81,7 +81,7 @@ describe("digest", () => {
         .auth("simon", "smart", false);
     });
 
-    it("comma URI", done => {
+    it("comma URI", (done) => {
       const callback = (error, response, body) => {
         expect(body).to.equal("Welcome to private area - simon!");
         done();
@@ -93,7 +93,7 @@ describe("digest", () => {
         .auth("simon", "smart", false);
     });
 
-    it("wrong password", done => {
+    it("wrong password", (done) => {
       const callback = (error, response, body) => {
         expect(body).to.equal("401 Unauthorized");
         done();
@@ -105,7 +105,7 @@ describe("digest", () => {
         .auth("simon", "woolf", false);
     });
 
-    it("wrong user", done => {
+    it("wrong user", (done) => {
       const callback = (error, response, body) => {
         expect(body).to.equal("401 Unauthorized");
         done();

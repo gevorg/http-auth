@@ -25,7 +25,7 @@ describe("proxy", () => {
     const basic = auth.basic(
       {
         proxy: true,
-        realm: "Private Area."
+        realm: "Private Area.",
       },
       (username, password, done) => {
         if (username === "gevorg") {
@@ -74,7 +74,7 @@ describe("proxy", () => {
     server.close();
   });
 
-  it("error", done => {
+  it("error", (done) => {
     const callback = (error, response, body) => {
       expect(body).to.equal("Error comes here");
       done();
@@ -84,13 +84,13 @@ describe("proxy", () => {
     request.get(
       {
         proxy: "http://gevorg:gpass@127.0.0.1:1337",
-        uri: "http://127.0.0.1:1337"
+        uri: "http://127.0.0.1:1337",
       },
       callback
     );
   });
 
-  it("success", done => {
+  it("success", (done) => {
     const callback = (error, response, body) => {
       expect(body).to.equal("Request successfully proxied!");
       done();
@@ -100,13 +100,13 @@ describe("proxy", () => {
     request.get(
       {
         proxy: "http://mia:supergirl@127.0.0.1:1337",
-        uri: "http://127.0.0.1:1337"
+        uri: "http://127.0.0.1:1337",
       },
       callback
     );
   });
 
-  it("wrong password", done => {
+  it("wrong password", (done) => {
     const callback = (error, response, body) => {
       expect(body).to.equal("407 Proxy authentication required");
       done();
@@ -119,7 +119,7 @@ describe("proxy", () => {
     );
   });
 
-  it("wrong user", done => {
+  it("wrong user", (done) => {
     const callback = (error, response, body) => {
       expect(body).to.equal("407 Proxy authentication required");
       done();
@@ -129,7 +129,7 @@ describe("proxy", () => {
     request.get(
       {
         proxy: "http://Tina:supergirl@127.0.0.1:1337",
-        uri: "http://127.0.0.1:1337"
+        uri: "http://127.0.0.1:1337",
       },
       callback
     );

@@ -5,7 +5,7 @@ const http = require("http");
 const auth = require("../src/http-auth");
 const digest = auth.digest({
   realm: "Simon Area.",
-  file: __dirname + "/../data/users.htdigest" // vivi:anna, sona:testpass
+  file: __dirname + "/../data/users.htdigest", // vivi:anna, sona:testpass
 });
 
 // Creating new HTTP server.

@@ -5,7 +5,7 @@ const crypto = require("crypto");
 const utils = {};
 
 // Generates md5 hash of input.
-utils.md5 = input => {
+utils.md5 = (input) => {
   let hash = crypto.createHash("MD5");
   hash.update(input);
 
@@ -13,20 +13,36 @@ utils.md5 = input => {
 };
 
 // Generates sha1 hash of input.
-utils.sha1 = input => {
+utils.sha1 = (input) => {
   let hash = crypto.createHash("sha1");
   hash.update(input);
 
   return hash.digest("base64");
 };
 
+// Generates sha256 hash of input.
+utils.sha256 = (input) => {
+  let hash = crypto.createHash("sha256");
+  hash.update(input);
+
+  return hash.digest("base64");
+};
+
+// Generates sha512 hash of input.
+utils.sha512 = (input) => {
+  let hash = crypto.createHash("sha512");
+  hash.update(input);
+
+  return hash.digest("base64");
+};
+
 // Encode to base64 string.
-utils.base64 = input => {
+utils.base64 = (input) => {
   return Buffer.from(input, "utf8").toString("base64");
 };
 
 // Decodes base64 string.
-utils.decodeBase64 = input => {
+utils.decodeBase64 = (input) => {
   return Buffer.from(input, "base64").toString("utf8");
 };
 

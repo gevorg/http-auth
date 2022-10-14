@@ -5,7 +5,7 @@ const http = require("http");
 const auth = require("../src/http-auth");
 const basic = auth.basic({
   realm: "Simon Area.",
-  file: __dirname + "/../data/users.htpasswd" // gevorg:gpass, Sarah:testpass
+  file: __dirname + "/../data/users.htpasswd", // gevorg:gpass, Sarah:testpass
 });
 
 // Creating new HTTP server.

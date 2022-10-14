@@ -30,6 +30,29 @@ describe("utils", () => {
     });
   });
 
+  // Tests for sha256.
+  describe("#sha256", () => {
+    it("hash should be correct", () => {
+      // Source.
+      const hash = utils.sha256("Something else");
+
+      // Expectation.
+      expect(hash).to.equal("zHKEMUSEGm+BELfr56F2gQHgPEyMFShly3IH6OS/h0U=");
+    });
+  });
+
+  // Tests for sha512.
+  describe("#sha512", () => {
+    it("hash should be correct", () => {
+      // Source.
+      const hash = utils.sha512("Something else");
+
+      // Expectation.
+      // eslint-disable-next-line prettier/prettier
+      expect(hash).to.equal("qm/eL5Y8FlRbld87lvKhCqob0shq8q6xzqbMfEs1rb3eaCpSB8lr9kCxrBseD0RUTd4ii3oJXCZcx/R/PTD4Eg==");
+    });
+  });
+
   // Tests for base64.
   describe("#base64", () => {
     it("ASCII input", () => {

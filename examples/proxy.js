@@ -8,7 +8,7 @@ const auth = require("../src/http-auth");
 const basic = auth.basic({
   realm: "Simon Area.",
   file: __dirname + "/../data/users.htpasswd", // gevorg:gpass, Sarah:testpass
-  proxy: true
+  proxy: true,
 });
 
 // Create your proxy server.

@@ -8,13 +8,13 @@ const fs = require("fs");
 const auth = require("../src/http-auth");
 const basic = auth.basic({
   realm: "Simon Area.",
-  file: __dirname + "/../data/users.htpasswd" // gevorg:gpass, Sarah:testpass
+  file: __dirname + "/../data/users.htpasswd", // gevorg:gpass, Sarah:testpass
 });
 
 // HTTPS server options.
 const options = {
   key: fs.readFileSync(__dirname + "/../data/server.key"),
-  cert: fs.readFileSync(__dirname + "/../data/server.crt")
+  cert: fs.readFileSync(__dirname + "/../data/server.crt"),
 };
 
 // Starting server.

@@ -21,7 +21,7 @@ describe("basic", () => {
     const basic = auth.basic({
       realm: "Private Area.",
       file: __dirname + "/../data/users.htpasswd",
-      skipUser: true
+      skipUser: true,
     });
 
     // Creating new HTTP server.
@@ -39,7 +39,7 @@ describe("basic", () => {
     server.close();
   });
 
-  it("skip user", done => {
+  it("skip user", (done) => {
     const callback = (error, response, body) => {
       expect(body).to.equal("Welcome to private area - undefined!");
       done();

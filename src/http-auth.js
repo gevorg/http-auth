@@ -9,5 +9,5 @@ module.exports = {
   // Digest authentication.
   digest: (options, checker) => {
     return require("./auth/digest")(options, checker);
-  }
+  },
 };

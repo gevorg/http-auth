@@ -106,27 +106,27 @@ class Digest extends Base {
         // Custom authentication.
         this.checker.apply(this, [
           co.username,
-          hash => {
+          (hash) => {
             let params = undefined;
 
             if (hash instanceof Error) {
               params = [hash];
             } else {
               params = [
-                { user: co.username, pass: !!self.validate(ha2, co, hash) }
+                { user: co.username, pass: !!self.validate(ha2, co, hash) },
               ];
             }
 
             // Call callback.
             callback.apply(this, params);
           },
-          req
+          req,
         ]);
       } else {
         let pass = false;
 
         // File based, loop users to find the matching one.
-        this.options.users.forEach(user => {
+        this.options.users.forEach((user) => {
           if (
             user.username === co.username &&
             this.validate(ha2, co, user.hash)
@@ -144,7 +144,7 @@ class Digest extends Base {
 
   // Remove nonces.
   removeNonces(noncesToRemove) {
-    noncesToRemove.forEach(nonce => {
+    noncesToRemove.forEach((nonce) => {
       let index = this.nonces.indexOf(nonce);
       if (index != -1) {
         this.nonces.splice(index, 1);
@@ -166,7 +166,7 @@ class Digest extends Base {
     let ncNum = Number.parseInt(nc, 16);
 
     // Searching for not expired ones.
-    this.nonces.forEach(serverNonce => {
+    this.nonces.forEach((serverNonce) => {
       if (serverNonce[1] + 3600000 > now) {
         if (serverNonce[0] === nonce) {
           if (qop) {

@@ -20,7 +20,7 @@ describe("basic", () => {
     // Configure authentication.
     const basic = auth.basic({
       realm: "Private Area.",
-      file: __dirname + "/../data/users.htpasswd"
+      file: __dirname + "/../data/users.htpasswd",
     });
 
     // Creating new HTTP server.
@@ -38,7 +38,7 @@ describe("basic", () => {
     server.close();
   });
 
-  it("SHA1", done => {
+  it("SHA1", (done) => {
     const callback = (error, response, body) => {
       expect(body).to.equal("Welcome to private area - gevorg!");
       done();
@@ -48,7 +48,7 @@ describe("basic", () => {
     request.get("http://127.0.0.1:1337", callback).auth("gevorg", "gpass");
   });
 
-  it("Crypt", done => {
+  it("Crypt", (done) => {
     const callback = (error, response, body) => {
       expect(body).to.equal("Welcome to private area - vera!");
       done();
@@ -58,7 +58,7 @@ describe("basic", () => {
     request.get("http://127.0.0.1:1337", callback).auth("vera", "kruta");
   });
 
-  it("MD5", done => {
+  it("MD5", (done) => {
     const callback = (error, response, body) => {
       expect(body).to.equal("Welcome to private area - hera!");
       done();
@@ -68,7 +68,7 @@ describe("basic", () => {
     request.get("http://127.0.0.1:1337", callback).auth("hera", "gnu");
   });
 
-  it("Bcrypt", done => {
+  it("Bcrypt", (done) => {
     const callback = (error, response, body) => {
       expect(body).to.equal("Welcome to private area - titan!");
       done();
@@ -78,7 +78,7 @@ describe("basic", () => {
     request.get("http://127.0.0.1:1337", callback).auth("titan", "demo");
   });
 
-  it("plain", done => {
+  it("plain", (done) => {
     const callback = (error, response, body) => {
       expect(body).to.equal("Welcome to private area - Sarah!");
       done();
@@ -88,7 +88,7 @@ describe("basic", () => {
     request.get("http://127.0.0.1:1337", callback).auth("Sarah", "testpass");
   });
 
-  it("Wrong password", done => {
+  it("Wrong password", (done) => {
     const callback = (error, response, body) => {
       expect(body).to.equal("401 Unauthorized");
       done();
@@ -98,7 +98,7 @@ describe("basic", () => {
     request.get("http://127.0.0.1:1337", callback).auth("gevorg", "duck");
   });
 
-  it("Wrong user", done => {
+  it("Wrong user", (done) => {
     const callback = (error, response, body) => {
       expect(body).to.equal("401 Unauthorized");
       done();
@@ -108,7 +108,7 @@ describe("basic", () => {
     request.get("http://127.0.0.1:1337", callback).auth("solomon", "gpass");
   });
 
-  it("Empty user and password", done => {
+  it("Empty user and password", (done) => {
     const callback = (error, response, body) => {
       expect(body).to.equal("401 Unauthorized");
       done();
@@ -118,7 +118,7 @@ describe("basic", () => {
     request.get("http://127.0.0.1:1337", callback).auth("", "");
   });
 
-  it("Commented user", done => {
+  it("Commented user", (done) => {
     const callback = (error, response, body) => {
       expect(body).to.equal("401 Unauthorized");
       done();
