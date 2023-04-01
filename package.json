@@ -29,6 +29,7 @@
     "apache-crypt": "^1.1.2",
     "apache-md5": "^1.0.6",
     "bcryptjs": "^2.4.3",
+    "http-auth": "^4.2.0",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
