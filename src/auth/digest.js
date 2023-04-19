@@ -98,8 +98,6 @@ class Digest extends Base {
 
   // Searching for user.
   findUser(req, co, callback) {
-    let self = this;
-
     if (this.validateNonce(co.nonce, co.qop, co.nc)) {
       let ha2 = utils.md5(`${req.method}:${co.uri}`);
       if (this.checker) {
@@ -113,7 +111,7 @@ class Digest extends Base {
               params = [hash];
             } else {
               params = [
-                { user: co.username, pass: !!self.validate(ha2, co, hash) }
+                { user: co.username, pass: !!this.validate(ha2, co, hash) }
               ];
             }
 

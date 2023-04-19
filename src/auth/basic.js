@@ -76,8 +76,6 @@ class Basic extends Base {
     let username = splitHash.shift();
     let password = splitHash.join(":");
 
-    let self = this;
-
     if (this.checker) {
       // Custom auth.
       this.checker.apply(this, [
@@ -92,7 +90,7 @@ class Basic extends Base {
             params = [{ user: customUser || username, pass: !!result }];
           }
 
-          callback.apply(self, params);
+          callback.apply(this, params);
         },
         req
       ]);
