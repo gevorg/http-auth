@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config version="2"> <!--if no version, 0 is default -->
+	<name>BroadSoft BroadTouch Business Communicator Mobile Config</name>
+	<services>
+		<presence enabled="%ENABLE_PRESENCE_MOBILE%" type="xmpp"> <!--true/false-->
+		</presence>
+		<calls type="sip">
+			<record enabled="%CALL_RECORDING_MOBILE%"/>
+			<reject-with-486 enabled="%ENABLE_REJECT_WITH_486_MOBILE%"/> <!-- If enabled reject with 486, otherwise reject with 603. If missing defaults to 603 -->
+			<extended-call-control enabled="%ENABLE_XSI_CALLS_MOBILE%" call-control-window="%ENABLE_XSI_MIDCALL_CONTROLS_MOBILE%"/> <!-- call-control-window is not used -->
+			<transfer-call enabled="%ENABLE_TRANSFER_CALLS_MOBILE%" type="%TRANSFER_CALL_TYPE_MOBILE%"/> <!-- type is talk-first, blind or full; default values: true and full --> 
+			<transfer-to-circuit-switch enabled="%ENABLE_TRANSFER_TO_CIRCUIT_SWITCH_MOBILE%" />
+			<security-classification enabled="%ENABLE_CALL_SECURITY_CLASSIFICATION_MOBILE%" />
+			<audio enabled="%ENABLE_AUDIOCALLS_MOBILE%">
+                <!-- ars and audio-quality-enhancements added from version 9.3.0 -->
+                <!-- mode attribute values: enabled, disabled or feedback -->
+                <ars mode="disabled" bitrate-low="8000" bitrate-high="64000" />
+                <audio-quality-enhancements mode="HANDSET" cng-enabled="true" ns-enabled="true" agc-enabled="true" >
+					<qos enabled="%ENABLE_AUDIO_QOS_MOBILE%" type="%AUDIO_QOS_TYPE_MOBILE%" value="%AUDIO_QOS_VALUE_MOBILE%" /> <!-- enabled = true|false; type = dscp (tos not supported at the moment); value = integer (e.g.46) -->
+				</audio-quality-enhancements>
+                <codecs>
+                    <!-- priority attribute values in range 0.0-1.0; 1.0 is the highest priority -->
+										
+                    <!-- bitrate attribute available values 48000/56000/64000 -->
+					<!-- disabled codec in 9.3.0 -->
+					<!-- <codec name="G7221" preferred-bitrate="128" bitrate="" priority="0.0" payload="" />  -->
+                    
+                    <!-- bitrate attribute available values 48000/56000/64000 -->
+                    <codec name="G722" preferred-bitrate="128" bitrate="" priority="1.0" payload="" />
+                    
+					<codec name="G729" preferred-bitrate="128" bitrate="" priority="0.9" payload="" /> <!-- kbit-->
+                    
+                    <!-- bitrate attribute available values 4750/5150/5900/6700/7400/7950/10200/12200 -->
+					<!-- mode available values InternetFormat1/InternetFormat2/OctetAligned/BandwidthEfficient -->
+                    <!-- this codec requires branded clients in order to be used -->
+                    <!-- <codec name="AMR" octet-aligned="true" preferred-bitrate="128" mode="OctetAligned" bitrate="" priority="0.1" payload="" />   -->
+                    
+                    <!-- bitrate attribute available values 6600/8850/12650/14250/15850/18250/19850/23050/23850 -->
+					<!-- mode available values InternetFormat1/InternetFormat2/OctetAligned/BandwidthEfficient -->
+					<!-- this codec requires branded clients in order to be used -->
+                    <!-- <codec name="AMR-WB" octet-aligned="true" preferred-bitrate="128" priority="0.1" payload="" />  -->
+					
+                    <codec name="PCMU" preferred-bitrate="128" priority="0.8" payload="" />
+                    
+                    <codec name="PCMA" preferred-bitrate="128" priority="0.7" payload="" />
+
+					<codec name="telephone-event" preferred-bitrate="128" payload="101" in-band="false" />	
+				</codecs>
+			</audio>
+			<video enabled="%ENABLE_VIDEOCALLS_MOBILE%" videoshare-only="false">
+    			<!-- ars, synchronization, rotation, fir-retransmission and param-retransmission added from version 9.3.0 -->
+                <!-- mode attribute values: enabled, disabled or feedback -->
+                <ars mode="disabled" bitrate-low="64000" bitrate-high="1024000" framerate="20" framerate-low="10" framerate-high="30" payload="124" />
+				<video-quality-enhancements>
+					 <qos enabled="%ENABLE_VIDEO_QOS_MOBILE%" type="%VIDEO_QOS_TYPE_MOBILE%" value="%VIDEO_QOS_VALUE_MOBILE%" /> <!-- enabled = true|false; type = dscp (tos not supported at the moment); value = integer (e.g.34) -->
+				</video-quality-enhancements>
+                <synchronization enabled="false" />
+                <!-- 'period' - the total amount of time FIR resend logic is active in seconds; 'repeat-period' - the time between two FIR retransmissions in milliseconds -->
+                <fir-retransmission enabled="true" period="20" repeat-period="1000" />
+                <!-- 'retransmissions' - the number of PPS/SPS retransmissions; 'repeat-period' - the time between two PPS/SPS retransmissions in milliseconds -->
+                <param-retransmission enabled="true" retransmissions="4" repeat-period="100" />
+                <codecs>
+					<!-- resolution attribute available values SUBQCIF/QCIF/CIF/4CIF/VGA/HD;holds maximum allowed resolution, all the resolutions bellow this will be advertised and might be used -->
+                    <codec name="H264" packetization-mode="SingleMode" payload="109" resolution="CIF" framerate="25" bitrate="768000" priority="1.0" />
+                    <codec name="H263" payload="34" resolution="CIF" framerate="12" priority="0.9" />
+				</codecs>
+			</video>
+			<conference enabled="%ENABLE_CONFERENCE_CALLS_MOBILE%"> <!-- default value: true -->
+				<service-uri>sip:%BWNETWORK-CONFERENCE-SIPURI-1%</service-uri> <!-- if this is empty, ad-hoc conf feature is disabled, to be added later -->
+				<call-participants enabled="true"/>
+				<subscribe-conference-info enabled="true"/>
+				<do-not-hold-conference-before-refers enabled="false"/>
+			</conference>
+			<adaptive-quality enabled="%ENABLE_ADAPTIVE_QUALITY_MOBILE%" number_of_video_adjustments="1" adjustment_mode="%ADAPTIVE_QUALITY_MODE_MOBILE%"> <!--true/false--> <!-- adjustment_mode=[restart|update]; restart mode stops the ongoing stream, adjust settings and restarts back the steam; update mode updates the stream settings on the fly -->
+				<levels>
+					<level>
+						<cpu cores="2" />
+						<network type="wifi"/>
+						<video-codecs>
+							<codec name="H264" packetization-mode="SingleMode" payload="109" resolution="CIF" framerate="25" priority="1.0" />
+							<codec name="H263" payload="34" resolution="4CIF" framerate="25" priority="0.9" />
+						</video-codecs>
+						<audio-codecs>
+							<codec name="G722" bitrate="" priority="0.9" payload="" />
+							<codec name="PCMU" priority="0.8" payload="" />
+							<codec name="PCMA" priority="0.7" payload="" />
+							<codec name="G722" bitrate="56000" priority="0.6" payload="" />
+							<codec name="G722" bitrate="48000" priority="0.5" payload="" />
+							<codec name="G729" bitrate="" priority="0.2" payload="" />
+							<codec name="telephone-event" payload="100" in-band="false" /> 
+						</audio-codecs>
+					</level>
+					<level>
+						<cpu cores="2" />
+						<network type="3G"/>
+						<video-codecs>
+							<codec name="H264" packetization-mode="SingleMode" payload="109" resolution="QCIF" framerate="15" priority="1.0" />
+							<codec name="H263" payload="34" resolution="QCIF" framerate="15" priority="0.9" />
+						</video-codecs>
+						<audio-codecs>
+							<codec name="G722" bitrate="48000" priority="0.7" payload="" />
+							<codec name="G729" bitrate="" priority="0.6" payload="" />
+							<codec name="G722" bitrate="56000" priority="0.5" payload="" />
+							<codec name="G722" bitrate="" priority="0.4" payload="" />
+							<codec name="PCMU" priority="0.3" payload="" />
+							<codec name="PCMA" priority="0.2" payload="" />
+							<codec name="telephone-event" payload="100" in-band="false" /> 
+						</audio-codecs>
+					</level>
+					<level>
+						<cpu cores="1" />
+						<network type="wifi"/>
+						<video-codecs>
+							<codec name="H264" packetization-mode="SingleMode" payload="109" resolution="QCIF" framerate="15" priority="1.0" />
+							<codec name="H263" payload="34" resolution="QCIF" framerate="15" priority="0.9" />
+						</video-codecs>
+						<audio-codecs>
+							<codec name="PCMU"  priority="0.9" payload="" />
+							<codec name="PCMA" priority="0.8" payload="" />
+							<codec name="G722" bitrate="" priority="0.7" payload="" />
+							<codec name="G722" bitrate="56000" priority="0.6" payload="" />
+							<codec name="G722" bitrate="48000" priority="0.5" payload="" />
+							<codec name="G729" bitrate="" priority="0.2" payload="" />
+							<codec name="telephone-event" payload="100" in-band="false" /> 
+						</audio-codecs>
+					</level>
+					<level>
+						<cpu cores="1" />
+						<network type="3G"/>
+						<video-codecs>
+							<codec name="H264" packetization-mode="SingleMode" payload="109" resolution="QCIF" framerate="15" priority="1.0" />
+							<codec name="H263" payload="34" resolution="QCIF" framerate="15" priority="0.9" />
+						</video-codecs>
+						<audio-codecs>
+							<codec name="G722" bitrate="48000" priority="0.7" payload="" />
+							<codec name="G722" bitrate="56000" priority="0.6" payload="" />
+							<codec name="G722" bitrate="" priority="0.5" payload="" />
+							<codec name="PCMU" priority="0.4" payload="" />
+							<codec name="PCMA" priority="0.3" payload="" />
+							<codec name="G729" bitrate="" priority="0.2" payload="" />
+							<codec name="telephone-event" payload="100" in-band="false" /> 
+						</audio-codecs>
+					</level>
+				</levels>
+				<tolerance> <!-- ** -->
+					<packet-loss>10</packet-loss>
+					<jitter>2500</jitter>
+					<rtt-delay>100</rtt-delay>
+					<cpu-usage>85</cpu-usage> <!-- percentage --> 
+				</tolerance>
+				<bandwidth-detection>
+					<allow-manual-selection enabled="true"/>
+					<autorun-enabled enabled="false"/>
+					<tests-count>1</tests-count>
+					<package-size-kb>5</package-size-kb>
+					<upload-url/>
+					<download-url/>
+				</bandwidth-detection>
+			</adaptive-quality>
+			<call-pull enabled="%ENABLE_CALL_PULL_MOBILE%"/> <!-- true|false Call pull functionality in dialpad tab. Defaults to true. -->
+			<call-park enabled="%ENABLE_CALL_PARK_MOBILE%"/> <!-- true|false Call park functionality in dialpad tab. Defaults to false. -->
+		</calls>
+		<chat enabled="%ENABLE_CHAT_MOBILE%" type="xmpp"> <!--true/false-->
+			<group-chat enabled="%ENABLE_XMPP_GROUP_CHAT_MOBILE%"/> <!-- DEPRECATED. Used for 10.0.x versions. true|false XMPP group chat support. Defaults to true. -->
+			<is-composing>
+				<chat enabled="true"/>
+				<groupchat enabled="true" />
+			</is-composing>
+		</chat>
+		<rooms enabled="%ENABLE_ROOMS_MOBILE%"> <!-- enabled = true|false -->
+			<default-room-history-size>10</default-room-history-size> <!-- value between 0 (disabled) and 50; defaults to 10 if missing -->
+			<myroom enabled="%ENABLE_MY_ROOM_MOBILE%" /> <!-- enabled = true|false -->
+			<projectrooms enabled="false" create="false" /> <!--- enabled = true|false; create - Future addition --> 
+			<conference-bridge autodetect="%AUTODETECT_CONFERENCE%" media="%CONFERENCE_BRIDGE_MEDIA_TYPE_MOBILE%" type="meetme" title="%CONFERENCE_TITLE%" default-bridge="%BRIDGE_ID%" />
+		</rooms>
+		<contacts enabled="true" type="xmpp">
+			<xsi enabled="%ENABLE_XSI_CONTACTS_CACHING_MOBILE%"/> <!-- Please enable only for directories with less than 150 contacts -->
+			<contact-card sync-from="%CONTACT_CARD_SYNC_FROM_MOBILE%"/> <!-- xsi|automatic. Default is automatic. -->
+			<options enabled="false">
+				<proactive enabled="false"/> <!-- ** -->
+				<tags>
+					<chatgchat>g.oma.sip-im</chatgchat>
+					<filetransfer>g.ext-rcs.ft</filetransfer>
+					<imageshare>+g.3gpp.iari-ref="urn%3Aurn-7%3A3gpp-application.ims.iari.gsma-is"</imageshare>
+					<videoshare>+g.3gpp.cs-voice</videoshare>
+					<socialpresence>g.ext-rcs.sp</socialpresence>
+					<operator-tags>
+						<!--<operator-tag1>g.ext-rcs.<operatorID>.<serviceName></operator-tag1>-->
+					</operator-tags>
+				</tags>
+			</options>
+		</contacts>
+		<version-control enabled="false">
+			<url/>
+		</version-control>
+		<forced-logout enabled="%ENABLE_FORCE_LOGOUT_MOBILE%" control-protocol="SIP" appid="%FORCE_LOGOUT_APPID_MOBILE%"/> <!-- true/false -->
+		<mwi enabled="true" type="explicit"/> <!-- possible values "explicit" or "implicit"; v9.2 default set to explicit -->
+		<broadsoft-call-info enabled="true"/>
+		<supplementary-services enabled="%ENABLE_XSI_SRV_MANAGEMENT_MOBILE%">
+			<xsi>  <!-- xdm xsi -->
+				<broadworks-anywhere enabled="%ENABLE_BROADWORKS_ANYWHERE_MOBILE%" type="%BROADWORKS_ANYWHERE_TYPE_MOBILE%"> <!-- type is mandatory or optional (indicating a message on login if not configured); defaults to optional; all sub-options default to true --> 
+					<description enabled="%ENABLE_BROADWORKS_ANYWHERE_DESCRIPTION_MOBILE%"/> 
+					<!-- For all properties below: enabled means if the property is shown, the text value is the default value of the property --> 
+					<call-control enabled="%ENABLE_BROADWORKS_ANYWHERE_CALL_CONTROL_MOBILE%">false</call-control>
+					<diversion-inhibitor enabled="%ENABLE_BROADWORKS_ANYWHERE_DIVERSION_INHIBITOR_MOBILE%">false</diversion-inhibitor>
+					<answer-confirmation enabled="%ENABLE_BROADWORKS_ANYWHERE_ANSWER_CONFIRMATION_MOBILE%">false</answer-confirmation>
+				</broadworks-anywhere> 
+				<remote-office enabled="%ENABLE_REMOTE_OFFICE_MOBILE%" />
+				<call-forwarding-always enabled="true" />
+				<call-forwarding-busy enabled="true" />
+				<call-forwarding-not-reachable enabled="true" />
+				<call-forwarding-no-answer enabled="true" />
+				<do-not-disturb enabled="true" />
+				<calling-line-id-delivery-blocking enabled="true" />
+				<simultaneous-ring-personal enabled="true" />
+				<connected-line-identification-presentation enabled="true" />
+				<connected-line-identification-restriction enabled="true" />
+				
+				<default-call-type enabled="%ENABLE_DEFAULT_CALL_TYPE_MOBILE%" type="%DEFAULT_CALL_TYPE_SUBTYPE_MOBILE%"> <!-- type is one of sip-call, call-back, call-through, mobile-call or always-ask; defaults to always-ask; all sub-options default to true --> 
+					<sip-call enabled="%ENABLE_DEFAULT_CALL_TYPE_SIP_CALL_MOBILE%"/> 
+					<call-back enabled="%ENABLE_DEFAULT_CALL_TYPE_CALL_BACK_MOBILE%"/> 
+					<call-through enabled="%ENABLE_DEFAULT_CALL_TYPE_CALL_THROUGH_MOBILE%"/> 
+					<mobile-call enabled="%ENABLE_DEFAULT_CALL_TYPE_MOBILE_CALL_MOBILE%"/> 
+					<always-ask enabled="%ENABLE_DEFAULT_CALL_TYPE_ALWAYS_ASK_MOBILE%"/> 
+				</default-call-type> 
+
+				<broadworks-mobility enabled="%ENABLE_BROADWORKS_MOBILITY_MOBILE%"> <!-- all sub-options default to true -->
+					<!-- For all tags below: enabled means if the property is shown, value comes from the server so a default value is not needed -->
+					<call-control enabled="%ENABLE_BROADWORKS_MOBILITY_CALL_CONTROL_MOBILE%"/>
+					<diversion-inhibitor enabled="%ENABLE_BROADWORKS_MOBILITY_DIVERSION_INHIBITOR_MOBILE%"/>
+					<answer-confirmation enabled="%ENABLE_BROADWORKS_MOBILITY_ANSWER_CONFIRMATION_MOBILE%"/>
+					<group-paging-calls enabled="%ENABLE_BROADWORKS_MOBILITY_GROUP_PAGING_CALLS_MOBILE%"/>
+					<click-to-dial-calls enabled="%ENABLE_BROADWORKS_MOBILITY_CLICK_TO_DIAL_CALLS_MOBILE%"/>
+					<phones-to-ring enabled="%ENABLE_BROADWORKS_MOBILITY_PHONES_TO_RING_MOBILE%"/>
+				</broadworks-mobility>
+				<prevent-phone-number-duplication enabled="%PREVENT_PHONE_NUMBER_DUPLICATION_MOBILE%" /> <!-- Prevent phone number duplication (for now - only when configuring mobility). Possible values true|false. Default value is false -->
+				<call-waiting enabled="%ENABLE_CALL_WAITING_MOBILE%" /> <!-- default value is false -->
+			</xsi>
+		</supplementary-services>
+		<service-settings>
+			<links enabled="false">
+				<service-settings-url/>
+				<help-url/>
+				<get-access-url/>
+				<forgot-password-url/>
+			</links>
+		</service-settings>
+		<call-history enabled="%ENABLE_CALL_HISTORY_MOBILE%" type="xsi">
+		</call-history>
+		<emergency-number>%EMERGENCY_NUMBER%</emergency-number>	<!-- DEPRECATED - from 10.0.6 and above use the list below. v9.2 Use this field to specify the emergency number for country or deployment -->
+		<emergency-dialing>
+			<non-phones>
+				<show-warning-dialog>%SHOW_EMERGENCY_WARNING_DIALOG_MOBILE%</show-warning-dialog> <!-- Shows a warning dialog when the user tries to dial an emergency number from tablet or media player. Possible values: always|one-time|never. Defaults to never -->
+				<dialing-behavior>%EMERGENCY_DIALING_BEHAVIOR_MOBILE%</dialing-behavior> <!-- Behavior when dialing an emergency number from tablet or media player. Possible values: warning-message|native-dialer.  Defaults to warning-message -->
+			</non-phones>
+			<numbers> <!-- v10.0.6 Use this list to specify the emergency numbers for country or deployment -->
+				<number>911</number>
+				<number>112</number>
+			</numbers>
+		</emergency-dialing>
+		<calls-circuit-switched enabled="%ENABLE_CALLS_CIRCUIT_SWITCHED_MOBILE%"/>  <!-- Introduced in v9.3.2 - To disable circuit switched cellular calls feature -->
+		<directory-integration enabled="%ENABLE_DIRECTORY_INTEGRATION_MOBILE%" search-enabled="%ENABLE_DIRECTORY_SEARCH_MOBILE%"/>
+		<test-services enabled="%ENABLE_TEST_SERVICES_MOBILE%"> <!-- disabled by default -->
+			<test-calls enabled="%ENABLE_TEST_CALLS_MOBILE%" enable-add-remove-video="%ENABLE_ADD_REMOVE_VIDEO%">
+				<test-number language="%TEST_NUMBER_LANGUAGE_MOBILE_1%"	number="%TEST_NUMBER_MOBILE_1%"/>
+				<test-number language="%TEST_NUMBER_LANGUAGE_MOBILE_2%"	number="%TEST_NUMBER_MOBILE_2%"/>
+				<test-number language="%TEST_NUMBER_LANGUAGE_MOBILE_3%"	number="%TEST_NUMBER_MOBILE_3%"/>
+				<test-number language="%TEST_NUMBER_LANGUAGE_MOBILE_4%"	number="%TEST_NUMBER_MOBILE_4%"/>
+				<test-number language="%TEST_NUMBER_LANGUAGE_MOBILE_5%"	number="%TEST_NUMBER_MOBILE_5%"/>
+				<test-number language="%TEST_NUMBER_LANGUAGE_MOBILE_6%"	number="%TEST_NUMBER_MOBILE_6%"/>
+				<test-number language="%TEST_NUMBER_LANGUAGE_MOBILE_7%"	number="%TEST_NUMBER_MOBILE_7%"/>
+				<test-number language="%TEST_NUMBER_LANGUAGE_MOBILE_8%"	number="%TEST_NUMBER_MOBILE_8%"/>
+				<test-number language="%TEST_NUMBER_LANGUAGE_MOBILE_9%"	number="%TEST_NUMBER_MOBILE_9%"/>
+			</test-calls>
+		</test-services>
+	</services>
+	<protocols>
+		<sip>
+			<credentials>
+				<username>%BWLINEPORT-1%</username>
+				<password>%BWAUTHPASSWORD-1%</password>
+				<phone-number>%BWE164-1%</phone-number>
+				<auth>
+					<username>%BWAUTHUSER-1%</username>
+					<password/>
+					<normalization>
+						<search/> <!-- regular expression to select the piece of string to be replaced  -->
+						<replace/>  <!-- text to be placed on the searched piece of string -->
+					</normalization>
+				</auth>
+			</credentials>
+			<use-sip-info enabled="%ENABLE_SIP_INFO_MOBILE%" period="%SIP_INFO_PERIOD_MOBILE%" /> <!-- enabled = true|false; period= integer (value in seconds) -->
+			<allow-login-with-tel-uri enabled="false"/>
+			<use-rport enabled="false"/>
+			<registrar uri="%REGISTRAR_URI%" port="%SBC_PORT_MOBILE%"/>
+			<proxy address="%SBC_ADDRESS%" port="%SBC_PORT_MOBILE%" lr="true"/>
+			<proxy-discovery enabled="true"> <!-- if enabled and records found, the default proxy is removed -->
+				<record-name>%SBC_ADDRESS%</record-name>
+				<domain-override>%SBC_ADDRESS%</domain-override>
+				<resolve-type><naptr-srv /></resolve-type>
+			</proxy-discovery>
+
+			<domain>%BWHOST-1%</domain>
+			<preferred-port>%SOURCE_PORT_MOBILE%</preferred-port>
+			<user-agent>BroadTouch Business Communicator Mobile</user-agent>
+			<q-value>1.0</q-value>
+			<feature-tags>
+				<chatgchat>+g.oma.sip-im</chatgchat>
+				<sms>+g.3gpp.smsip</sms>
+			</feature-tags>
+			<use-alternative-identities enabled="true"/> <!--rcs-tel-uri-->
+
+			<subscription-refresh-interval-sec>10800</subscription-refresh-interval-sec><!-- any negative value to leave out Expires header in SUBSCRIBEs -->
+			<subscription-retry-interval-sec>60</subscription-retry-interval-sec>
+			<publish-refresh-interval-sec>340</publish-refresh-interval-sec>
+			<registration-refresh-interval-sec>600</registration-refresh-interval-sec>
+
+			<!-- If the follow tag fast-unsubscribe exists, client will not wait for the final NOTIFY to confirm the end of a subscription.
+			     This is against the SIP specification, is requested by some environments. -->
+			<fast-unsubscribe enabled="false"/>
+			<session type="rfc3261"> <!-- rfc3261 or mmtel -->
+				<expires-sec>3600</expires-sec>
+				<rel100 enabled="%100_REL_ENABLED_MOBILE%" /> <!-- Enable/disable 100rel. Possible values true|false. Default value is true. -->
+			</session>
+			<transports type="%TRANSPORTS_TYPE_MOBILE%"> <!--udp, tcp or tls -->
+				<udp>
+					<keepalive enabled="true">
+						<timeout-sec>%Keepalive_timeout%</timeout-sec>
+					</keepalive>
+					<tcp-size-threshold-bytes>18000</tcp-size-threshold-bytes>
+				</udp>
+				<tcp>
+					<keepalive enabled="true">
+						<timeout-sec>%Keepalive_timeout%</timeout-sec>
+					</keepalive>
+				</tcp>
+				<tls> 
+					<ignore-ssl-errors enabled="false"/> 
+				</tls>
+			</transports>
+			<timers>
+				<T1>500</T1> <!--the amount of time, in milliseconds, for a network round trip delay-->
+				<T2>4000</T2> <!--the maximum amount of time, in milliseconds, before retransmitting non-invite requests and invite responses-->
+				<T4>5000</T4> <!--the maximum amount of time, in milliseconds, for a message to remain in the network-->
+			</timers>
+			<expires-hack enabled="%USE_EXPIRES_HACK_MOBILE%"/> <!-- true/false. Default is false. -->
+		</sip>
+		<rtp>
+			<secure mode="%SRTP_MODE_MOBILE%" enabled="%SRTP_ENABLED_MOBILE%"/> <!-- mode=[mandatory|preferred|optional]; enabled=[true|false]-->
+			<call-quality-reporting audio-enabled="%CALL_QUALITY_AUDIO_ENABLED_MOBILE%" video-enabled="%CALL_QUALITY_VIDEO_ENABLED_MOBILE%"> <!-- audio-enabled = true|false; video-enabled = not supported (future property) -->
+				<service-uri>%CALL_QUALITY_SERVICE_URI%</service-uri> <!--  address for the server receiving reports after call -->
+				<local-group>%CALL_QUALITY_LOCAL_GROUP%</local-group> <!-- optional identifier for grouping reports on the server side -->
+			</call-quality-reporting>
+			<preferred-audio-port-start>%RTP_AUDIO_PORT_RANGE_START_MOBILE%</preferred-audio-port-start> <!-- 8500 --> 
+			<preferred-audio-port-end>%RTP_AUDIO_PORT_RANGE_END_MOBILE%</preferred-audio-port-end> <!-- 8598 --> 
+			<preferred-video-port-start>%RTP_VIDEO_PORT_RANGE_START_MOBILE%</preferred-video-port-start> <!-- 8600 --> 
+			<preferred-video-port-end>%RTP_VIDEO_PORT_RANGE_END_MOBILE%</preferred-video-port-end> <!-- 8698 --> 
+		</rtp>
+		<xmpp>
+			<credentials>
+				<username>%BW_USER_IMP_ID-1%</username>
+				<password>%BW_USER_IMP_PWD-1%</password>
+			</credentials>
+			<domain srv-enabled="true" use-for-ssl-verification="%XMPP_USE_DOMAIN_FOR_SSL_VERIFICATION_MOBILE%">%BW_IMP_SERVICE_NET_ADDRESS-1%</domain>
+			<ssl enabled="%XMPP_SSL_ENABLE_MOBILE%" allow-self-signed-certificates="%XMPP_ALLOW_SELF_SIGNED_CERTIFICATES_MOBILE%" />
+			<sasl enabled="true"/> <!-- ** -->
+			<chat-recording enabled="%ENABLE_CHAT_RECORD_MOBILE%"/>
+			<security-classification enabled="%ENABLE_SECURITY_CLASSIFICATION_MOBILE%">%SECURITY_CLASSIFICATION_TYPE_MOBILE%</security-classification> <!-- enabled = true|false; SECURITY_CLASSIFICATION_TYPE_MOBILE = string -->
+			<auto-subscribe enabled="true"/>
+			<keep-alive-interval-sec>60</keep-alive-interval-sec>
+		</xmpp>
+		<xsi>
+			<root>%XSI_ACTIONS_URL%</root>
+		</xsi>
+		<voice-mail>
+			<center-number>%BWVOICE-PORTAL-NUMBER-1%</center-number>
+		</voice-mail>
+	</protocols>
+	<settings>
+      <local-address-book-search enabled="%LOCAL_AB_SEARCH_MOBILE%" default="ON"/> <!-- default = ON/OFF -->
+	  <show-welcome-dialog enabled="%SHOW_WELCOME_DIALOG_MOBILE%"/> <!-- Dialog used for message on first login. Possible values true|false. Default value is false -->
+      <login-informational-dialog enabled="%SHOW_LOGIN_INFORMATIONAL_DIALOG_MOBILE%" recurring="%SHOW_INFORMATIONAL_DIALOG_ON_EVERY_LOGIN_MOBILE%"> <!-- enabled: true|false. Default value is false. recurring: true|false. Default value is false. -->
+      </login-informational-dialog>
+	  <tabs selected-tab="%SELECTED_TAB_MOBILE%" reordering-enabled="%ENABLE_TAB_REORDERING_MOBILE%">
+		<contacts-tab position="%CONTACTS_TAB_POSITION_MOBILE%" default-subtab="%CONTACTS_SELECTED_SUBTAB_MOBILE%"/>
+		<call-tab position="%CALL_TAB_POSITION_MOBILE%"/>
+		<im-tab position="%IM_TAB_POSITION_MOBILE%"/>
+		<history-tab position="%HISTORY_TAB_POSITION_MOBILE%"/>
+	  </tabs>
+    </settings>	
+</config>
