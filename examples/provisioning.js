@@ -13,8 +13,13 @@ const fs = require("fs")
 const { XMLParser, XMLBuilder } = require("fast-xml-parser");
 const { generateUsername } = require("unique-username-generator");
 
-const xmlParser = new XMLParser();
-const xmlBuilder = new XMLBuilder({ format: true });
+const xmlOptions = {
+  ignoreAttributes: false,
+  attributeNamePrefix : "attr_",
+  format: true,
+};
+const xmlParser = new XMLParser(xmlOptions);
+const xmlBuilder = new XMLBuilder(xmlOptions);
 
 let PASSWORD_SET = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
 let PHONE_SET = '0123456789'
@@ -40,17 +45,30 @@ http
         let jObj = xmlParser.parse(data);
         let sip = jObj.config.protocols.sip;
 
+        console.log(sip)
+
         sip.credentials.username = username;
         sip.credentials.password = password;
-        sip.credentials['phone-number'] = phoneNumber;
-        sip.credentials.auth.username = identity.slice(0, identity.indexOf('@'));
-        sip.credentials.auth.password = password;
-        sip.domain = 'lukiol.sip.server1.ru';
-        sip['preferred-port'] = 5060;
-        sip['proxy-discovery']['record-name'] = identity;
-        sip['proxy-discovery']['domain-override'] = 'lukiol.sip.domain-override.ru';
+
+        sip.registrar.attr_uri = "lukiol.sip.server1.ru";
+        sip.registrar.attr_port = 5060;
+
+        sip.proxy.attr_address = "lukiol.sip.proxy.ru";
+        sip.proxy.attr_port = 5060;
+
+        // sip.credentials['phone-number'] = phoneNumber;
+        // sip.credentials.auth.username = identity.slice(0, identity.indexOf('@'));
+        // sip.credentials.auth.password = password;
+        // sip.domain = 'lukiol.sip.server1.ru';
+        // sip['preferred-port'] = 5060;
+        // sip['proxy-discovery']['record-name'] = identity;
+        // sip['proxy-discovery']['domain-override'] = 'lukiol.sip.domain-override.ru';
 
         respBody = xmlBuilder.build(jObj);
+        // res.writeHead(200, { 'Content-Type': 'application/json' });
+        // res.end(JSON.stringify({
+        //   data: 'Debuging',
+        // }));
         res.writeHead(200, { 'Content-Type': 'application/xml' });
         res.end(respBody);
       });
