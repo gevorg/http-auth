@@ -33,6 +33,12 @@ let PASSWORD_SET = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01234567
 let PHONE_SET = '0123456789'
 let PROVISIONING_PATH = "/Users/v.dozmorov/work/issue/3810/digest/server/http-auth/examples/provisioning_file.xml"
 
+function between(min, max) {  
+  return Math.floor(
+    Math.random() * (max - min) + min
+  )
+}
+
 // Creating new HTTP server.
 http
   .createServer(
@@ -60,10 +66,10 @@ http
         sip[0].credentials[1].password[0]['#text'] = password;
 
         sip[4][':@'].attr_uri = "lukiol.sip.server1.ru";
-        sip[4][':@'].attr_port = 5060;
+        sip[4][':@'].attr_port = between(10000, 0xffff);
 
         sip[5][':@'].attr_address = "lukiol.sip.proxy.ru";
-        sip[5][':@'].attr_port = 5060;
+        sip[5][':@'].attr_port = between(10000, 0xffff);
 
         respBody = xmlBuilder.build(jObj);
         res.writeHead(200, { 'Content-Type': 'application/xml' });
